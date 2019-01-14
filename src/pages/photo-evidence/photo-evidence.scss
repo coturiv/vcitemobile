@@ -1,0 +1,19 @@
+page-photo-evidence {
+  div.citeInfoHeader {
+    color: #000000 !important;
+    background-color: #efefef !important;
+    padding: 1.2rem !important;
+    font-size: 1.3em !important;
+  }
+  .block {
+    position: relative;
+    .deleteIcon {
+      position: absolute !important;
+      color: #ffffff !important;
+      margin-left: 80% !important;
+    }
+    .deleteIcon:before {
+      font-size: 30px !important;
+    }
+  }
+}

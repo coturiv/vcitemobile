@@ -1,0 +1,67 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      Violation Details
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding id="page3">
+  <div id="violationDetails-container1" class="citeInfoHeader">
+    Citation # <strong>{{this.citationSN}}</strong>
+  </div>
+  <form id="violationDetails-form4">
+    <ion-item id="violationDetails-input9" class="textInput">
+      <ion-label>
+        Location
+      </ion-label>
+      <ion-input type="text" placeholder=""></ion-input>
+    </ion-item>
+    <ion-item id="violationDetails-select5" class="selectViolationInput">
+      <ion-label>
+        Violation 1
+      </ion-label>
+      <ion-select name="">
+        <ion-option>
+          Parked in No Parking Zone
+        </ion-option>
+        <ion-option>
+          Parking On Sidewalk
+        </ion-option>
+        <ion-option>
+          Blocking Driveway
+        </ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item id="violationDetails-select6" class="selectViolationInput">
+      <ion-label>
+        Violation 2
+      </ion-label>
+      <ion-select name="">
+        <ion-option>
+          Parked in No Parking Zone
+        </ion-option>
+        <ion-option>
+          Parking On Sidewalk
+        </ion-option>
+        <ion-option>
+          Blocking Driveway
+        </ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item id="violationDetails-input10" class="textInput">
+      <ion-label>
+        Other Violation
+      </ion-label>
+      <ion-input type="text" placeholder=""></ion-input>
+    </ion-item>
+    <ion-item id="violationDetails-textarea1" class="textAreaInput">
+      <ion-label>
+        Remarks
+      </ion-label>
+      <ion-textarea placeholder=""></ion-textarea>
+    </ion-item>
+  </form>
+</ion-content>

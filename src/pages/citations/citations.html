@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-buttons start>
+      <button ion-button icon-only>
+        <ion-icon name="buffer"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>
+      Citations
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding id="page10">
+  <ion-list id="citations-list4">
+    <ion-item-divider color="light" id="citations-list-item-divider3" class="listDividerDate">
+      <span style="font-size: 1.2em;font-weight:700;">June 15, 2018</span>
+    </ion-item-divider>
+    <ion-item *ngFor="let c of citations" on-click="goToTabsController(params)">
+      <p><strong>{{c.serial_number}}</strong>&emsp;&emsp;{{c.timestamp}}</p>
+      <ion-icon name="{{c.list_icon}}" color="{{c.list_icon_color}}" item-right></ion-icon>
+    </ion-item>
+  </ion-list>
+  <ion-fab right bottom>
+    <button ion-fab color="positive" (click)="goToQrScan()">
+       <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-fab>
+</ion-content>

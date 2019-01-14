@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      Photo Evidence
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding id="page4" class="card-background-page">
+  <div id="photoEvidence-container1" class="citeInfoHeader">
+    Citation # <strong>{{this.citationSN}}</strong>
+  </div>
+
+  <ion-fab bottom right>
+    <button ion-fab color="balanced" on-click="takePhoto()"><ion-icon name="camera"></ion-icon></button>
+  </ion-fab>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col col-6 *ngFor="let photo of photos; let id = index">
+        <ion-card class="block">
+          <ion-icon name="trash" class="deleteIcon" (click)="deletePhoto(id)"></ion-icon>
+          <img [src]="photo" *ngIf="photo" />
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

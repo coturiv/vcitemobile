@@ -1,0 +1,41 @@
+<ion-menu [content]="mainContent">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>
+        Menu
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content id="side-menu21">
+    <ion-list id="menu-list1">
+      <ion-item color="none" menuClose="" on-click="goToQrScan()" id="menu-list-item1">
+        <ion-icon name="add-circle" item-left></ion-icon>
+        New Citation
+      </ion-item>
+      <ion-item color="none" menuClose="" on-click="goToCitations()" id="menu-list-item2">
+        <ion-icon name="album" item-left></ion-icon>
+        Citation List
+      </ion-item>
+      <ion-item-divider color="light" id="menu-list-item-divider1"></ion-item-divider>
+      <ion-item color="none" menuClose="" on-click="goToReference()" id="menu-list-item3">
+        <ion-icon name="book" item-left></ion-icon>
+        Reference
+      </ion-item>
+      <ion-item color="none" menuClose="" on-click="goToSettings()" id="menu-list-item5">
+        <ion-icon name="settings" item-left></ion-icon>
+        Settings
+      </ion-item>
+      <ion-item color="none" menuClose="" on-click="goToVelosumLogin()" id="menu-list-item6">
+        <ion-icon name="log-in" item-left></ion-icon>
+        Log In
+      </ion-item>
+      <ion-item-divider color="light" id="menu-list-item-divider2"></ion-item-divider>
+      <ion-item color="none" menuClose="" on-click="goToAboutVCiteMobile()" id="menu-list-item7">
+        <ion-icon name="information-circle" item-left></ion-icon>
+        About
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<ion-nav #mainContent [root]="rootPage"></ion-nav>

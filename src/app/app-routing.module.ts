@@ -4,16 +4,36 @@ import { Routes, RouterModule } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'citations',
     pathMatch: 'full'
   },
-  {
-    path: 'home',
-    loadChildren: './home/home.module#HomePageModule'
+  { 
+    path: 'citations', 
+    loadChildren: './pages/citations/citations.module#CitationsPageModule' 
   },
-  {
-    path: 'list',
-    loadChildren: './list/list.module#ListPageModule'
+  { 
+    path: 'qrscan', 
+    loadChildren: './pages/qrscan/qrscan.module#QrscanPageModule'
+  },
+  { 
+    path: 'citation', 
+    loadChildren: './pages/tabs/tabs.module#TabsPageModule'
+  },
+  { 
+    path: 'login', 
+    loadChildren: './pages/login/login.module#LoginPageModule' 
+  },
+  { 
+    path: 'settings', 
+    loadChildren: './pages/settings/settings.module#SettingsPageModule' 
+  },
+  { 
+    path: 'reference', 
+    loadChildren: './pages/reference/reference.module#ReferencePageModule' 
+  },
+  { 
+    path: 'about', 
+    loadChildren: './pages/about/about.module#AboutPageModule' 
   }
 ];
 

@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-toolbar  color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Citations
+    </ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button>
+        <ion-icon slot="icon-only" name="add"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list lines="none">
+    <ion-list-header>
+      <ion-label color="danger">{{today | date}}</ion-label>
+    </ion-list-header>
+    <ion-item *ngFor="let citation of citations | async" (click)="navigateTo('/citation/' + citation.serial_number + '/vehicle')">
+      <div slot="start">
+        {{citation.serial_number}}
+      </div>
+      <ion-label>
+        {{citation.timestamp}}
+      </ion-label>
+      <ion-icon [name]="citation.list_icon" [color]="citation.list_icon_color" slot="end"></ion-icon>
+    </ion-item>
+  </ion-list>
+</ion-content>

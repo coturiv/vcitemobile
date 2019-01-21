@@ -1,4 +1,4 @@
-{
+[{
   "citation": {
     "serial_number": "42282",
     "custkey": "50",
@@ -82,7 +82,7 @@
       ]
     }
   }
-}
+},
 {
   "citation": {
     "serial_number": "42264",
@@ -158,4 +158,4 @@
       ]
     }
   }
-}
+}]

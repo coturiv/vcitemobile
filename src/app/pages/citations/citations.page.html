@@ -20,7 +20,7 @@
     <ion-list-header>
       <ion-label color="danger">{{today | date}}</ion-label>
     </ion-list-header>
-    <ion-item *ngFor="let citation of citations | async" (click)="navigateTo('/citation/' + citation.serial_number + '/vehicle')">
+    <ion-item button *ngFor="let citation of citations | async" (click)="navigateTo('/citation/' + citation.serial_number + '/vehicle')">
       <div slot="start">
         {{citation.serial_number}}
       </div>

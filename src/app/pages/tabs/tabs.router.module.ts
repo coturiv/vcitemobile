@@ -13,7 +13,7 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            loadChildren: '../tab-vehicle/tab-vehicle.module#TabVehiclePageModule'
+            loadChildren: './vehicle/vehicle.module#VehiclePageModule'
           }
         ]
       },
@@ -22,7 +22,7 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            loadChildren: '../tab-violation/tab-violation.module#TabViolationPageModule'
+            loadChildren: './violation/violation.module#ViolationPageModule'
           }
         ]
       },
@@ -31,7 +31,7 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            loadChildren: '../tab-photos/tab-photos.module#TabPhotosPageModule'
+            loadChildren: './photos/photos.module#PhotosPageModule'
           }
         ]
       },
@@ -40,7 +40,7 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            loadChildren: '../tab-review/tab-review.module#TabReviewPageModule'
+            loadChildren: './review/review.module#ReviewPageModule'
           }
         ]
       },

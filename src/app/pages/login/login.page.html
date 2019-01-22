@@ -1,9 +1,33 @@
 <ion-header>
-  <ion-toolbar color="primary">
-    <ion-title>login</ion-title>
+  <ion-toolbar>
+    <ion-title>Login</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
+  <form [formGroup]="loginForm" class="login-form" margin-top padding>
 
+    <div class="logo">
+      <img src="assets/imgs/vCiteMobile-logo.jpg">
+    </div>
+
+    <ion-list>
+      <ion-item>
+        <ion-icon name="person" slot="start" color="primary"></ion-icon>
+        <ion-input formControlName="userName" type="text" placeholder="User Name"></ion-input>
+      </ion-item>
+      <show-hide-container>
+        <ion-item>
+          <ion-icon name="lock" slot="start" color="primary"></ion-icon>
+          <ion-input formControlName="passWord" type="password" placeholder="Password" class="show-hide-input" show-hide-input></ion-input>
+        </ion-item>
+      </show-hide-container>
+      <ion-item>
+        <ion-icon name="disc" slot="start" color="primary"></ion-icon>
+        <ion-input formControlName="custKey" type="text" placeholder="CustKey"></ion-input>
+      </ion-item>
+    </ion-list>
+
+    <ion-button (click)="onLogin()" type="submit" expand="full" class="button-submit">Login</ion-button>
+  </form>
 </ion-content>

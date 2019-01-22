@@ -1,0 +1,35 @@
+:host {
+    
+    .login-form {
+    
+        margin: 5% auto;
+
+        .logo {
+            text-align: center;
+            padding: 24px 16px;
+        
+            & > img {
+                max-width: 180px;
+            }
+        
+        }
+  
+        ion-input.show-hide-input {
+            max-width: calc(100% - 28px) !important;
+        }
+    
+        ion-item.invalid {
+            --border-color: var(--ion-color-danger) !important;
+        }
+
+        ion-item {
+            --border-width: 0px 0px 0.55px 0px;
+            --inner-border-width: 0;
+        }
+
+        ion-button.button-submit {
+            margin-top: 48px;
+        }
+    }
+    
+}

@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ApiService } from './api.service';
+import { AuthService } from './auth.service';
+import { SettingsService } from './settings.service';
 import { StorageService } from './storage.service';
 
 @NgModule({
@@ -11,6 +13,8 @@ import { StorageService } from './storage.service';
   ],
   providers: [
     ApiService,
+    AuthService,
+    SettingsService,
     StorageService
   ]
 })

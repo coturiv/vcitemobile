@@ -1,9 +1,49 @@
 <ion-header>
-  <ion-toolbar  color="primary">
-    <ion-title>settings</ion-title>
+  <ion-toolbar color="primary">
+    <ion-title>Settings</ion-title>
+    
+    <ion-buttons slot="end">
+      <ion-button (click)="onSave()" [disabled]="!settingsForm.valid">
+        <ion-label>Done</ion-label>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
-
+<ion-content>
+  <ion-list [formGroup]="settingsForm">
+    <ion-list-header color="medium">
+      <ion-label>Configuration</ion-label>
+    </ion-list-header>
+    <ion-item>
+      <ion-label position="fixed" class="required">Option 1</ion-label>
+      <ion-input formControlName="option1" text-right slot="end"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="fixed" class="required">Option 2</ion-label>
+      <ion-checkbox formControlName="option2" color="tertiary" slot="end"></ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-label position="fixed" class="required">Option 3</ion-label>
+      <ion-datetime formControlName="option3" display-format="MMM DD, YYYY HH:mm" slot="end"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label position="fixed" class="required">Option 4</ion-label>
+      <ion-select formControlName="option4" placeholder="Select One" slot="end">
+        <ion-select-option value="f">Female</ion-select-option>
+        <ion-select-option value="m">Male</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label position="fixed" class="required">Option 5</ion-label>
+      <ion-range formControlName="option5" min="-20" max="20" slot="end" color="secondary">
+        <ion-label slot="start">-20</ion-label>
+        <ion-label slot="end">20</ion-label>
+      </ion-range>
+    </ion-item>
+    <ion-item>
+      <ion-label position="fixed" class="required">Option 6</ion-label>
+      <ion-toggle formControlName="option6" slot="end"></ion-toggle>
+    </ion-item>
+  </ion-list>
 </ion-content>

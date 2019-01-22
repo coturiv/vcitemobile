@@ -1,34 +1,64 @@
 import { Component } from '@angular/core';
 
-import { Platform } from '@ionic/angular';
+import { Platform, NavController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { SettingsService } from './services/settings.service';
 
 @Component({
   selector: 'app-root',
-  templateUrl: 'app.component.html'
+  templateUrl: 'app.component.html',
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
   public appPages = [
     {
       title: 'Citations',
       url: '/citations',
-      icon: 'list'
+      icon: 'home'
+    }, {
+      title: 'Settings',
+      url: '/settings',
+      icon: 'settings'
+    }, {
+      title: 'Reference',
+      url: '/reference',
+      icon: 'book'
+    }, {
+      title: 'Login',
+      url: '/login',
+      icon: 'log-in'
+    }, {
+      title: 'About',
+      url: '/about',
+      icon: 'information-circle'
     }
   ];
 
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
-    private statusBar: StatusBar
+    private statusBar: StatusBar,
+    private navCtrl: NavController,
+
+    private settingsService: SettingsService
   ) {
     this.initializeApp();
   }
 
-  initializeApp() {
+  async initializeApp() {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
+
+    const appConfig = await this.settingsService.getSettings();
+    if (!appConfig) {
+      this.navCtrl.navigateForward('/settings');
+    }
+  }
+
+  navigateTo(url: string) {
+    this.navCtrl.navigateForward(url);
   }
 }

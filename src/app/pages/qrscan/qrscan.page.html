@@ -1,9 +1,40 @@
 <ion-header>
-  <ion-toolbar  color="primary">
-    <ion-title>qrscan</ion-title>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+
+    <ion-title>QR Scan</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
+  <div>
+    <ion-fab vertical="top" horizontal="center" slot="fixed">
+      <ion-fab-button (click)="onScan()" color="secondary">
+        <ion-icon name="qr-scanner"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  </div>
 
+  <ion-card class="citation-info">
+    <ion-card-header>
+      <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
+      <ion-card-title>Card Title</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      Keep close to Nature's heart... and break clear away, once in awhile,
+      and climb a mountain or spend a week in the woods. Wash your spirit clean.
+    </ion-card-content>
+
+    <ion-item lines="none">
+      <ion-buttons slot="end">
+        <ion-button>
+          <ion-label>Continue</ion-label>
+          <ion-icon name="arrow-forward"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
+  </ion-card>
 </ion-content>

@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 export class ApiService {
   readonly apiUrl: string = environment.apiUrl;
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(public httpClient: HttpClient) {}
 
   get<T>(endPoint: string, options: HttpOptions = new HttpOptions()): Observable<T> {
     // return this.httpClient.get<T>(`${this.apiUrl}/${endPoint}`, options);
@@ -21,7 +21,8 @@ export class ApiService {
   }
 
   post<T>(endPoint: string, body: any, options: HttpOptions = new HttpOptions()): Observable<T | any> {
-    return this.httpClient.post(`${this.apiUrl}/${endPoint}`, body, options);
+    // return this.httpClient.post(`${this.apiUrl}/${endPoint}`, body, options);
+    return this.httpClient.post(`${endPoint}`, body, options);
   }
 }
 

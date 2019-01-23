@@ -1,9 +1,31 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-title>about</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+
+    <ion-title>About</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
+  <div class="logo" text-center>
+    <ion-img src="/assets/imgs/vCiteMobile-logo.jpg"></ion-img>
+  </div>
+
+  <h5 text-center>v{{version}}</h5> <!-- App version -->
+
+  <div class="powered-by" text-center>
+    <p class="separator"></p>
+
+    <h4 color="medium">powered by</h4>
+
+    <ion-img src="/assets/imgs/velosum-logo-164x50.png"></ion-img>
+
+    <div class="copyright" padding-top>
+      &copy; 2009 - {{today | date: 'y'}}
+    </div>
+    <h3>{{company}}</h3> <!-- Company -->
+  </div>
 
 </ion-content>

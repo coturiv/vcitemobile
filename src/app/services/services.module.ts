@@ -5,6 +5,7 @@ import { ApiService } from './api.service';
 import { AuthService } from './auth.service';
 import { SettingsService } from './settings.service';
 import { StorageService } from './storage.service';
+import { DbService } from './db.service';
 
 @NgModule({
   declarations: [],
@@ -15,7 +16,9 @@ import { StorageService } from './storage.service';
     ApiService,
     AuthService,
     SettingsService,
-    StorageService
+    StorageService,
+
+    DbService
   ]
 })
 export class ServicesModule { }

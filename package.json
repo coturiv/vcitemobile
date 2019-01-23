@@ -27,12 +27,23 @@
         "@ionic-native/status-bar": "5.0.0-beta.21",
         "@ionic/angular": "4.0.0-rc.1",
         "@ionic/storage": "^2.2.0",
+        "@types/node": "^10.12.18",
+        "cordova-android": "7.1.4",
         "cordova-plugin-camera": "4.0.3",
+        "cordova-plugin-device": "^2.0.2",
+        "cordova-plugin-ionic-keyboard": "^2.1.3",
+        "cordova-plugin-ionic-webview": "^2.3.2",
         "cordova-plugin-ios-camera-permissions": "1.2.0",
+        "cordova-plugin-splashscreen": "^5.0.2",
+        "cordova-plugin-statusbar": "^2.4.2",
+        "cordova-plugin-whitelist": "^1.3.3",
         "cordova-sqlite-storage": "2.6.0",
         "core-js": "^2.5.4",
         "phonegap-plugin-barcodescanner": "8.0.1",
+        "reflect-metadata": "^0.1.13",
         "rxjs": "~6.3.3",
+        "sql.js": "^0.5.0",
+        "typeorm": "^0.2.12",
         "zone.js": "~0.8.26"
     },
     "devDependencies": {
@@ -45,7 +56,6 @@
         "@angular/compiler-cli": "~7.1.4",
         "@angular/language-service": "~7.1.4",
         "@ionic/angular-toolkit": "~1.2.0",
-        "@types/node": "~10.12.0",
         "@types/jasmine": "~2.8.8",
         "@types/jasminewd2": "~2.0.3",
         "codelyzer": "~4.5.0",
@@ -66,8 +76,27 @@
         "plugins": {
             "cordova-sqlite-storage": {},
             "phonegap-plugin-barcodescanner": {},
-            "cordova-plugin-camera": {},
-            "cordova-plugin-ios-camera-permissions": {}
-        }
+            "cordova-plugin-camera": {
+                "CAMERA_USAGE_DESCRIPTION": " ",
+                "PHOTOLIBRARY_USAGE_DESCRIPTION": " "
+            },
+            "cordova-plugin-ios-camera-permissions": {
+                "CAMERA_USAGE_DESCRIPTION": "vCiteMobile needs camera access",
+                "MICROPHONE_USAGE_DESCRIPTION": "vCiteMobile needs microphone access",
+                "PHOTOLIBRARY_ADD_USAGE_DESCRIPTION": "vCiteMobile needs write-access to photo library",
+                "PHOTOLIBRARY_USAGE_DESCRIPTION": "vCiteMobile needs read/write-access photo library access"
+            },
+            "cordova-plugin-whitelist": {},
+            "cordova-plugin-statusbar": {},
+            "cordova-plugin-device": {},
+            "cordova-plugin-splashscreen": {},
+            "cordova-plugin-ionic-webview": {
+                "ANDROID_SUPPORT_ANNOTATIONS_VERSION": "27.+"
+            },
+            "cordova-plugin-ionic-keyboard": {}
+        },
+        "platforms": [
+            "android"
+        ]
     }
 }

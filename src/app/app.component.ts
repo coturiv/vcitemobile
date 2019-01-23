@@ -1,9 +1,13 @@
 import { Component } from '@angular/core';
-
 import { Platform, NavController } from '@ionic/angular';
+
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+
 import { SettingsService } from './services/settings.service';
+import { DbService } from './services/db.service';
+
+import 'reflect-metadata';
 
 @Component({
   selector: 'app-root',
@@ -41,9 +45,12 @@ export class AppComponent {
     private statusBar: StatusBar,
     private navCtrl: NavController,
 
-    private settingsService: SettingsService
+    private settingsService: SettingsService,
+    private dbService: DbService
   ) {
     this.initializeApp();
+
+    this.dbService.initialize();
   }
 
   async initializeApp() {

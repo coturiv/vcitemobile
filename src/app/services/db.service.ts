@@ -1,40 +1,109 @@
 import { Injectable } from '@angular/core';
 import { Platform } from '@ionic/angular';
 
-import { createConnection, ConnectionOptions } from 'typeorm';
+import { createConnection, ConnectionOptions, getConnection, Connection } from 'typeorm';
+
+import { VehColor, VehState, VehMake } from '../entity';
+import { AssetsService } from './assets.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DbService {
+  
+  private get isFirstRun() {
+    return localStorage.getItem('is_first_run') == 'true';
+  } 
 
-  constructor(private platform: Platform) { }
+  private set isFirstRun(val: boolean) {
+    localStorage.setItem('is_first_run', String(val));
+  }
+  
+  constructor(private platform: Platform, private assetService: AssetsService) { }
 
-  initialize() {
-    let connectOptions: ConnectionOptions;
-    connectOptions = {
-      type: 'cordova',
-      database: '__vcitemobile',
-      location: 'default'
-    };
-    // if (this.platform.is('cordova')) {
-    // } else {
-    //   connectOptions = {
-    //     type: 'sqljs',
-    //     location: 'browser',
-    //     logging: true
-    //   };
-    // }
+  async ready() {
+    try {
 
-    console.log('isCordova', this.platform.is('cordova'));
+      await getConnection();
 
-    createConnection(connectOptions)
-      .then(connection => {
-        console.log(connection);
-      }, error => {
-        console.log(error);
-      })
+    } catch(ex) {
+      console.log('Connection not initialized.', ex);
+
+      await this.initialize();
+
+    }
   }
 
+  /**
+   * Initialize DB
+   */
+  public async initialize() {
+    try {
+      const connection = await this.createConnection();
+      await connection.synchronize();
+
+      if (!this.isFirstRun) {
+        try {
+          await connection.transaction(async tem => {
+            const vehColors = await this.assetService.getVehColors();
+            await tem.save(vehColors);
+
+            const vehStates = await this.assetService.getVehStates();
+            await tem.save(vehStates);
+
+            const vehMakes = await this.assetService.getVehMakes();
+            await tem.save(vehMakes);
+
+            this.isFirstRun = true;
+          });
+        } catch(ex) {
+          console.log('Transaction failed.', ex);
+        }
+      }
+
+      console.log(await VehColor.find());
+    } catch(ex) {
+
+      console.log('Connection failed.', ex);
+
+    }
+  }
+
+  /**
+   * Create DB connection
+   */
+  private createConnection(): Promise<Connection> {
+    let dbOptions: ConnectionOptions;
+    
+    if (this.platform.is('cordova')) {
+
+      dbOptions = {
+        type: 'cordova',
+        database: '__vcitemobile',
+        location: 'default'
+      };
+    } else {
+
+      dbOptions = {
+        type: 'sqljs',
+        location: 'browser',
+        logging: true,
+        synchronize: true,
+        autoSave: true
+      };
+    }
+
+    // additional options
+    Object.assign(dbOptions, {
+      logging: true,
+      entities: [
+        VehColor,
+        VehMake,
+        VehState
+      ]
+    });
+
+    return createConnection(dbOptions);
+  }
 
 }

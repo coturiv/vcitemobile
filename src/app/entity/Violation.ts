@@ -6,8 +6,8 @@ export class Violation extends BaseEntity {
     id: number;
     
     @Column()
-    code: string;
+    abbreviation: string;
 
     @Column()
-    description: string;
+    name: string;
 }

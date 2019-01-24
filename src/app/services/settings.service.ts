@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { StorageService } from './storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -7,14 +6,14 @@ import { StorageService } from './storage.service';
 export class SettingsService {
   private readonly storageKey: string = 'config';
 
-  constructor(private storageService: StorageService) { }
+  constructor() { }
 
-  getSettings(): Promise<VSettings> {
-    return this.storageService.getItem(this.storageKey);
+  getSettings(): VSettings {
+    return JSON.parse(localStorage.getItem(this.storageKey));
   }
 
   setSettings(config: VSettings) {
-    return this.storageService.setItem(this.storageKey, config);
+    return localStorage.setItem(this.storageKey, JSON.stringify(config));
   }
 
 }

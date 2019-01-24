@@ -18,7 +18,7 @@ export class SettingsPage implements OnInit {
     private settingsService: SettingsService
   ) { }
 
-  async ngOnInit() {
+  ngOnInit() {
     let settings: any = {};
     this.settingsForm = this.formBuilder.group({
       option1: [settings.option1, Validators.compose([Validators.required])],
@@ -29,7 +29,7 @@ export class SettingsPage implements OnInit {
       option6: [settings.option6, Validators.compose([Validators.required])]
     });
 
-    settings = await this.settingsService.getSettings() || {};
+    settings = this.settingsService.getSettings() || {};
     
   }
 

@@ -3,7 +3,7 @@ import { NavController } from '@ionic/angular';
 import { Observable } from 'rxjs';
 
 import { ApiService } from 'src/app/services/api.service';
-import { Citation } from 'src/app/models/citation';
+import { Citation } from 'src/app/entity';
 
 @Component({
   selector: 'app-citations',

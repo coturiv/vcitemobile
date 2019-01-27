@@ -3,7 +3,7 @@ import { Platform } from '@ionic/angular';
 
 import { createConnection, ConnectionOptions, getConnection, Connection } from 'typeorm';
 
-import { VehColor, VehState, VehMake } from '../entity';
+import { VehColor, VehState, VehMake, EntityFactory } from '../entity';
 import { AssetsService } from './assets.service';
 
 @Injectable({
@@ -53,7 +53,7 @@ export class DbService {
 
             const vehMakes = await this.assetService.getVehMakes();
             await tem.save(vehMakes);
-
+            
             this.isFirstRun = true;
           });
         } catch(ex) {
@@ -61,7 +61,8 @@ export class DbService {
         }
       }
 
-      console.log(await VehColor.find());
+      // console.log(await VehColor.find());
+
     } catch(ex) {
 
       console.log('Connection failed.', ex);
@@ -87,7 +88,6 @@ export class DbService {
       dbOptions = {
         type: 'sqljs',
         location: 'browser',
-        logging: true,
         synchronize: true,
         autoSave: true
       };
@@ -95,12 +95,8 @@ export class DbService {
 
     // additional options
     Object.assign(dbOptions, {
-      logging: true,
-      entities: [
-        VehColor,
-        VehMake,
-        VehState
-      ]
+      // logging: true,
+      entities: EntityFactory.getAllEntities()
     });
 
     return createConnection(dbOptions);

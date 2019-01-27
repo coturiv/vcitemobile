@@ -9,32 +9,53 @@
 </ion-header>
 
 <ion-content>
-  <div>
-    <ion-fab vertical="top" horizontal="center" slot="fixed">
-      <ion-fab-button (click)="onScan()" color="secondary">
-        <ion-icon name="qr-scanner"></ion-icon>
-      </ion-fab-button>
-    </ion-fab>
-  </div>
 
-  <ion-card class="citation-info">
+  <!-- scan button -->
+  <ion-fab vertical="top" horizontal="center" slot="fixed">
+    <ion-fab-button (click)="onScan()" color="secondary">
+      <ion-icon name="qr-scanner"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <!-- scan result -> 'success' -->
+  <ion-card *ngIf="scanResult?.status == 'success'" class="citation-info">
+      <ion-card-header>
+          <ion-card-subtitle color="secondary">{{scanResult.message}}</ion-card-subtitle>
+        </ion-card-header>
+    
+        <ion-card-content>
+          <ion-list>
+            <ion-item lines="full">
+              <ion-label>Citation #</ion-label>
+              <ion-note>{{'12345'}}</ion-note>
+            </ion-item>
+      
+            <ion-item lines="full">
+              <ion-label>Organization #</ion-label>
+              <ion-note>{{'12345'}}</ion-note>
+            </ion-item>
+          </ion-list>
+        </ion-card-content>
+    
+        <ion-item lines="none">
+          <ion-buttons slot="end">
+            <ion-button (click)="onContinue()">
+              <ion-label>Continue</ion-label>
+              <ion-icon name="arrow-forward"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-item>
+  </ion-card>
+
+  <!-- scan result -> 'invalid' -->
+  <ion-card *ngIf="scanResult?.status == 'invalid'" class="citation-info">
     <ion-card-header>
-      <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
-      <ion-card-title>Card Title</ion-card-title>
+      <ion-card-subtitle color="danger">{{scanResult.message}}</ion-card-subtitle>
     </ion-card-header>
 
     <ion-card-content>
-      Keep close to Nature's heart... and break clear away, once in awhile,
-      and climb a mountain or spend a week in the woods. Wash your spirit clean.
+      <h4>Scanned data:</h4>
+      <p>{{scanResult.data}}</p>
     </ion-card-content>
-
-    <ion-item lines="none">
-      <ion-buttons slot="end">
-        <ion-button>
-          <ion-label>Continue</ion-label>
-          <ion-icon name="arrow-forward"></ion-icon>
-        </ion-button>
-      </ion-buttons>
-    </ion-item>
   </ion-card>
 </ion-content>

@@ -1,0 +1,26 @@
+:host {
+    .button-submit {
+        width: 240px;
+        margin: 0 auto;
+    }
+
+    ion-segment-button {
+
+        &.segment-button-checked {
+            background: var(--background) !important;
+            color: var(--ion-color-primary) !important;
+        }
+
+        color: var(--ion-color-medium) !important;
+        --color-checked: var(--ion-color-primary) !important;
+        --border-width: 0 !important;
+
+        ion-label {
+            font-size: 10px !important;
+        }
+
+        ion-icon {
+            font-size: 22px !important;
+        }
+    }
+}

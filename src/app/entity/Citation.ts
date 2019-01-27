@@ -8,30 +8,40 @@ export class Citation extends BaseEntity {
     @PrimaryColumn()
     id: number;
     
-    @Column()
+    @Column({
+        nullable: true
+    })
     custKey: number;
     
-    @Column()
+    @Column({
+        nullable: true
+    })
     docKey: number;
     
-    // @Column()
-    // customerName: string;
+    @Column({
+        nullable: true
+    })
+    customerName: string;
 
-    @Column()
+    @Column({
+        nullable: true
+    })
     description: string;
 
-    @Column()
+    @Column({
+        nullable: true
+    })
     timestamp: string;  //Datetime
 
-    @ManyToOne(type => VehState)
-    @JoinColumn({name: 'vehstate_id'})
-    vehstate_id: VehState;
+    // @ManyToOne(type => VehState)
+    // @JoinColumn({name: 'vehstate_id'})
+    // vehstate_id: VehState;
 
-    @ManyToOne(type => VehMake)
-    @JoinColumn({name: 'vehmake_id'})
-    vehmake_id: VehMake;
+    // @ManyToOne(type => VehMake)
+    // @JoinColumn({name: 'vehmake_id'})
+    // vehmake_id: VehMake;
 
-    @ManyToOne(type => VehColor)
-    @JoinColumn({name: 'vehcolor_id'})
-    vehcolor_id: VehColor;
+    // @ManyToOne(type => VehColor)
+    // @JoinColumn({name: 'vehcolor_id'})
+    // vehcolor_id: VehColor;
 }

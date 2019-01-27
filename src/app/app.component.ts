@@ -62,7 +62,7 @@ export class AppComponent {
     const appConfig = this.settingsService.getSettings();
     
     if (!appConfig) {
-      this.navCtrl.navigateForward('/settings');
+      // this.navCtrl.navigateForward('/settings');
     }
   }
 

@@ -1,0 +1,161 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Citation # {{citation.id}}</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="onSubmit()">
+        <ion-icon slot="icon-only" name="cloud-upload"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ng-container [ngSwitch]="curSegment">
+    <ion-list *ngSwitchCase="'vehicle'">
+      <ion-list-header color="medium">
+        <ion-label>Vehicle Information</ion-label>
+      </ion-list-header>
+
+      <ion-item>
+        <ion-label>License plate #</ion-label>
+        <ion-input></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>State of issuance</ion-label>
+        <veh-select [(ngModel)]="citation.state" entity="VehState"></veh-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Other State</ion-label>
+        <ion-input></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Expiration Date</ion-label>
+        <ion-datetime display-format="MMM DD, YYYY HH:mm"></ion-datetime>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>VIN</ion-label>
+        <ion-input></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Color</ion-label>
+        <veh-select [(ngModel)]="citation.color" entity="VehColor"></veh-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Make</ion-label>
+        <veh-select [(ngModel)]="citation.make" entity="VehMake"></veh-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Type</ion-label>
+        <veh-select [(ngModel)]="citation.type" entity="VehColor"></veh-select>
+      </ion-item>
+
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'violation'">
+      <ion-list-header color="medium">
+        <ion-label>Violation Details</ion-label>
+      </ion-list-header>
+
+      <ion-item>
+        <ion-label>Location</ion-label>
+        <ion-input></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Violation 1</ion-label>
+        <veh-select entity="VehState"></veh-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Violation 2</ion-label>
+        <veh-select entity="VehState"></veh-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Other Violation</ion-label>
+        <ion-input></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Remarks</ion-label>
+        <ion-textarea></ion-textarea>
+      </ion-item>
+
+    </ion-list>
+
+    <div *ngSwitchCase="'photos'">
+      <ion-list-header color="medium">
+        <ion-label>Photo Evidence</ion-label>
+      </ion-list-header>
+
+      <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button>
+          <ion-icon name="camera"></ion-icon>
+        </ion-fab-button>
+      </ion-fab>
+    </div>
+
+    <div *ngSwitchCase="'review'">
+      <ion-list-header color="medium">
+        <ion-label>Review & Finish</ion-label>
+      </ion-list-header>
+
+      <ion-card>
+        <ion-card-header>
+          <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
+          <ion-card-title>Card Title</ion-card-title>
+        </ion-card-header>
+
+        <ion-card-content>
+          Keep close to Nature's heart... and break clear away, once in awhile,
+          and climb a mountain or spend a week in the woods. Wash your spirit clean.
+        </ion-card-content>
+
+      </ion-card>
+      
+      <div padding>
+        <ion-button expand="full" color="primary" class="button-submit">Submit</ion-button>
+      </div>
+    </div>
+  </ng-container>
+</ion-content>
+
+<ion-footer>
+
+  <ion-toolbar>
+
+    <ion-segment [(ngModel)]="curSegment" (ionChange)="segmentChanged($event)" color="primary">
+      <ion-segment-button value="vehicle">
+        <ion-label>Vehicle</ion-label>
+        <ion-icon name="car"></ion-icon>
+      </ion-segment-button>
+
+      <ion-segment-button value="violation">
+        <ion-label>Violation</ion-label>
+        <ion-icon name="timer"></ion-icon>
+      </ion-segment-button>
+
+      <ion-segment-button value="photos">
+        <ion-label>Photos</ion-label>
+        <ion-icon name="images"></ion-icon>
+      </ion-segment-button>
+
+      <ion-segment-button value="review">
+        <ion-label>Review</ion-label>
+        <ion-icon name="checkmark"></ion-icon>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+
+</ion-footer>

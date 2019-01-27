@@ -1,0 +1,5 @@
+<ion-select [(ngModel)]="value" [placeholder]="placeholder">
+  <ion-select-option *ngFor="let option of list" [value]="option[valueField]">
+    {{option[displayField]}}
+  </ion-select-option>
+</ion-select>

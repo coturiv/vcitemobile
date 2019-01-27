@@ -16,8 +16,8 @@ const routes: Routes = [
     loadChildren: './pages/qrscan/qrscan.module#QrscanPageModule'
   },
   { 
-    path: 'citation', 
-    loadChildren: './pages/tabs/tabs.module#TabsPageModule'
+    path: 'citation/:cid', 
+    loadChildren: './pages/citation/citation.module#CitationPageModule'
   },
   { 
     path: 'login', 

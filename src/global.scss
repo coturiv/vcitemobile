@@ -15,3 +15,7 @@ ion-label.required:after {
     content: " *"; 
     color: red;
 }
+
+ion-list.list-md {
+    padding-top: 0 !important;
+}

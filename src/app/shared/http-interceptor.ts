@@ -16,11 +16,11 @@ export class HttpInterceptor implements BaseHttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(request).pipe(
       catchError(err => {
-        console.log(err);
+        // console.log(err);
 
-        if (err.status == 200) {
-          return of(err);
-        }
+        // if (err.status == 200) {
+        //   return of(err);
+        // }
         return throwError(err);
       }));
   }

@@ -3,7 +3,7 @@ import { Platform } from '@ionic/angular';
 
 import { createConnection, ConnectionOptions, getConnection, Connection } from 'typeorm';
 
-import { VehColor, VehState, VehMake, EntityFactory } from '../entity';
+import { EntityFactory } from '../entity';
 import { AssetsService } from './assets.service';
 
 @Injectable({
@@ -60,8 +60,6 @@ export class DbService {
           console.log('Transaction failed.', ex);
         }
       }
-
-      // console.log(await VehColor.find());
 
     } catch(ex) {
 

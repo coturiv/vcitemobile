@@ -8,6 +8,7 @@ import { SettingsService } from './services/settings.service';
 import { DbService } from './services/db.service';
 
 import 'reflect-metadata';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -29,15 +30,13 @@ export class AppComponent {
       url: '/reference',
       icon: 'book'
     }, {
-      title: 'Login',
-      url: '/login',
-      icon: 'log-in'
-    }, {
       title: 'About',
       url: '/about',
       icon: 'information-circle'
     }
   ];
+
+  isLoggedIn: boolean;
 
   constructor(
     private platform: Platform,
@@ -46,6 +45,7 @@ export class AppComponent {
     private navCtrl: NavController,
 
     private settingsService: SettingsService,
+    private authService: AuthService,
     private dbService: DbService
   ) {
     this.initializeApp();
@@ -59,14 +59,23 @@ export class AppComponent {
       this.splashScreen.hide();
     });
 
+    this.isLoggedIn = !!this.authService.loginInfo;
+
     const appConfig = this.settingsService.getSettings();
     
     if (!appConfig) {
-      // this.navCtrl.navigateForward('/settings');
+      this.navCtrl.navigateForward('/settings');
     }
+
   }
 
   navigateTo(url: string) {
     this.navCtrl.navigateForward(url);
+  }
+
+  logout() {
+    this.authService.loginInfo = null;
+    this.isLoggedIn = false;
+    this.navCtrl.navigateRoot('/login');
   }
 }

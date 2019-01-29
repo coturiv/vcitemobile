@@ -2,4 +2,8 @@
     ion-range {
         padding-right: 0 !important;
     }
+
+    ion-item ion-label.label-fixed {
+        min-width: 150px;
+    }
 }

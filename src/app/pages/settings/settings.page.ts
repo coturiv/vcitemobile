@@ -19,18 +19,19 @@ export class SettingsPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    let settings: any = {};
-    this.settingsForm = this.formBuilder.group({
-      option1: [settings.option1, Validators.compose([Validators.required])],
-      option2: [settings.option2, Validators.compose([Validators.required])],
-      option3: [settings.option3, Validators.compose([Validators.required])],
-      option4: [settings.option4, Validators.compose([Validators.required])],
-      option5: [settings.option5, Validators.compose([Validators.required])],
-      option6: [settings.option6, Validators.compose([Validators.required])]
-    });
+    const settings: any = this.settingsService.getSettings() || {};
 
-    settings = this.settingsService.getSettings() || {};
-    
+    const loginInfo = JSON.parse(localStorage.getItem('loginInfo'));
+    if (loginInfo) {
+      // settings.userID  = loginInfo.userID;
+      settings.custKey = loginInfo.custKey;
+    }
+
+    this.settingsForm = this.formBuilder.group({
+      custKey: [settings.custKey, Validators.compose([Validators.required])],
+      userID : [settings.userID,  Validators.compose([Validators.required])],
+      hostURL: [settings.hostURL, Validators.compose([Validators.required])]
+    });
   }
 
   async onSave() {

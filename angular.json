@@ -15,8 +15,7 @@
           "builder": "@angular-builders/custom-webpack:browser",
           "options": {
             "customWebpackConfig": {
-              "path": "./config/webpack.config.js",
-              "mergeStrategies": { "externals": "prepend" }
+              "path": "./config/webpack.config.js"
             },
             "outputPath": "www",
             "index": "src/index.html",
@@ -65,8 +64,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
+                  "maximumWarning": "4mb",
+                  "maximumError": "7mb"
                 }
               ]
             },

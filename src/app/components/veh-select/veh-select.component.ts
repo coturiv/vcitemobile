@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, forwardRef } from '@angular/core';
-import { EntityFactory } from 'src/app/entity';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import { getRepository, Repository, BaseEntity as Entity } from 'typeorm';
 
 @Component({
   selector: 'veh-select',
@@ -48,8 +48,10 @@ export class VehSelectComponent implements OnInit, ControlValueAccessor {
       return;
     }
 
-    const entity = EntityFactory.getEntityByName(this.entityName);
-    this.list = await entity.find({cache: true});
+    const repository: Repository<Entity> = getRepository(this.entityName);
+    if (repository) {
+      this.list = await repository.find({cache: true});
+    }
   }
 
   getLabel(entity: any) {

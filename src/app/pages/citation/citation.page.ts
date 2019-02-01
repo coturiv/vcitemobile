@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Citation, VehState } from 'src/app/entity';
+import { CitationService } from 'src/app/services/citation.service';
 
 @Component({
   selector: 'app-citation',
@@ -13,7 +14,7 @@ export class CitationPage implements OnInit {
 
   citation: any = {};
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private citationService: CitationService) { }
 
   async ngOnInit() {
     const cid = this.route.snapshot.params['cid'];
@@ -29,19 +30,11 @@ export class CitationPage implements OnInit {
     this.curSegment = ev.target.value;
   }
 
-  onSubmit() {
+  async onSubmit() {
     console.log(this.citation);
+    await this.citationService.submitCitation(this.citation);
 
-    // this.generateXML({});
-  }
-
-  /**
-   * generate xml from a json data
-   * 
-   * @param objData any
-   */
-  private generateXML(objData: Object | any) {
-
+    // TODO:show success message
   }
 
 }

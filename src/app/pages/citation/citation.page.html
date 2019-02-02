@@ -15,6 +15,7 @@
 
 <ion-content>
   <ng-container [ngSwitch]="curSegment">
+    <!-- /Vehicle -->
     <ion-list *ngSwitchCase="'vehicle'">
       <ion-list-header color="medium">
         <ion-label>Vehicle Information</ion-label>
@@ -62,6 +63,7 @@
 
     </ion-list>
 
+    <!-- /Violation -->
     <ion-list *ngSwitchCase="'violation'">
       <ion-list-header color="medium">
         <ion-label>Violation Details</ion-label>
@@ -94,18 +96,33 @@
 
     </ion-list>
 
+    <!-- /Photos -->
     <div *ngSwitchCase="'photos'">
       <ion-list-header color="medium">
         <ion-label>Photo Evidence</ion-label>
       </ion-list-header>
 
+      <ion-card *ngFor="let attachment of citation.attachments">
+        <ion-item lines="full" [detail]="false">
+          <ion-label>{{attachment.name}}</ion-label>
+          <ion-note color="primary" slot="end" text-uppercase>{{attachment.type}}</ion-note>
+        </ion-item>
+
+        <ion-card-content>
+          <ion-thumbnail>
+            <ion-img [src]="attachment.data"></ion-img>
+          </ion-thumbnail>
+        </ion-card-content>
+      </ion-card>
+
       <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-        <ion-fab-button>
+        <ion-fab-button (click)="takePicture()">
           <ion-icon name="camera"></ion-icon>
         </ion-fab-button>
       </ion-fab>
     </div>
 
+    <!-- /Review -->
     <div *ngSwitchCase="'review'">
       <ion-list-header color="medium">
         <ion-label>Review & Finish</ion-label>
@@ -123,7 +140,7 @@
         </ion-card-content>
 
       </ion-card>
-      
+
       <div padding>
         <ion-button expand="full" color="primary" class="button-submit">Submit</ion-button>
       </div>

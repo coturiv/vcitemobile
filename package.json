@@ -69,7 +69,7 @@
         "tslint": "~5.12.0",
         "typescript": "~3.2.4"
     },
-    "description": "An Ionic project",
+    "description": "Companion app for Velosum citation system",
     "cordova": {
         "plugins": {
             "cordova-sqlite-storage": {},

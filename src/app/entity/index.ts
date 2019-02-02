@@ -1,3 +1,5 @@
+import { Attachment } from './Attachment';
+import { AttachmentType } from './AttachmentType';
 import { Citation } from './Citation';
 import { VehColor } from './VehColor';
 import { VehMake } from './VehMake';
@@ -8,6 +10,8 @@ export class EntityFactory {
 
     public static getAllEntities() {
         return [
+            Attachment,
+            AttachmentType,
             Citation,
             VehColor,
             VehMake,

@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { CitationPage } from './citation.page';
 import { ComponentsModule } from 'src/app/components/components.module';
+import { AttatchmentModalModule } from './attatchment/attachment.module';
 
 const routes: Routes = [
   {
@@ -22,7 +23,8 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes),
 
-    ComponentsModule
+    ComponentsModule,
+    AttatchmentModalModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   declarations: [CitationPage],

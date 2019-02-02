@@ -1,9 +1,10 @@
-import {Entity, PrimaryColumn, Column, BaseEntity, ManyToOne, JoinColumn} from 'typeorm';
+import {Entity, PrimaryColumn, Column, BaseEntity, ManyToOne, JoinColumn, OneToMany} from 'typeorm';
 import { VehState } from './VehState';
 import { VehMake } from './VehMake';
 import { VehColor } from './VehColor';
+import { Attachment } from './Attachment';
 
-@Entity("Citation")
+@Entity("citation")
 export class Citation extends BaseEntity {
     @PrimaryColumn()
     id: number;
@@ -33,15 +34,18 @@ export class Citation extends BaseEntity {
     })
     timestamp: string;  //Datetime
 
-    // @ManyToOne(type => VehState)
-    // @JoinColumn({name: 'vehstate_id'})
-    // vehstate_id: VehState;
+    @ManyToOne(type => VehState)
+    @JoinColumn({name: 'vehstate_id'})
+    state: VehState;
 
-    // @ManyToOne(type => VehMake)
-    // @JoinColumn({name: 'vehmake_id'})
-    // vehmake_id: VehMake;
+    @ManyToOne(type => VehMake)
+    @JoinColumn({name: 'vehmake_id'})
+    make: VehMake;
 
-    // @ManyToOne(type => VehColor)
-    // @JoinColumn({name: 'vehcolor_id'})
-    // vehcolor_id: VehColor;
+    @ManyToOne(type => VehColor)
+    @JoinColumn({name: 'vehcolor_id'})
+    color: VehColor;
+
+    @OneToMany(type => Attachment, attachment => attachment.id)
+    attachments: Attachment[];
 }

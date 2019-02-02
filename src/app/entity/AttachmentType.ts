@@ -1,13 +1,13 @@
 import {Entity, PrimaryColumn, Column, BaseEntity} from 'typeorm';
 
-@Entity("vehmake")
-export class VehMake extends BaseEntity {
+@Entity("attachment_type")
+export class AttachmentType extends BaseEntity {
     @PrimaryColumn()
     id: number;
     
     @Column()
-    abbreviation: string;
+    name: string;
 
     @Column()
-    name: string;
+    description: string;
 }

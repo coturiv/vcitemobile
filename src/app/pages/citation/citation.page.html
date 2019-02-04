@@ -23,42 +23,43 @@
 
       <ion-item>
         <ion-label>License plate #</ion-label>
-        <ion-input></ion-input>
+        <ion-input slot="end" [(ngModel)]="citation.vehicle_license"></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label>State of issuance</ion-label>
-        <veh-select [(ngModel)]="citation.state" entity="VehState"></veh-select>
+        <veh-select [(ngModel)]="citation.vehicle_state" entity="vehstate"></veh-select>
       </ion-item>
 
       <ion-item>
         <ion-label>Other State</ion-label>
-        <ion-input></ion-input>
+        <ion-input slot="end"></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label>Expiration Date</ion-label>
-        <ion-datetime display-format="MMM DD, YYYY HH:mm"></ion-datetime>
+        <ion-datetime [(ngModel)]="citation.expiration_date" display-format="MMM DD, YYYY HH:mm"></ion-datetime>
       </ion-item>
 
       <ion-item>
         <ion-label>VIN</ion-label>
-        <ion-input></ion-input>
+        <ion-input slot="end" [(ngModel)]="citation.vehicle_vin"></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label>Color</ion-label>
-        <veh-select [(ngModel)]="citation.color" entity="VehColor"></veh-select>
+        <veh-select [(ngModel)]="citation.vehicle_color" entity="vehcolor"></veh-select>
       </ion-item>
 
       <ion-item>
         <ion-label>Make</ion-label>
-        <veh-select [(ngModel)]="citation.make" entity="VehMake"></veh-select>
+        <veh-select [(ngModel)]="citation.vehicle_make" entity="vehmake"></veh-select>
       </ion-item>
 
       <ion-item>
         <ion-label>Type</ion-label>
-        <veh-select [(ngModel)]="citation.type" entity="VehColor"></veh-select>
+        <ion-input slot="end" [(ngModel)]="citation.vehicle_type"></ion-input>
+        <!-- <veh-select [(ngModel)]="citation.type" entity="vehcolor"></veh-select> -->
       </ion-item>
 
     </ion-list>
@@ -71,27 +72,27 @@
 
       <ion-item>
         <ion-label>Location</ion-label>
-        <ion-input></ion-input>
+        <ion-input slot="end" [(ngModel)]="citation.location" ></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label>Violation 1</ion-label>
-        <veh-select entity="VehState"></veh-select>
+        <veh-select entity="vehstate"></veh-select>
       </ion-item>
 
       <ion-item>
         <ion-label>Violation 2</ion-label>
-        <veh-select entity="VehState"></veh-select>
+        <veh-select entity="vehstate"></veh-select>
       </ion-item>
 
       <ion-item>
         <ion-label>Other Violation</ion-label>
-        <ion-input></ion-input>
+        <ion-input slot="end"></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label>Remarks</ion-label>
-        <ion-textarea></ion-textarea>
+        <ion-textarea slot="end" [(ngModel)]="citation.remarks"></ion-textarea>
       </ion-item>
 
     </ion-list>
@@ -110,7 +111,7 @@
 
         <ion-card-content>
           <ion-thumbnail>
-            <ion-img [src]="attachment.data"></ion-img>
+            <ion-img [src]="'data:image/jpeg;base64,' + attachment.data"></ion-img>
           </ion-thumbnail>
         </ion-card-content>
       </ion-card>
@@ -130,19 +131,17 @@
 
       <ion-card>
         <ion-card-header>
-          <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
-          <ion-card-title>Card Title</ion-card-title>
+          <ion-card-title>Review</ion-card-title>
         </ion-card-header>
 
         <ion-card-content>
-          Keep close to Nature's heart... and break clear away, once in awhile,
-          and climb a mountain or spend a week in the woods. Wash your spirit clean.
+          
         </ion-card-content>
 
       </ion-card>
 
       <div padding>
-        <ion-button expand="full" color="primary" class="button-submit">Submit</ion-button>
+        <ion-button (click)="onSubmit()" expand="full" color="primary" class="button-submit">Submit</ion-button>
       </div>
     </div>
   </ng-container>

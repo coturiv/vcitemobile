@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController } from '@ionic/angular';
+import { NavController, ToastController } from '@ionic/angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { SettingsService } from 'src/app/services/settings.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-settings',
@@ -15,7 +16,9 @@ export class SettingsPage implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private navCtrl: NavController,
-    private settingsService: SettingsService
+    private toastCtrl: ToastController,
+    private settingsService: SettingsService,
+    private authService: AuthService,
   ) { }
 
   ngOnInit() {
@@ -30,7 +33,8 @@ export class SettingsPage implements OnInit {
     this.settingsForm = this.formBuilder.group({
       custKey: [settings.custKey, Validators.compose([Validators.required])],
       userID : [settings.userID,  Validators.compose([Validators.required])],
-      hostURL: [settings.hostURL, Validators.compose([Validators.required])]
+      // hostURL: [settings.hostURL, Validators.compose([Validators.required])]
+      hostURL: [{value: 'http://216.83.136.35', disabled: true}, Validators.compose([Validators.required])]
     });
   }
 
@@ -38,7 +42,25 @@ export class SettingsPage implements OnInit {
     const settings = this.settingsForm.getRawValue();
     await this.settingsService.setSettings(settings);
 
-    this.navCtrl.navigateForward('/citations');
+    await this.showMessage('Settings have been submitted successfully!');
+
+
+    if (this.authService.loginInfo) {
+
+      this.navCtrl.navigateForward('/citations');
+    } else {
+      
+      this.navCtrl.navigateForward('/login');
+    }
+  }
+
+  private async showMessage(message: string) {
+    const toast = await this.toastCtrl.create({
+      message: message,
+      color: 'secondary',
+      duration: 1500
+    });
+    toast.present();
   }
 
 }

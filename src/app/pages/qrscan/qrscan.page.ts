@@ -31,6 +31,7 @@ export class QrscanPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.citation = new Citation();
   }
 
   async onScan() {
@@ -58,28 +59,17 @@ export class QrscanPage implements OnInit {
         return;
       }
 
-      // const {cid, sn} = this.parseParams(barcodeText);
-      // Object.assign(this.citation, this.parseParams(barcodeText));
+      const {cid, sn} = this.parseParams(this.scanResult.data);
+      this.citation.id = cid;
+      this.citation.custKey = cid;
+      this.citation.serial_number = sn;
+
       this.scanResult.message = 'New Citation scanned!';
       this.scanResult.status = 'success';
-
-      await this.navCtrl.navigateForward(`/citation/${this.citation.id}`);
 
     } catch (e) {
 
       this.showMessage(e, 'danger');
-
-      // REMOVE ME: below code is just being used for testing on browser.
-      const url = 'https://www.vciteplus.com/portal.aspx?cid=38&sn=P103999';
-      const {cid, sn} = this.parseParams(url);
-
-      this.citation = new Citation();
-
-      this.citation.id = cid;
-      this.citation.custKey = sn;
-
-      this.scanResult.message = 'New Citation scanned!';
-      this.scanResult.status = 'success';
 
     }
   }

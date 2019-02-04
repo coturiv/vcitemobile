@@ -1,4 +1,5 @@
-import {Entity, PrimaryColumn, Column, BaseEntity} from 'typeorm';
+import {Entity, PrimaryColumn, Column, BaseEntity, ManyToOne, JoinColumn} from 'typeorm';
+import { Citation } from './Citation';
 
 @Entity("attachment")
 export class Attachment extends BaseEntity {
@@ -15,4 +16,10 @@ export class Attachment extends BaseEntity {
 
     @Column()
     data: string;
+
+    @Column({
+        nullable: true
+    })
+    citation_id: number;
+
 }

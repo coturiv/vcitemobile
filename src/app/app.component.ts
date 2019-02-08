@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Platform, NavController } from '@ionic/angular';
+import { Platform, NavController, Events } from '@ionic/angular';
 
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
@@ -43,6 +43,7 @@ export class AppComponent {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private navCtrl: NavController,
+    private events: Events,
 
     private settingsService: SettingsService,
     private authService: AuthService,
@@ -59,13 +60,19 @@ export class AppComponent {
       this.splashScreen.hide();
     });
 
-    this.isLoggedIn = !!this.authService.loginInfo;
-
+    
     const appConfig = this.settingsService.getSettings();
     
     if (!appConfig) {
       this.navCtrl.navigateForward('/settings');
     }
+    
+    this.isLoggedIn = !!this.authService.loginInfo;
+
+    // TODO: topic to Constants
+    this.events.subscribe('loggedIn', () => {
+      this.isLoggedIn = !!this.authService.loginInfo;
+    });
 
   }
 

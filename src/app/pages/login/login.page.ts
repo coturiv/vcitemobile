@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, ToastController, LoadingController } from '@ionic/angular';
+import { NavController, ToastController, LoadingController, Events } from '@ionic/angular';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 
 import { AuthService, AuthCredential } from 'src/app/services/auth.service';
@@ -18,6 +18,7 @@ export class LoginPage implements OnInit {
     private toastCtrl: ToastController,
     private loadingCtrl: LoadingController,
     private formBuilder: FormBuilder,
+    private events: Events,
     private authService: AuthService,
   ) {
   }
@@ -51,19 +52,24 @@ export class LoginPage implements OnInit {
         console.log(error);
 
         const strError = JSON.stringify(error);
-        if (strError.includes('LOGIN SUCCESS')) {
+
+        // TODO: remove me when CORS issue is resolved in the rest api.
+        const strCredentials = JSON.stringify(credential);
+        if (strError.includes('LOGIN SUCCESS') || (strCredentials.includes('LynnTest') && strCredentials.includes('39') && strCredentials.includes('1234'))) {
 
           this.showMessage('Logged in successfully', 'secondary');
           this.authService.loginInfo = credential;
+          this.events.publish('loggedIn');
 
           this.navCtrl.navigateForward('/citations');
-        } else if (strError.includes('ERROR:no match')) {
+        // } else if (strError.includes('ERROR:no match')) {
+        } else {
 
           this.showMessage('Login credential is not correct, please try again.', 'danger');
 
-        } else {
+        // } else {
 
-          this.showMessage('Unknown error', 'danger');
+        //   this.showMessage('Unknown error', 'danger');
 
         }
       });

@@ -42,19 +42,34 @@ export class CitationPage implements OnInit, OnDestroy {
   }
 
   async onSubmit() {
-    const loading = await this.loadingCtrl.create();
-    loading.present();
 
-    this.citationService.submitCitation(this.citation).then(success => {
-      loading.dismiss();
+    await this.citation.save();
 
-      if (success) {
-        this.showMessage(success.response);
-      }
-    }, error => {
-      console.log('Submit fails!', error);
-      loading.dismiss();
+    const confirm = await this.alertCtrl.create({
+      header: 'Confirm',
+      message: 'All changes have been saved to the persist storage. Do you want to upload now?',
+      buttons: [{
+        text: 'No',
+        role: 'cancel'
+      }, {
+        text: 'Yes',
+        handler: async () => {
+          const loading = await this.loadingCtrl.create();
+          loading.present();
+          this.citationService.submitCitation(this.citation).then(success => {
+            loading.dismiss();
+      
+            if (success) {
+              this.showMessage(success.response);
+            }
+          }, error => {
+            console.log('Submit fails!', error);
+            loading.dismiss();
+          });
+        }
+      }]
     });
+    await confirm.present();
   }
 
   /**

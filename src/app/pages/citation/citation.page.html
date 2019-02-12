@@ -145,7 +145,8 @@
         </ion-item>
 
         <ion-card-content>
-          <div class="xml-content">{{xmlCitation}}</div>
+          <!-- https://github.com/ionic-team/ionic/issues/15256 -->
+          <div class="xml-content" *ngIf="false">{{xmlCitation}}</div>
         </ion-card-content>
 
       </ion-card>

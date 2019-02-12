@@ -3,6 +3,7 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { ToastController, NavController, AlertController } from '@ionic/angular';
 
 import { Citation } from 'src/app/entity/Citation';
+import { CitationService } from 'src/app/services/citation.service';
 
 
 export interface ScanResult {
@@ -21,17 +22,17 @@ export class QrscanPage implements OnInit {
   
   scanResult: ScanResult;
 
-  citation: Citation;
+  citation: Citation = new Citation();
 
   constructor(
     private barcodeScanner: BarcodeScanner, 
     private navCtrl: NavController,
     private toastCtrl: ToastController,
-    private alertCtrl: AlertController 
+    private alertCtrl: AlertController ,
+    private citationService: CitationService
   ) { }
 
   ngOnInit() {
-    this.citation = new Citation();
   }
 
   async onScan() {
@@ -40,6 +41,8 @@ export class QrscanPage implements OnInit {
       this.scanResult = {};
       
       const barcode = await this.barcodeScanner.scan();
+
+      console.log('Barcode: ', barcode);
 
       this.scanResult.data = barcode.text;
 
@@ -79,7 +82,7 @@ export class QrscanPage implements OnInit {
    */
   async onContinue() {
     try {
-      const citation = await Citation.findOne({id: this.citation.id});
+      const citation = await this.citationService.getCitation(this.citation.id);
       if (citation) {
 
         // this.showMessage('Citation exists!', 'danger');
@@ -103,6 +106,7 @@ export class QrscanPage implements OnInit {
         return;
       }
 
+      this.citation.timestamp = String(Date.now());
       await this.citation.save();
       this.navCtrl.navigateForward(`/citation/${this.citation.id}`);
     } catch (e) {

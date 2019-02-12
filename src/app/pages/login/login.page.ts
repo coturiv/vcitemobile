@@ -3,6 +3,7 @@ import { NavController, ToastController, LoadingController, Events } from '@ioni
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 
 import { AuthService, AuthCredential } from 'src/app/services/auth.service';
+import { SettingsService } from 'src/app/services/settings.service';
 
 
 @Component({
@@ -20,15 +21,19 @@ export class LoginPage implements OnInit {
     private formBuilder: FormBuilder,
     private events: Events,
     private authService: AuthService,
+    private settingsService: SettingsService
   ) {
   }
 
   ngOnInit() {
+    const {userID, custKey} = this.settingsService.getSettings();
+
     this.loginForm = this.formBuilder.group({
-      userName: ['', Validators.compose([Validators.required])],
+      userName: [userID, Validators.compose([Validators.required])],
       passWord: ['', Validators.compose([Validators.minLength(1), Validators.maxLength(50), Validators.required])],
-      custKey: ['', Validators.compose([Validators.required])]
+      custKey: [custKey, Validators.compose([Validators.required])]
     });
+
   }
 
   async onLogin() {

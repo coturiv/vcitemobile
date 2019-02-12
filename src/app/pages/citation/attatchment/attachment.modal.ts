@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Attachment } from 'src/app/entity/Attachment';
-import { getRepository } from 'typeorm';
+import { Citation } from 'src/app/entity';
 
 @Component({
   selector: 'app-attachment',
@@ -13,7 +13,7 @@ export class AttachmentModal implements OnInit {
   attachForm: FormGroup;
 
   attachment: string;   // base64 image
-  citationId: number;
+  citation: Citation;
 
   constructor(private modalCtrl: ModalController, private formBuilder: FormBuilder) { }
 
@@ -30,9 +30,7 @@ export class AttachmentModal implements OnInit {
       Object.assign(attachment, this.attachForm.getRawValue());
       
       attachment.data = this.attachment;
-      attachment.citation_id = this.citationId;
-
-      await getRepository('attachment').save(attachment);
+      attachment.citation = this.citation;
 
       this.close(attachment);
     }

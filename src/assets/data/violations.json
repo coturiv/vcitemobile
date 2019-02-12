@@ -1,0 +1,110 @@
+[
+ {
+   "violation_id": "A01",
+   "description": "Meter Violations"
+ },
+ {
+   "violation_id": "A02",
+   "description": "Overtime Parking at meters (feeding meters)"
+ },
+ {
+   "violation_id": "B01",
+   "description": "Overtime parking (except meters)"
+ },
+ {
+   "violation_id": "B02",
+   "description": "Parking or stopping at taxicab stand"
+ },
+ {
+   "violation_id": "B03",
+   "description": "Angle Parking"
+ },
+ {
+   "violation_id": "B04",
+   "description": "Impeding street cleaning"
+ },
+ {
+   "violation_id": "C01",
+   "description": "Parking more than (12) inches from curb"
+ },
+ {
+   "violation_id": "C02",
+   "description": "Parking on sidewalk"
+ },
+ {
+   "violation_id": "C03",
+   "description": "Blocking driveway/private way"
+ },
+ {
+   "violation_id": "C04",
+   "description": "Within (20) ft of an intersection"
+ },
+ {
+   "violation_id": "C05",
+   "description": "Parking in a restricted zone"
+ },
+ {
+   "violation_id": "C06",
+   "description": "Parking in a loading zone"
+ },
+ {
+   "violation_id": "C07",
+   "description": "Blocking curb cut"
+ },
+ {
+   "violation_id": "C08",
+   "description": "Interfering with the free flow of traffic"
+ },
+ {
+   "violation_id": "D01",
+   "description": "Parking Double"
+ },
+ {
+   "violation_id": "D02",
+   "description": "Within (10) ft of hydrant"
+ },
+ {
+   "violation_id": "D03",
+   "description": "Invalid Inspection Sticker"
+ },
+ {
+   "violation_id": "D04",
+   "description": "Repair or service of vehicle"
+ },
+ {
+   "violation_id": "D05",
+   "description": "Parking all night (non-passenger vehicle/plate)"
+ },
+ {
+   "violation_id": "D06",
+   "description": "Invalid vehicle registration/1 plate"
+ },
+ {
+   "violation_id": "D07",
+   "description": "Wrong direction parking"
+ },
+ {
+   "violation_id": "E01",
+   "description": "Handicap Parking"
+ },
+ {
+   "violation_id": "E02",
+   "description": "Abandoned Vehicle"
+ },
+ {
+   "violation_id": "E03",
+   "description": "Parking during snow emergency"
+ },
+ {
+   "violation_id": "E04",
+   "description": "Parking or stopping in bus stop"
+ },
+ {
+   "violation_id": "E05",
+   "description": "Impeding snow removal"
+ },
+ {
+   "violation_id": "E06",
+   "description": "Parking on crosswalk"
+ }
+]

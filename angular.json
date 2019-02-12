@@ -17,6 +17,7 @@
             "customWebpackConfig": {
               "path": "./config/webpack.config.js"
             },
+            "showCircularDependencies": false, 
             "outputPath": "www",
             "index": "src/index.html",
             "main": "src/main.ts",

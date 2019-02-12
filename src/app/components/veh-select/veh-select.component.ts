@@ -16,7 +16,7 @@ export class VehSelectComponent implements OnInit, ControlValueAccessor {
   entityName: string;
 
   @Input('valueField')
-  valueField: string = 'name';
+  valueField: string = 'abbreviation';
   
   @Input('displayField')
   displayField: string = 'name';
@@ -68,6 +68,10 @@ export class VehSelectComponent implements OnInit, ControlValueAccessor {
 
   registerOnTouched(fn: any) {
     this.onTouched = fn;
+  }
+
+  entityCompare(a: any, b: any) {
+    return a.id === b.id;
   }
 
 }

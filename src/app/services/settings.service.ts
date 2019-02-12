@@ -19,5 +19,8 @@ export class SettingsService {
 }
 
 export interface VSettings {
-  timestamp: number;
+  timestamp?: number;
+  custKey?: number;
+  userID ?: string;
+  hostURL?: string;
 }

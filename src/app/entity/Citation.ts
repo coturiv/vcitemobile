@@ -111,11 +111,6 @@ export class Citation extends BaseEntity {
         default: false
     })
     warning: boolean;
-    
-    // @Column({
-    //     nullable: true
-    // })
-    // customerName: string;
 
     // TIMESTAMP
     @Column({
@@ -125,24 +120,24 @@ export class Citation extends BaseEntity {
 
     // Vehicle State
     @ManyToOne(type => VehState, {eager: true})
-    @JoinColumn({name: 'abbreviation'})
+    @JoinColumn({name: 'vehstate_id'})
     vehicle_state: VehState;
 
     // Vehicle Make
     @ManyToOne(type => VehMake,  {eager: true})
-    @JoinColumn({name: 'abbreviation'})
+    @JoinColumn({name: 'vehmake_id'})
     vehicle_make: VehMake;
 
     // Vehicle Color
     @ManyToOne(type => VehColor, {eager: true})
-    @JoinColumn({name: 'abbreviation'})
+    @JoinColumn({name: 'vehcolor_id'})
     vehicle_color: VehColor;
 
     // Violations
-    @OneToMany(type => Violation, () => {})
+    @OneToMany(type => Violation, violation => violation.citation, {eager: true, cascade: true})
     violations: Violation[];
 
     // Attachments
-    @OneToMany(type => Attachment, () => {})
+    @OneToMany(type => Attachment, attachment => attachment.citation, {eager: true, cascade: true})
     attachments: Attachment[];
 }

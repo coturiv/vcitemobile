@@ -8,6 +8,7 @@ import { IonicModule } from '@ionic/angular';
 import { CitationPage } from './citation.page';
 import { ComponentsModule } from 'src/app/components/components.module';
 import { AttatchmentModalModule } from './attatchment/attachment.module';
+import { ViolationModalModule } from './violation/violation.module';
 
 const routes: Routes = [
   {
@@ -24,7 +25,8 @@ const routes: Routes = [
     RouterModule.forChild(routes),
 
     ComponentsModule,
-    AttatchmentModalModule
+    AttatchmentModalModule,
+    ViolationModalModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   declarations: [CitationPage],

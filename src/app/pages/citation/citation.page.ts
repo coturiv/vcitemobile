@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { ModalController, AlertController, LoadingController } from '@ionic/angular';
@@ -7,17 +7,19 @@ import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { Citation } from 'src/app/entity';
 import { CitationService } from 'src/app/services/citation.service';
 import { AttachmentModal } from './attatchment/attachment.modal';
+import { ViolationModal } from './violation/violation.modal';
 
 @Component({
   selector: 'app-citation',
   templateUrl: './citation.page.html',
   styleUrls: ['./citation.page.scss'],
 })
-export class CitationPage implements OnInit {
+export class CitationPage implements OnInit, OnDestroy {
 
   curSegment: 'vehicle' | 'violation' | 'photos' | 'review' = 'vehicle';
 
   citation: Citation = new Citation();
+  xmlCitation: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -50,10 +52,27 @@ export class CitationPage implements OnInit {
         this.showMessage(success.response);
       }
     }, error => {
+      console.log('Submit fails!', error);
       loading.dismiss();
     });
   }
 
+  /**
+   * edit violations
+   */
+  async editViolations() {
+    const modal = await this.modalCtrl.create({
+      component: ViolationModal,
+      componentProps: {
+        citation: this.citation
+      }
+    });
+    modal.present();
+  }
+
+  /**
+   * take a picture(attachment)
+   */
   async takePicture() {
     const options: CameraOptions = {
       quality: 100,
@@ -68,7 +87,7 @@ export class CitationPage implements OnInit {
         component: AttachmentModal,
         componentProps: {
           attachment: imageData,
-          citationId: this.citation.id
+          citation: this.citation
         }
       });
       modal.present();
@@ -80,12 +99,27 @@ export class CitationPage implements OnInit {
     }
   }
 
+  regenerateXmlCitation() {
+    this.xmlCitation = this.citationService.getXmlCitation(this.citation);
+  }
+
   private async showMessage(message: string) {
     const alert = await this.alertCtrl.create({
       message: message,
       buttons: ['OK']
     });
     alert.present();
+  }
+
+  /**
+   * save current changes to the database
+   */  
+  private async saveDraft() {
+    await this.citation.save();
+  }
+
+  ngOnDestroy() {
+    this.saveDraft();
   }
 
 }

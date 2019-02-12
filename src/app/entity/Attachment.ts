@@ -17,9 +17,7 @@ export class Attachment extends BaseEntity {
     @Column()
     data: string;
 
-    @Column({
-        nullable: true
-    })
-    citation_id: number;
-
+    @ManyToOne(type => Citation, citation => citation.attachments)
+    @JoinColumn({name: 'citation_id'})
+    citation: Citation;
 }

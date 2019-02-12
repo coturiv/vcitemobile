@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 
 import { ApiService } from 'src/app/services/api.service';
 import { Citation } from 'src/app/entity';
+import { CitationService } from 'src/app/services/citation.service';
 
 @Component({
   selector: 'app-citations',
@@ -13,16 +14,13 @@ import { Citation } from 'src/app/entity';
 export class CitationsPage implements OnInit {
   today = new Date();
 
-  citations: Observable<Citation[]>;
+  citations: Citation[];
 
-  constructor(private navCtrl: NavController, private apiService: ApiService) { }
+  constructor(private navCtrl: NavController, private citationService: CitationService) { }
 
-  ngOnInit() {
-    this.citations = this.apiService.get<Citation[]>('assets/data/citations.json');
-
-    this.citations.subscribe(res => {
-      console.log(res);
-    })
+  async ngOnInit() {
+    // this.citations = this.apiService.get<Citation[]>('assets/data/citations.json');
+    this.citations = await this.citationService.getCitations();
   }
 
   navigateTo(url: string) {

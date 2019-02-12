@@ -3,7 +3,7 @@ import { Platform } from '@ionic/angular';
 
 import { createConnection, ConnectionOptions, getConnection, Connection } from 'typeorm';
 
-import { EntityFactory } from '../entity';
+import { EntityFactory, VehColor } from '../entity';
 import { AssetsService } from './assets.service';
 
 @Injectable({
@@ -53,6 +53,9 @@ export class DbService {
 
             const vehMakes = await this.assetService.getVehMakes();
             await tem.save(vehMakes);
+
+            const violations = await this.assetService.getViolations();
+            await tem.save(violations);
             
             this.isFirstRun = true;
           });

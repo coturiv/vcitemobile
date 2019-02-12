@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 import { File } from '@ionic-native/file/ngx';
 import { FileTransfer, FileTransferObject, FileUploadResult } from '@ionic-native/file-transfer/ngx';
 import { json2xml } from 'xml-js';
+import * as vkbeautify from 'vkbeautify';
 import { getRepository } from 'typeorm';
 
-import { Citation } from '../entity';
+import { Citation, Violation } from '../entity';
 import { Attachment } from '../entity/Attachment';
 
 
@@ -55,9 +56,12 @@ export class CitationService {
     let citation = await this.getRepository().findOne(id) as Citation;
     if (!citation) {
       citation = new Citation();
+      citation.timestamp = String(Date.now());
     }
 
-    citation.attachments = await this.getRepository('attachment').find({citation_id: id}) as Attachment[];
+    //TODO: remove when typeorm-eager is fixed.
+    citation.attachments = await this.getRepository('attachment').find({citation: citation}) as Attachment[];
+    citation.violations  = await this.getRepository('violation').find({citation: citation}) as Violation[];
 
     return citation;
   }
@@ -69,7 +73,7 @@ export class CitationService {
    */
   async submitCitation(citation: Citation): Promise<any> {
 
-    const xmlCitation = this.objToXMLString(citation);
+    const xmlCitation = this.getXmlCitation(citation);
     if (xmlCitation) {
 
       const fileCitation = await this.writeXML(xmlCitation);
@@ -94,9 +98,9 @@ export class CitationService {
   }
   
   /**
-   * Convert obj to XML string
+   * Convert citation to XML string
    */
-  private objToXMLString(obj: any): string | void {
+  getXmlCitation(citation: Citation): string {
     const xmlObj = {};
     xmlObj['declaration'] = {
       attributes: {
@@ -105,21 +109,21 @@ export class CitationService {
       }
     };
 
-    obj = Object.assign({}, obj);
+    citation = Object.assign({}, citation);
 
-    delete obj['id'];
+    delete citation['id'];
     
     const elements = [];
-    for (let key in obj) {
+    for (let key in citation) {
       const ele = {};
       ele['type'] = 'element';
       ele['name'] = key;
 
-      // TODO: Replace Recursion & Standard function
-      if (key === 'attachments') {  // || 'violations'
+      // attachments
+      if (key === 'attachments') {
 
         const attachEls = [];
-        for (let attachment of obj['attachments']) {
+        for (let attachment of citation[key]) {
           attachEls.push({
             type: 'element',
             name: 'attachment',
@@ -137,12 +141,28 @@ export class CitationService {
         if (attachEls.length) {
           ele['elements'] = attachEls;
         }
+      
+      // violations
+      } else if (key === 'violations') {
+        const violationEls = [];
+        for (let violation of citation[key]) {
+          violationEls.push({
+            type: 'element',
+            name: 'violation',
+            attributes: {
+              violation_id: violation.violation_id,
+            }
+          });
+        }
 
+        if (violationEls.length) {
+          ele['elements'] = violationEls;
+        }
       } else {
 
         ele['elements'] = [{
           type: 'text',
-          text: obj[key]
+          text: citation[key]
         }];
       }
       
@@ -163,11 +183,12 @@ export class CitationService {
     }];
 
     try {
-      return json2xml(JSON.stringify(xmlObj));
+
+      return vkbeautify.xml(json2xml(JSON.stringify(xmlObj)));
 
     } catch (e) {
 
-      return;
+      return null;
 
     }
   }

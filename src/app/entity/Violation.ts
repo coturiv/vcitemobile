@@ -1,4 +1,5 @@
-import {Entity, PrimaryColumn, Column, BaseEntity} from 'typeorm';
+import { Entity, PrimaryColumn, Column, BaseEntity, ManyToOne, JoinColumn } from 'typeorm';
+import { Citation } from '../entity';
 
 @Entity("violation")
 export class Violation extends BaseEntity {
@@ -6,8 +7,13 @@ export class Violation extends BaseEntity {
     id: number;
     
     @Column()
-    abbreviation: string;
+    violation_id: string;
 
     @Column()
-    name: string;
+    description: string;
+
+    @ManyToOne(type => Citation, citation => citation.violations)
+    @JoinColumn({name: 'citation_id'})
+    citation: Citation;
+
 }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { ApiService } from './api.service';
-import { VehColor, VehState, VehMake } from '../entity';
+import { VehColor, VehState, VehMake, Violation } from '../entity';
 
 import { map } from 'rxjs/operators';
 
@@ -28,6 +28,12 @@ export class AssetsService {
   getVehMakes() {
     return this.apiService.get<VehMake[]>('assets/data/vehicle_makes.json').pipe(
       map(colors => colors.map(c => Object.assign(new VehMake(), c)))
+    ).toPromise();
+  }
+
+  getViolations() {
+    return this.apiService.get<Violation[]>('assets/data/violations.json').pipe(
+      map(colors => colors.map(c => Object.assign(new Violation(), c)))
     ).toPromise();
   }
 }

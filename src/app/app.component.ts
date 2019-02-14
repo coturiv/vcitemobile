@@ -51,13 +51,14 @@ export class AppComponent {
   ) {
     this.initializeApp();
 
-    this.dbService.initialize();
   }
-
+  
   initializeApp() {
-    this.platform.ready().then(() => {
+    this.platform.ready().then(async () => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+
+      await this.dbService.ready();
     });
 
     

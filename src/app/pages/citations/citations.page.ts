@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
-import { Observable } from 'rxjs';
 
-import { ApiService } from 'src/app/services/api.service';
 import { Citation } from 'src/app/entity';
 import { CitationService } from 'src/app/services/citation.service';
 
@@ -19,12 +17,19 @@ export class CitationsPage implements OnInit {
   constructor(private navCtrl: NavController, private citationService: CitationService) { }
 
   async ngOnInit() {
-    // this.citations = this.apiService.get<Citation[]>('assets/data/citations.json');
-    this.citations = await this.citationService.getCitations();
+    await this.loadData();
   }
 
   navigateTo(url: string) {
     this.navCtrl.navigateForward(url);
+  }
+
+  async loadData(event?: any) {
+    this.citations = await this.citationService.getCitations();
+    
+    if (event) {
+      event.target.complete();
+    }
   }
 
 }

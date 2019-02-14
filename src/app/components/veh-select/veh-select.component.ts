@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, forwardRef } from '@angular/core';
+import { Component, OnInit, Input, forwardRef, Output, EventEmitter } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { getRepository, Repository, BaseEntity as Entity } from 'typeorm';
 
@@ -24,6 +24,9 @@ export class VehSelectComponent implements OnInit, ControlValueAccessor {
   @Input()
   placeholder: string = 'Select';
 
+  @Output()
+  selectChange = new EventEmitter();
+
   list: any[];
 
   _value: any;
@@ -38,6 +41,13 @@ export class VehSelectComponent implements OnInit, ControlValueAccessor {
     this._value = value;
     this.onChange(value);
     this.onTouched();
+
+    const findCondition = {};
+    findCondition[this.valueField] = value;
+
+    getRepository(this.entityName).findOne(findCondition).then(selected => {
+      this.selectChange.emit(selected);
+    });
   }
 
   constructor() { }

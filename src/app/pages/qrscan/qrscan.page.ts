@@ -83,7 +83,7 @@ export class QrscanPage implements OnInit {
   async onContinue() {
     try {
       const citation = await this.citationService.getCitation(this.citation.id);
-      if (citation) {
+      if (citation.id) {
 
         // this.showMessage('Citation exists!', 'danger');
 

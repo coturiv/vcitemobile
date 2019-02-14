@@ -31,7 +31,7 @@ export class SettingsPage implements OnInit {
     }
 
     this.settingsForm = this.formBuilder.group({
-      custKey: [settings.custKey, Validators.compose([Validators.required])],
+      custKey: [{value: settings.custKey || '39', disabled: true}, Validators.compose([Validators.required])],
       userID : [settings.userID,  Validators.compose([Validators.required])],
       // hostURL: [settings.hostURL, Validators.compose([Validators.required])]
       hostURL: [{value: 'http://216.83.136.35/Velosum/', disabled: false}, Validators.compose([Validators.required])]

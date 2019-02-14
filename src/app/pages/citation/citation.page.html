@@ -28,7 +28,7 @@
 
       <ion-item>
         <ion-label>State of issuance</ion-label>
-        <veh-select [(ngModel)]="citation.vehicle_state" entity="vehstate"></veh-select>
+        <veh-select (selectChange)="citation.vehicle_state=$event" entity="vehstate"></veh-select>
       </ion-item>
 
       <ion-item>
@@ -48,12 +48,12 @@
 
       <ion-item>
         <ion-label>Color</ion-label>
-        <veh-select [(ngModel)]="citation.vehicle_color" entity="vehcolor"></veh-select>
+        <veh-select (selectChange)="citation.vehicle_color=$event" entity="vehcolor"></veh-select>
       </ion-item>
 
       <ion-item>
         <ion-label>Make</ion-label>
-        <veh-select [(ngModel)]="citation.vehicle_make" entity="vehmake"></veh-select>
+        <veh-select (selectChange)="citation.vehicle_make=$event"  entity="vehmake"></veh-select>
       </ion-item>
 
       <ion-item>

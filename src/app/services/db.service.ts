@@ -40,7 +40,6 @@ export class DbService {
   public async initialize() {
     try {
       const connection = await this.createConnection();
-      await connection.synchronize();
 
       if (!this.isFirstRun) {
         try {
@@ -97,6 +96,7 @@ export class DbService {
     // additional options
     Object.assign(dbOptions, {
       // logging: true,
+      synchronize:true,
       entities: EntityFactory.getAllEntities()
     });
 

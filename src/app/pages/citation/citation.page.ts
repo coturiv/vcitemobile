@@ -43,7 +43,15 @@ export class CitationPage implements OnInit, OnDestroy {
 
   async onSubmit() {
 
-    await this.citation.save();
+    try {
+
+      await this.citation.save();
+
+    } catch(e) {
+
+      console.log('Unable to save citation!', e);
+
+    }
 
     const confirm = await this.alertCtrl.create({
       header: 'Confirm',
@@ -56,16 +64,22 @@ export class CitationPage implements OnInit, OnDestroy {
         handler: async () => {
           const loading = await this.loadingCtrl.create();
           loading.present();
-          this.citationService.submitCitation(this.citation).then(success => {
+
+          try {
+            const success = await this.citationService.submitCitation(this.citation);
             loading.dismiss();
-      
+
             if (success) {
               this.showMessage(success.response);
             }
-          }, error => {
-            console.log('Submit fails!', error);
+          } catch (e) {
             loading.dismiss();
-          });
+            
+            console.log('Submit fails!', e);
+
+            this.showMessage(JSON.stringify(e));
+
+          }
         }
       }]
     });

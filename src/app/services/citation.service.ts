@@ -35,7 +35,7 @@ export class CitationService {
   fileTransfer: FileTransferObject;
   readonly entityName = 'citation';
 
-  constructor(private file: File, private transfer: FileTransfer, private webview: WebView, private platform: Platform) {
+  constructor(private file: File, private transfer: FileTransfer, private platform: Platform) {
 
     this.platform.ready().then(() => {
       this.fileTransfer = this.transfer.create();

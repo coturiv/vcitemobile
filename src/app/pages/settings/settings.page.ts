@@ -13,6 +13,8 @@ import { AuthService } from 'src/app/services/auth.service';
 export class SettingsPage implements OnInit {
   settingsForm: FormGroup;
 
+  curSegment: 'general' | 'database' = 'general';
+
   constructor(
     private formBuilder: FormBuilder,
     private navCtrl: NavController,
@@ -31,11 +33,15 @@ export class SettingsPage implements OnInit {
     }
 
     this.settingsForm = this.formBuilder.group({
-      custKey: [{value: settings.custKey || '39', disabled: true}, Validators.compose([Validators.required])],
+      custKey: [settings.custKey, Validators.compose([Validators.required])],
       userID : [settings.userID,  Validators.compose([Validators.required])],
       // hostURL: [settings.hostURL, Validators.compose([Validators.required])]
       hostURL: [{value: 'http://216.83.136.35/Velosum/', disabled: false}, Validators.compose([Validators.required])]
     });
+  }
+  
+  segmentChanged(ev: any) {
+    this.curSegment = ev.target.value;
   }
 
   async onSave() {

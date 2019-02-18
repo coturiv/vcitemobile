@@ -16,14 +16,19 @@
 <ion-content>
   <ng-container [ngSwitch]="curSegment">
     <!-- /Vehicle -->
-    <ion-list *ngSwitchCase="'vehicle'">
+    <ion-list *ngSwitchCase="'vehicle'" lines="full">
       <ion-list-header color="medium">
         <ion-label>Vehicle Information</ion-label>
       </ion-list-header>
 
       <ion-item>
-        <ion-label>License plate #</ion-label>
-        <ion-input slot="end" [(ngModel)]="citation.vehicle_license"></ion-input>
+        <ion-label>Plate Type</ion-label>
+        <veh-select [(ngModel)]="citation.type" entity="vehcolor"></veh-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>License Plate #</ion-label>
+        <ion-input text-end text-uppercase [(ngModel)]="citation.vehicle_license"></ion-input>
       </ion-item>
 
       <ion-item>
@@ -32,18 +37,13 @@
       </ion-item>
 
       <ion-item>
-        <ion-label>Other State</ion-label>
-        <ion-input slot="end"></ion-input>
-      </ion-item>
-
-      <ion-item>
         <ion-label>Expiration Date</ion-label>
-        <ion-datetime [(ngModel)]="citation.expiration_date" display-format="MMM DD, YYYY HH:mm"></ion-datetime>
+        <ion-datetime [(ngModel)]="citation.expiration_date" display-format="MMM, YYYY"></ion-datetime>
       </ion-item>
 
       <ion-item>
         <ion-label>VIN</ion-label>
-        <ion-input slot="end" [(ngModel)]="citation.vehicle_vin"></ion-input>
+        <ion-input text-end text-uppercase [(ngModel)]="citation.vehicle_vin"></ion-input>
       </ion-item>
 
       <ion-item>
@@ -56,53 +56,59 @@
         <veh-select (selectChange)="citation.vehicle_make=$event"  entity="vehmake"></veh-select>
       </ion-item>
 
-      <ion-item>
-        <ion-label>Type</ion-label>
-        <ion-input slot="end" [(ngModel)]="citation.vehicle_type"></ion-input>
-        <!-- <veh-select [(ngModel)]="citation.type" entity="vehcolor"></veh-select> -->
-      </ion-item>
-
     </ion-list>
 
     <!-- /Violation -->
-    <ion-list *ngSwitchCase="'violation'">
+    <ion-list *ngSwitchCase="'violation'" lines="full">
       <ion-list-header color="medium">
         <ion-label>Violation Details</ion-label>
       </ion-list-header>
 
       <ion-item>
         <ion-label>Location</ion-label>
-        <ion-input slot="end" [(ngModel)]="citation.location" ></ion-input>
+        <veh-location slot="end"></veh-location>
+        <!-- <ion-input text-end [(ngModel)]="citation.location" ></ion-input> -->
+        <!-- <ion-icon slot="end" color="medium" small name="search"></ion-icon> -->
       </ion-item>
 
       <ion-item>
-        <ion-label>Remarks</ion-label>
-        <ion-textarea slot="end" [(ngModel)]="citation.remarks"></ion-textarea>
+        <ion-label position="stacked">Remarks</ion-label>
+        <ion-textarea [(ngModel)]="citation.remarks"></ion-textarea>
       </ion-item>
 
-      <ion-item-divider margin-top>
+      <ion-item>
+        <ion-label>Void</ion-label>
+        <ion-toggle [(ngModel)]="citation.void" color="secondary"></ion-toggle>
+      </ion-item>
+
+      <ion-item-divider mode="md">
         <ion-label>
           Violations
         </ion-label>
 
         <ion-buttons slot="end">
           <ion-button (click)="editViolations()">
-            <ion-icon name="create" slot="end"></ion-icon>
+            <ion-icon [name]="citation.violations?.length ? 'create': 'add'" color="medium"></ion-icon>
           </ion-button>
         </ion-buttons>
       </ion-item-divider>
       <ion-item *ngFor="let violation of citation.violations">
-        <ion-label>{{violation.description}}</ion-label>
+        <ion-label color="dark" class="opacity-8" text-end>{{violation.description}}</ion-label>
       </ion-item>
 
-      <ion-item-divider margin-top>
+      <ion-item-divider mode="md" margin-top>
         <ion-label>
-          Other Violation
+          Comments
         </ion-label>
+
+        <ion-buttons slot="end">
+          <ion-button (click)="editViolations()">
+            <ion-icon [name]="citation.violations?.length ? 'create': 'add'" color="medium"></ion-icon>
+          </ion-button>
+        </ion-buttons>
       </ion-item-divider>
       <ion-item>
-        <ion-label>Description</ion-label>
-        <ion-input slot="end"></ion-input>
+        <ion-label>{{'Hi'}}</ion-label>
       </ion-item>
     </ion-list>
 
@@ -115,7 +121,7 @@
       <ion-card *ngFor="let attachment of citation.attachments">
         <ion-item lines="full" [detail]="false">
           <ion-label>{{attachment.name}}</ion-label>
-          <ion-note color="primary" slot="end" text-uppercase>{{attachment.type}}</ion-note>
+          <ion-note color="primary" text-end text-uppercase>{{attachment.type}}</ion-note>
         </ion-item>
 
         <ion-card-content>
@@ -139,10 +145,9 @@
       </ion-list-header>
 
       <ion-card class="xml-card">
-        <ion-item lines="none">
-          <ion-icon name="code-download" slot="end" (click)="regenerateXmlCitation()"></ion-icon>
+        <ion-card-subtitle>
           <ion-label>Review Citation</ion-label>
-        </ion-item>
+        </ion-card-subtitle>
 
         <ion-card-content>
           <!-- https://github.com/ionic-team/ionic/issues/15256 -->

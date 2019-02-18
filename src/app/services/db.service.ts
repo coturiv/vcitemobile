@@ -27,7 +27,7 @@ export class DbService {
       await getConnection();
 
     } catch(ex) {
-      console.log('Connection not initialized.', ex);
+      // console.log('Connection not initialized.', ex);
 
       await this.initialize();
 

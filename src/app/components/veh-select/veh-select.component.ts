@@ -24,6 +24,9 @@ export class VehSelectComponent implements OnInit, ControlValueAccessor {
   @Input()
   placeholder: string = 'Select';
 
+  @Input()
+  default: any;
+
   @Output()
   selectChange = new EventEmitter();
 
@@ -61,6 +64,10 @@ export class VehSelectComponent implements OnInit, ControlValueAccessor {
     const repository: Repository<Entity> = getRepository(this.entityName);
     if (repository) {
       this.list = await repository.find({cache: true});
+    }
+
+    if (this.default) {
+      this.value = this.default[this.valueField];
     }
   }
 

@@ -1,5 +1,25 @@
-.welcome-card ion-img {
-    max-height: 35vh;
-    overflow: hidden;
+:host {
+  ion-text {
+    .ct-sn {
+      font-size: smaller;
+      color: var(--ion-color-dark);
+    }
+  }
+  ion-text p {
+    padding: 2px 0;
   }
   
+  ion-item-sliding .sliding-snip {
+    width: 2px;
+    height: 50%;
+    position: absolute;
+    float: right;
+    right: 0;
+    background: var(--ion-color-medium);
+    border-radius: 5px 0 0 5px;
+  }
+
+  ion-item-sliding.item-sliding-active-slide .sliding-snip {
+    display: none;
+  }
+}  

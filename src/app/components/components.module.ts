@@ -6,12 +6,16 @@ import { IonicModule } from '@ionic/angular';
 import { ShowHideContainer } from './show-hide-container';
 import { ShowHideInput } from './show-hide-input';
 import { VehSelectComponent } from './veh-select/veh-select.component';
+import { VehLocationComponent } from './veh-location/veh-location.component';
+import { VehLocationModal } from './veh-location/veh-location.modal';
 
 @NgModule({
   declarations: [
     ShowHideContainer, 
     ShowHideInput, 
-    VehSelectComponent
+    VehSelectComponent, 
+    VehLocationComponent,
+    VehLocationModal
   ],
   imports: [
     CommonModule,
@@ -19,10 +23,14 @@ import { VehSelectComponent } from './veh-select/veh-select.component';
     ReactiveFormsModule,
     IonicModule.forRoot()
   ],
+  entryComponents: [
+    VehLocationModal
+  ],
   exports: [
     ShowHideContainer, 
     ShowHideInput,
-    VehSelectComponent
+    VehSelectComponent,
+    VehLocationComponent,
   ]
 })
 export class ComponentsModule { }

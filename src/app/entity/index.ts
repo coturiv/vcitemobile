@@ -1,6 +1,7 @@
 import { Attachment } from './Attachment';
 import { AttachmentType } from './AttachmentType';
 import { Citation } from './Citation';
+import { PlateType } from './PlateType';
 import { VehColor } from './VehColor';
 import { VehMake } from './VehMake';
 import { VehState } from './VehState';
@@ -13,6 +14,7 @@ export class EntityFactory {
             Attachment,
             AttachmentType,
             Citation,
+            PlateType,
             VehColor,
             VehMake,
             VehState,
@@ -27,6 +29,7 @@ export class EntityFactory {
 
 export {
     Citation,
+    PlateType,
     VehColor,
     VehMake,
     VehState,

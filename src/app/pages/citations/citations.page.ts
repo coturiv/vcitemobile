@@ -31,5 +31,9 @@ export class CitationsPage implements OnInit {
       event.target.complete();
     }
   }
+  
+  async deleteCitation(citation: Citation) {
+    await citation.remove();
+  }
 
 }

@@ -47,4 +47,29 @@
         position: fixed;
         bottom: 60px;
     }
+
+    ion-item {
+        --min-height: 54px;
+
+        ion-label {
+            --color: var(--ion-color-medium);
+            font-size: smaller;
+        }
+
+        ion-input, ion-datetime, ion-textarea, veh-select, veh-location {
+            opacity: .8;
+        };
+
+        veh-location {
+            margin-right: 0;
+        }
+    }
+
+    ion-item-divider {
+        min-height: 54px;
+    }
+
+    .opacity-8 {
+        opacity: .8;
+    }
 }

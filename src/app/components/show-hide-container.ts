@@ -17,6 +17,7 @@ import { ShowHideInput } from './show-hide-input'
       margin-top: -36px;
       padding-bottom: 12px;
       float: right;
+      color: var(--theme-blue) !important;
     }
   `],
   encapsulation: ViewEncapsulation.None

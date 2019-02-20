@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { Citation, Violation } from 'src/app/entity';
+import { Citation, Violation } from 'src/app/entities';
 import { getRepository } from 'typeorm';
 
 @Component({

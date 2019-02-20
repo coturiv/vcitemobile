@@ -1,9 +1,41 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>veh-location</ion-title>
+  <ion-toolbar color="primary">
+
+    <ion-buttons slot="start">
+      <ion-button (click)="close()">
+        <ion-icon name="close" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-title>Select Location</ion-title>
+  </ion-toolbar>
+  <ion-toolbar color="primary">
+    <ion-searchbar (ionChange)="search($event)" debounce="500" placeholder="Search Street" animated></ion-searchbar>
+    <ion-buttons slot="end" *ngIf="searchbar.value && !streets.length">
+      <ion-button (click)="create()">
+        Create
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
-
+<ion-content>
+  <ion-list lines="full">
+    <ion-item button *ngFor="let street of streets" (click)="itemSelected(street)">
+      <ion-label>{{street.street}}</ion-label>
+    </ion-item>
+  </ion-list>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar color="medium" *ngIf="selected">
+    <ion-item lines="none">
+      <ion-label>{{selected.street}}</ion-label>
+      <ion-select interface="action-sheet" [interfaceOptions]="{header: 'Select Unit'}" placeholder="Select Unit">
+        <ion-select-option *ngFor="let street of streetUnits" [value]="street.id">
+          {{street.unit || 'Unknown'}}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-toolbar>
+</ion-footer>

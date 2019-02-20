@@ -8,7 +8,7 @@
   <form [formGroup]="loginForm" class="login-form" margin-top padding>
 
     <div class="logo">
-      <img src="assets/imgs/vCiteMobile-logo.jpg">
+      <img src="assets/imgs/vCiteMobile-logo.png">
     </div>
 
     <ion-list>
@@ -22,12 +22,12 @@
           <ion-input formControlName="passWord" type="password" placeholder="Password" class="show-hide-input" show-hide-input></ion-input>
         </ion-item>
       </show-hide-container>
-      <ion-item>
+      <!-- <ion-item>
         <ion-icon name="disc" slot="start" color="primary"></ion-icon>
         <ion-input formControlName="custKey" type="text" placeholder="Customer ID"></ion-input>
-      </ion-item>
+      </ion-item> -->
     </ion-list>
 
-    <ion-button (click)="onLogin()" type="submit" expand="full" class="button-submit">Login</ion-button>
+    <ion-button (click)="onLogin()" type="submit" expand="full" color="secondary" class="button-submit">Login</ion-button>
   </form>
 </ion-content>

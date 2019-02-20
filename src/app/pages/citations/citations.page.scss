@@ -22,4 +22,9 @@
   ion-item-sliding.item-sliding-active-slide .sliding-snip {
     display: none;
   }
+
+  ion-refresher {
+    --color: var(--theme-orange);
+    --ion-text-color: var(--theme-orange);
+  }
 }  

@@ -53,20 +53,13 @@ export class AppComponent {
 
   }
   
-  initializeApp() {
+  async initializeApp() {
     this.platform.ready().then(async () => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-
+      
       await this.dbService.ready();
     });
-
-    
-    const appConfig = this.settingsService.getSettings();
-    
-    if (!appConfig) {
-      this.navCtrl.navigateForward('/settings');
-    }
     
     this.isLoggedIn = !!this.authService.loginInfo;
 

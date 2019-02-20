@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Attachment } from 'src/app/entity/Attachment';
-import { Citation } from 'src/app/entity';
+import { Attachment } from 'src/app/entities/Attachment';
+import { Citation } from 'src/app/entities';
 
 @Component({
   selector: 'app-attachment',

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { ToastController, NavController, AlertController } from '@ionic/angular';
 
-import { Citation } from 'src/app/entity/Citation';
+import { Citation } from 'src/app/entities/Citation';
 import { CitationService } from 'src/app/services/citation.service';
 
 
@@ -22,7 +22,7 @@ export class QrscanPage implements OnInit {
   
   scanResult: ScanResult;
 
-  citation: Citation = new Citation();
+  citation: Citation;
 
   constructor(
     private barcodeScanner: BarcodeScanner, 
@@ -32,7 +32,8 @@ export class QrscanPage implements OnInit {
     private citationService: CitationService
   ) { }
 
-  ngOnInit() {
+  async ngOnInit() {
+    this.citation = await this.citationService.getDefaultCitation();
   }
 
   async onScan() {
@@ -41,8 +42,6 @@ export class QrscanPage implements OnInit {
       this.scanResult = {};
       
       const barcode = await this.barcodeScanner.scan();
-
-      console.log('Barcode: ', barcode);
 
       this.scanResult.data = barcode.text;
 

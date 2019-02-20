@@ -19,3 +19,19 @@ ion-label.required:after {
 ion-list.list-md {
     padding-top: 0 !important;
 }
+
+:root {
+    ion-toolbar, ion-segment, ion-button, ion-fab-button, ion-toggle, ion-checkbox {
+        --ion-color-primary: var(--theme-blue-gradient) !important;
+        --ion-color-secondary: var(--theme-orange-gradient) !important;
+        --background-activated: var(--theme-blue-gradient-shade) !important;
+    }
+
+    ion-icon {
+        --ion-color-primary: var(--theme-blue) !important;
+    }
+
+    ion-spinner {
+        --spinner-color: var(--theme-orange);
+    }
+}

@@ -5,6 +5,14 @@
 
     ion-segment {
         margin-top: 10%;
+
+        --ion-color-base: var(--theme-orange) !important;
+        
+        ion-segment-button {
+            ion-label {
+                padding: 8px 0;
+            }
+        }
     }
 
     ion-item {
@@ -21,10 +29,5 @@
             margin-right: 0;
         }
     }
-
-    ion-segment-button {
-        ion-label {
-            padding: 8px 0;
-        }
-    }
+    
 }

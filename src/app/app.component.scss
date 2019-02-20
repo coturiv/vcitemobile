@@ -1,5 +1,33 @@
-:root {
-    ion-list.list-md {
-        padding-top: 0 !important;
+:host {
+    ion-menu {
+        --ion-background-color: var(--theme-blue-gradient);
+        --ion-text-color: var(--ion-color-primary-contrast);
+        
+        ion-toolbar {
+            --background: var(--theme-blue-gradient);
+        }
+
+        .menu-logo {
+            ion-img {
+                width: 84px !important;
+                height: 84px !important;
+                margin: 44px auto !important;
+            }
+        }
+        
+        ion-list {/* optional, but it needs when you use gradient as a background color.*/
+            background: transparent;
+
+            ion-item {
+				color: var(--ion-color-light);
+				border-bottom: solid 1px rgba(224, 224, 224, 0.15);
+                --inner-border-width: 0 !important;
+            }
+            
+            ion-item.activated {
+                background: transparent !important;
+            }
+        }
     }
+
 }

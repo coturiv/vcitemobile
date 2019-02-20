@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 
-import { Citation } from 'src/app/entity';
+import { Citation } from 'src/app/entities';
 import { CitationService } from 'src/app/services/citation.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-citations',
@@ -14,9 +15,13 @@ export class CitationsPage implements OnInit {
 
   citations: Citation[];
 
-  constructor(private navCtrl: NavController, private citationService: CitationService) { }
+  constructor(private navCtrl: NavController, private citationService: CitationService, private authService: AuthService) { }
 
   async ngOnInit() {
+    if (!this.authService.loginInfo) {
+      this.navCtrl.navigateRoot('login');
+    }
+
     await this.loadData();
   }
 

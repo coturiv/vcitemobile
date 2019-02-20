@@ -26,12 +26,12 @@ export class LoginPage implements OnInit {
   }
 
   ngOnInit() {
-    const {userID, custKey} = this.settingsService.getSettings();
+    // const {userID, custKey} = this.settingsService.getSettings();
 
     this.loginForm = this.formBuilder.group({
-      userName: [userID, Validators.compose([Validators.required])],
+      userName: ['', Validators.compose([Validators.required])],
       passWord: ['', Validators.compose([Validators.minLength(1), Validators.maxLength(50), Validators.required])],
-      custKey: [custKey, Validators.compose([Validators.required])]
+      // custKey:  ['', Validators.compose([Validators.required])]
     });
 
   }
@@ -60,7 +60,7 @@ export class LoginPage implements OnInit {
 
         // TODO: remove me when CORS issue is resolved in the rest api.
         const strCredentials = JSON.stringify(credential);
-        if (strError.includes('LOGIN SUCCESS') || (strCredentials.includes('LynnTest') && strCredentials.includes('39') && strCredentials.includes('1234'))) {
+        if (strError.includes('LOGIN SUCCESS') || (strCredentials.includes('LynnTest') && strCredentials.includes('1234'))) {
 
           this.showMessage('Logged in successfully', 'secondary');
           this.authService.loginInfo = credential;

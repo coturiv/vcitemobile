@@ -3,10 +3,10 @@ import { File } from '@ionic-native/file/ngx';
 import { FileTransfer, FileTransferObject, FileUploadResult } from '@ionic-native/file-transfer/ngx';
 import { json2xml } from 'xml-js';
 import * as vkbeautify from 'vkbeautify';
-import { getRepository } from 'typeorm';
+import { getRepository, Not } from 'typeorm';
 
-import { Citation, Violation } from '../entity';
-import { Attachment } from '../entity/Attachment';
+import { Citation, Violation, VehState, VehColor, VehMake } from '../entities';
+import { Attachment } from '../entities/Attachment';
 import { Platform } from '@ionic/angular';
 
 
@@ -27,6 +27,7 @@ const citationFieldIds = {
   'remarks': 'Remarks',
 };
 
+const DEFAULT_ID = -1;
 
 @Injectable({
   providedIn: 'root'
@@ -50,7 +51,12 @@ export class CitationService {
    * get citations
    */
   async getCitations() {
-    return await this.getRepository().find() as Citation[];
+    return await this.getRepository().find({
+      where: {
+        id: Not(DEFAULT_ID)
+        // id: DEFAULT_ID
+      }
+    }) as Citation[];
   }
 
   /**
@@ -59,13 +65,39 @@ export class CitationService {
   async getCitation(id: number) {
     let citation = await this.getRepository().findOne(id) as Citation;
     if (!citation) {
-      citation = new Citation();
+      citation = await this.getDefaultCitation();
+      citation.id = id;
       citation.timestamp = String(Date.now());
     }
 
     //TODO: remove when typeorm-eager is fixed.
     citation.attachments = await this.getRepository('attachment').find({ citation: citation }) as Attachment[];
     citation.violations = await this.getRepository('violation').find({ citation: citation }) as Violation[];
+
+    return citation;
+  }
+
+  async getDefaultCitation() {
+
+    let citation = await this.getRepository().findOne(DEFAULT_ID) as Citation;
+    if (!citation) {
+
+      citation = new Citation();
+      citation.id = -1;
+      
+      // delay
+      const delay = async (ms: number) => {
+        return new Promise( resolve => setTimeout(resolve, ms) );
+      }
+      
+      await delay(500);
+
+      citation.vehicle_state = await this.getRepository('vehstate').findOne() as VehState;
+      citation.vehicle_color = await this.getRepository('vehcolor').findOne() as VehColor;
+      citation.vehicle_make  = await this.getRepository('vehmake').findOne() as VehMake;
+
+      await citation.save();
+    }
 
     return citation;
   }
@@ -160,6 +192,11 @@ export class CitationService {
           text: citation[key]['abbreviation']
         }];
 
+      } else if (key === 'location') {
+        ele['elements'] = [{
+          type: 'text',
+          text: `${citation[key]['street']}, ${citation[key]['unit']}`
+        }];
       } else {
         ele['elements'] = [{
           type: 'text',

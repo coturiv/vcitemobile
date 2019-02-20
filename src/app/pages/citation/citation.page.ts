@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ModalController, AlertController, LoadingController } from '@ionic/angular';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 
-import { Citation } from 'src/app/entity';
+import { Citation } from 'src/app/entities';
 import { CitationService } from 'src/app/services/citation.service';
 import { AttachmentModal } from './attatchment/attachment.modal';
 import { ViolationModal } from './violation/violation.modal';
@@ -16,7 +16,7 @@ import { ViolationModal } from './violation/violation.modal';
 })
 export class CitationPage implements OnInit, OnDestroy {
 
-  curSegment: 'vehicle' | 'violation' | 'photos' | 'review' = 'vehicle';
+  curSegment: 'vehicle' | 'violation' | 'photos' | 'review' = 'review';
 
   citation: Citation = new Citation();
   xmlCitation: string;

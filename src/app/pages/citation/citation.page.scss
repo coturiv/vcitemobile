@@ -11,7 +11,7 @@
             color: var(--ion-color-primary) !important;
         }
 
-        color: var(--ion-color-medium) !important;
+        // color: var(--ion-color-light) !important;
         --color-checked: var(--ion-color-primary) !important;
         --border-width: 0 !important;
 
@@ -29,27 +29,14 @@
         height: 100%;
     }
 
-    ion-card.xml-card{
-        ion-card-content {
-            overflow-x: auto;
-            max-height: 320px;
-            background: #f0f8ff;
-
-            & > .xml-content {
-                white-space: pre;
-                background: var(--ion-color-step-300);
-                font-size: 14px;
-            }
-        }
-    }
-
+    /** Attachment button **/
     ion-fab {
         position: fixed;
         bottom: 60px;
     }
 
     ion-item {
-        --min-height: 54px;
+        // --min-height: 54px;
 
         ion-label {
             --color: var(--ion-color-medium);
@@ -67,9 +54,39 @@
 
     ion-item-divider {
         min-height: 54px;
+
+        ion-button {
+            --ion-color-secondary: var(--theme-orange) !important;
+            --background-activated: transparent !important;
+        }
     }
 
     .opacity-8 {
         opacity: .8;
+    }
+
+    ion-grid {
+        ion-col {
+            border-color: var(--ion-color-medium) !important;
+            border-style: solid !important;
+            border-width:  0.55px 0px 0px 0.55px !important;
+        
+            &:last-child {
+                border-width:  0.55px 0.55px 0px 0.55px !important;
+            }
+        }
+
+        ion-row:last-child {
+            ion-col {
+                border-width:  0.55px 0px 0.55px 0.55px !important;
+                
+                &:last-child {
+                    border-width:  0.55px 0.55px 0.55px 0.55px !important;
+                }
+            }
+
+        }
+
+        --ion-grid-column-padding: 10px;
     }
 }

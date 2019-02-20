@@ -10,12 +10,21 @@
 
 <ion-content>
 
-  <!-- scan button -->
-  <ion-fab vertical="top" horizontal="center" slot="fixed">
-    <ion-fab-button (click)="onScan()" color="secondary">
+  <!-- <ion-fab vertical="top" horizontal="center" slot="fixed">
+    <ion-fab-button color="secondary">
       <ion-icon name="qr-scanner"></ion-icon>
     </ion-fab-button>
-  </ion-fab>
+  </ion-fab> -->
+  
+  <!-- scan button -->
+  <div class="qr-button-container" text-center>
+    <ion-button (click)="onScan()" color="secondary" class="btn-scan">
+      <ion-icon name="qr-scanner"></ion-icon>
+    </ion-button>
+    <ion-text>
+      <h5>Scan QR Code Now</h5>
+    </ion-text>
+  </div>
 
   <!-- scan result -> 'success' -->
   <ion-card *ngIf="scanResult?.status == 'success'" class="citation-info">

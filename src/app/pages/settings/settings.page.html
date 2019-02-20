@@ -17,7 +17,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-segment [(ngModel)]="curSegment" color="primary" mode="ios" (ionChange)="segmentChanged($event)">
+  <ion-segment [(ngModel)]="curSegment" color="secondary" mode="ios" (ionChange)="segmentChanged($event)">
     <ion-segment-button value="general">
       <ion-label>General</ion-label>
     </ion-segment-button>
@@ -74,17 +74,17 @@
 
       <ion-item>
         <ion-label>Vehicle State</ion-label>
-        <veh-select entity="vehstate"></veh-select>
+        <veh-select [default]="citation?.vehicle_state" entity="vehstate"></veh-select>
       </ion-item>
 
       <ion-item>
         <ion-label>Vehicle Color</ion-label>
-        <veh-select entity="vehcolor"></veh-select>
+        <veh-select [default]="citation?.vehicle_color" entity="vehcolor"></veh-select>
       </ion-item>
 
       <ion-item>
         <ion-label>Vehicle Make</ion-label>
-        <veh-select entity="vehmake"></veh-select>
+        <veh-select [default]="citation?.vehicle_make" entity="vehmake"></veh-select>
       </ion-item>
 
       <ion-item>

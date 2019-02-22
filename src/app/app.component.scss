@@ -22,6 +22,10 @@
 				color: var(--ion-color-light);
 				border-bottom: solid 1px rgba(224, 224, 224, 0.15);
                 --inner-border-width: 0 !important;
+
+                ion-icon {
+                    color: var(--ion-color-light);
+                }
             }
             
             ion-item.activated {

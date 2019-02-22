@@ -8,6 +8,7 @@ import { ShowHideInput } from './show-hide-input';
 import { VehSelectComponent } from './veh-select/veh-select.component';
 import { VehLocationComponent } from './veh-location/veh-location.component';
 import { VehLocationModal } from './veh-location/veh-location.modal';
+import { AutoSizeDirective } from './auto-size.directive';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { VehLocationModal } from './veh-location/veh-location.modal';
     ShowHideInput, 
     VehSelectComponent, 
     VehLocationComponent,
-    VehLocationModal
+    VehLocationModal,
+    AutoSizeDirective
   ],
   imports: [
     CommonModule,
@@ -31,6 +33,7 @@ import { VehLocationModal } from './veh-location/veh-location.modal';
     ShowHideInput,
     VehSelectComponent,
     VehLocationComponent,
+    AutoSizeDirective
   ]
 })
 export class ComponentsModule { }

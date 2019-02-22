@@ -1,13 +1,14 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { ModalController, AlertController, LoadingController } from '@ionic/angular';
+import { ModalController, LoadingController } from '@ionic/angular';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 
 import { Citation } from 'src/app/entities';
 import { CitationService } from 'src/app/services/citation.service';
 import { AttachmentModal } from './attatchment/attachment.modal';
 import { ViolationModal } from './violation/violation.modal';
+import { CommonService } from 'src/app/services/common.service';
 
 @Component({
   selector: 'app-citation',
@@ -19,15 +20,15 @@ export class CitationPage implements OnInit, OnDestroy {
   curSegment: 'vehicle' | 'violation' | 'photos' | 'review' = 'review';
 
   citation: Citation = new Citation();
-  xmlCitation: string;
+  textEmptyAttachs: string = 'For best results, rotate your phone to a landscape position is if it were a regular camera.';
 
   constructor(
     private route: ActivatedRoute,
     private camera: Camera,
     private modalCtrl: ModalController,
     private loadingCtrl: LoadingController,
-    private alertCtrl: AlertController,
     private citationService: CitationService,
+    private commonService: CommonService
   ) { }
 
   async ngOnInit() {
@@ -53,41 +54,33 @@ export class CitationPage implements OnInit, OnDestroy {
 
     }
 
-    const confirm = await this.alertCtrl.create({
-      header: 'Confirm',
-      message: 'All changes have been saved to the persist storage. Do you want to upload now?',
-      buttons: [{
-        text: 'No',
-        role: 'cancel'
-      }, {
-        text: 'Yes',
-        handler: async () => {
-          const loading = await this.loadingCtrl.create();
-          loading.present();
+    this.commonService.showConfirm('All changes have been saved to your device storage. Do you want to upload now?', 'Confirm', async () => {
+      const loading = await this.loadingCtrl.create();
+      loading.present();
 
-          try {
-            const success = await this.citationService.submitCitation(this.citation);
-            loading.dismiss();
+      try {
+        const success = await this.citationService.submitCitation(this.citation);
+        loading.dismiss();
 
-            if (success) {
-              this.showMessage(success.response);
-            }
-          } catch (e) {
-            loading.dismiss();
-            
-            console.log('Submit fails!', e);
-
-            this.showMessage(JSON.stringify(e));
-
-          }
+        if (success) {
+          this.commonService.showAlert(success.response, 'Success');
         }
-      }]
+      } catch (e) {
+        loading.dismiss();
+        
+        console.log('Submit fails!', e);
+
+        this.commonService.showAlert(JSON.stringify(e), 'Error');
+      }
     });
-    await confirm.present();
+  }
+
+  inputToUppercase(event: any) {
+    event.target.value = (event.target.value as string).toUpperCase();
   }
 
   /**
-   * edit violations
+   * create/edit violation(s)
    */
   async editViolations() {
     const modal = await this.modalCtrl.create({
@@ -126,18 +119,6 @@ export class CitationPage implements OnInit, OnDestroy {
         this.citation.attachments.push(data);
       }
     }
-  }
-
-  regenerateXmlCitation() {
-    this.xmlCitation = this.citationService.getXmlCitation(this.citation);
-  }
-
-  private async showMessage(message: string) {
-    const alert = await this.alertCtrl.create({
-      message: message,
-      buttons: ['OK']
-    });
-    alert.present();
   }
 
   /**

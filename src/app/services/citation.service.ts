@@ -5,8 +5,7 @@ import { json2xml } from 'xml-js';
 import * as vkbeautify from 'vkbeautify';
 import { getRepository, Not } from 'typeorm';
 
-import { Citation, Violation, VehState, VehColor, VehMake } from '../entities';
-import { Attachment } from '../entities/Attachment';
+import { Citation, Violation, VehState, VehColor, VehMake, Attachment } from '../entities';
 import { Platform } from '@ionic/angular';
 
 
@@ -53,8 +52,8 @@ export class CitationService {
   async getCitations() {
     return await this.getRepository().find({
       where: {
-        id: Not(DEFAULT_ID)
-        // id: DEFAULT_ID
+        // id: Not(DEFAULT_ID)
+        id: DEFAULT_ID
       }
     }) as Citation[];
   }
@@ -84,13 +83,6 @@ export class CitationService {
 
       citation = new Citation();
       citation.id = -1;
-      
-      // delay
-      const delay = async (ms: number) => {
-        return new Promise( resolve => setTimeout(resolve, ms) );
-      }
-      
-      await delay(500);
 
       citation.vehicle_state = await this.getRepository('vehstate').findOne() as VehState;
       citation.vehicle_color = await this.getRepository('vehcolor').findOne() as VehColor;
@@ -193,10 +185,10 @@ export class CitationService {
         }];
 
       } else if (key === 'location') {
-        ele['elements'] = [{
-          type: 'text',
-          text: `${citation[key]['street']}, ${citation[key]['unit']}`
-        }];
+        // ele['elements'] = [{
+        //   type: 'text',
+        //   text: `${citation[key]['street']}, ${citation[key]['unit']}`
+        // }];
       } else {
         ele['elements'] = [{
           type: 'text',

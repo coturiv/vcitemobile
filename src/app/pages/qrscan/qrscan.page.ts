@@ -61,6 +61,8 @@ export class QrscanPage implements OnInit {
         return;
       }
 
+      console.log(this.citation);
+
       const {cid, sn} = this.parseParams(this.scanResult.data);
       this.citation.id = cid;
       this.citation.custKey = cid;

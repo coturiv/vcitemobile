@@ -6,6 +6,7 @@ import { AssetsService } from './assets.service';
 import { AuthService } from './auth.service';
 import { SettingsService } from './settings.service';
 import { DbService } from './db.service';
+import { CommonService } from './common.service';
 
 @NgModule({
   declarations: [],
@@ -14,6 +15,7 @@ import { DbService } from './db.service';
   ],
   providers: [
     ApiService,
+    CommonService,
     AssetsService,
     AuthService,
     SettingsService,

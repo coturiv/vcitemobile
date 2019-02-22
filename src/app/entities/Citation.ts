@@ -107,6 +107,13 @@ export class Citation extends BaseEntity {
     })
     warning: boolean;
     
+    // COMMENTS
+    @Column({
+        type: "varchar",
+        length: 250
+    })
+    comments: string;
+    
     // TIMESTAMP
     @Column({
         nullable: true
@@ -140,4 +147,20 @@ export class Citation extends BaseEntity {
     // Attachments
     @OneToMany(type => Attachment, attachment => attachment.citation, {eager: true, cascade: true})
     attachments: Attachment[];
+
+    // local property(none-submit prop)
+    @Column()
+    is_submitted: boolean = false;
+
+    // local property(none-submit prop)
+    @Column({
+        nullable: true
+    })
+    icon: string;
+
+    // local property(none-submit prop)
+    @Column({
+        nullable: true
+    })
+    icon_color: string;
 }

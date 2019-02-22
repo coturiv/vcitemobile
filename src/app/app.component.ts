@@ -20,11 +20,11 @@ export class AppComponent {
     {
       title: 'Citations',
       url: '/citations',
-      icon: 'home'
+      icon: 'list-box'
     }, {
-      title: 'Settings',
-      url: '/settings',
-      icon: 'settings'
+      title: 'vChalk',
+      url: '/reference',
+      icon: 'clock'
     }, {
       title: 'Reference',
       url: '/reference',
@@ -33,6 +33,10 @@ export class AppComponent {
       title: 'About',
       url: '/about',
       icon: 'information-circle'
+    }, {
+      title: 'Settings',
+      url: '/settings',
+      icon: 'settings'
     }
   ];
 

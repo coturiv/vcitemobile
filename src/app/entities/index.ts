@@ -30,6 +30,8 @@ export class EntityFactory {
 }
 
 export {
+    Attachment,
+    AttachmentType,
     Citation,
     PlateType,
     Location,

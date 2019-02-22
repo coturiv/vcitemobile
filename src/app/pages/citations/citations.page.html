@@ -24,8 +24,8 @@
     <ion-list-header color="medium">
       <ion-label>{{today | date}}</ion-label>
     </ion-list-header>
-    <ion-item-sliding button detail="false" *ngFor="let citation of citations" (click)="navigateTo('/citation/' + citation.id)">
-      <ion-item>
+    <ion-item-sliding detail="false" *ngFor="let citation of citations">
+      <ion-item (click)="navigateTo('/citation/' + citation.id)">
         <ion-label>
           <ion-text color="dark">
             <span class="ct-sn">

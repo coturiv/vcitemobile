@@ -41,4 +41,8 @@ export class CitationsPage implements OnInit {
     await citation.remove();
   }
 
+  private isCitationValid(citation: Citation): boolean {
+    return true;
+  }
+
 }

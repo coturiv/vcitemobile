@@ -39,7 +39,8 @@
         // --min-height: 54px;
 
         ion-label {
-            --color: var(--ion-color-medium);
+            --color: var(--ion-color-dark);
+            opacity: .9;
             font-size: smaller;
         }
 
@@ -88,5 +89,20 @@
         }
 
         --ion-grid-column-padding: 10px;
+    }
+
+    .text-empty-attachment {
+        position: absolute;
+        margin-top: 12vh;
+        padding: 4vh;
+        line-height: 1.4;
+        color: var(--ion-color-dark);
+        opacity: .9;
+    }
+
+    .review-container {
+        ion-grid.review-comments, ion-grid.review-violations {
+            padding-top: 0 !important;
+        }
     }
 }

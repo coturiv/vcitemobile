@@ -9,6 +9,7 @@ import { VehSelectComponent } from './veh-select/veh-select.component';
 import { VehLocationComponent } from './veh-location/veh-location.component';
 import { VehLocationModal } from './veh-location/veh-location.modal';
 import { AutoSizeDirective } from './auto-size.directive';
+import { PipesModule } from '../pipes/pipes.module';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { AutoSizeDirective } from './auto-size.directive';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    IonicModule.forRoot()
+    IonicModule.forRoot(),
+    PipesModule
   ],
   entryComponents: [
     VehLocationModal

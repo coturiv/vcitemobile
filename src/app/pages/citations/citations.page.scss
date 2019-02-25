@@ -27,4 +27,11 @@
     --color: var(--theme-orange);
     --ion-text-color: var(--theme-orange);
   }
+
+  ion-toolbar, ion-list-header {
+    ion-button {
+      --background: transparent;
+      --background-activated: transparent !important;
+    }
+  }
 }  

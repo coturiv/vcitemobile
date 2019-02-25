@@ -53,7 +53,8 @@ export class CitationService {
     return await this.getRepository().find({
       where: {
         // id: Not(DEFAULT_ID)
-        id: DEFAULT_ID
+        id: DEFAULT_ID,
+        is_visible: false
       }
     }) as Citation[];
   }

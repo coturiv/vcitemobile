@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Platform } from '@ionic/angular';
+import { Platform, LoadingController } from '@ionic/angular';
 
 import { createConnection, ConnectionOptions, getConnection, Connection } from 'typeorm';
 
@@ -19,7 +19,7 @@ export class DbService {
     localStorage.setItem('is_first_run', String(val));
   }
   
-  constructor(private platform: Platform, private assetService: AssetsService) { }
+  constructor(private platform: Platform, private assetService: AssetsService, private loadingCtrl: LoadingController) { }
 
   async ready() {
     try {
@@ -44,6 +44,11 @@ export class DbService {
       if (!this.isFirstRun) {
         try {
           await connection.transaction(async tem => {
+            const loading = await this.loadingCtrl.create({
+              message: 'Initializing database...'
+            });
+            loading.present();
+
             const vehColors = await this.assetService.getVehColors();
             await tem.save(vehColors);
 
@@ -58,7 +63,9 @@ export class DbService {
 
             const streets    = await this.assetService.getLocations();
             await tem.save(streets);
-            
+
+            loading.dismiss(); 
+                      
             this.isFirstRun = true;
           });
         } catch(ex) {

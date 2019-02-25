@@ -7,8 +7,8 @@ import { ShowHideInput } from './show-hide-input'
     <ng-content></ng-content>
     <ion-buttons slot="end" class="toggle-button">
       <ion-button color="primary" (click)="toggleShow()">
-        <ion-icon slot="icon-only" name="eye" [hidden]="show"></ion-icon>
-        <ion-icon slot="icon-only" name="eye-off" [hidden]="!show"></ion-icon>
+        
+        <ion-icon slot="icon-only" [src]="(show ? 'eye-off':'eye') | icomoon: 'blue'" class="color-trans"></ion-icon>
       </ion-button>
     </ion-buttons>
   `,

@@ -100,4 +100,10 @@
     <engine name="android" />
     <plugin name="cordova-plugin-file" spec="6.0.1" />
     <plugin name="cordova-plugin-file-transfer" spec="1.7.1" />
+    <plugin name="cordova-plugin-googlemaps" spec="2.5.1">
+        <variable name="API_KEY_FOR_ANDROID" value="AIzaSyCc9w0D1TQSWDCETHOTTc2lgfNWcRqZLtE" />
+        <variable name="API_KEY_FOR_IOS" value="AIzaSyCvuFcXB96-5XSeM7ge97UWNKKR01sE4-M" />
+        <variable name="PLAY_SERVICES_VERSION" value="15.0.1" />
+        <variable name="ANDROID_SUPPORT_V4_VERSION" value="27.+" />
+    </plugin>
 </widget>

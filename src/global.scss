@@ -31,7 +31,16 @@ ion-list.list-md {
         --ion-color-primary: var(--theme-blue) !important;
     }
 
+    //ion-loading
     ion-spinner {
         --spinner-color: var(--theme-orange);
+    }
+    .loading-content {
+        color: var(--theme-orange);
+        font-weight: normal;
+    }
+
+    .color-trans {
+        color: transparent !important;
     }
 }

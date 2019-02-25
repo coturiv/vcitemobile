@@ -22,7 +22,7 @@
       <ion-label>General</ion-label>
     </ion-segment-button>
     <ion-segment-button value="database">
-      <ion-label>Database</ion-label>
+      <ion-label>Admin</ion-label>
     </ion-segment-button>
   </ion-segment>
 
@@ -33,38 +33,24 @@
       </ion-list-header>
 
       <ion-item>
-        <ion-label>Customer ID</ion-label>
-        <ion-input text-end formControlName="custKey"></ion-input>
-      </ion-item>
-
-      <ion-item>
         <ion-label>User ID</ion-label>
         <ion-input text-end formControlName="userID"></ion-input>
       </ion-item>
 
-      <ion-list-header color="medium">
-        <ion-label>App Settings</ion-label>
-      </ion-list-header>
-
-      <ion-item>
-        <ion-label>Server URL</ion-label>
-        <ion-input text-end formControlName="hostURL"></ion-input>
+      <ion-item button (click)="changePassword()">
+        <ion-label>Change Password</ion-label>
       </ion-item>
 
-      <ion-item>
-        <ion-label>Geolocation</ion-label>
-        <ion-toggle color="secondary"></ion-toggle>
+      <ion-item button (click)="logout()">
+        <ion-label>Logout</ion-label>
       </ion-item>
 
-      <ion-item>
-        <ion-label>Push Notification</ion-label>
-        <ion-toggle color="secondary"></ion-toggle>
-      </ion-item>
+      
     </ion-list>
 
     <ion-list *ngSwitchCase="'database'" lines="full">
       <ion-list-header color="medium">
-        <ion-label>Citation</ion-label>
+        <ion-label>Database Defaults</ion-label>
       </ion-list-header>
       
       <ion-item>
@@ -91,6 +77,40 @@
         <ion-label>Location</ion-label>
         <veh-location slot="end"></veh-location>
       </ion-item>
+
+      <ion-item>
+          <ion-label>Customer ID</ion-label>
+          <ion-input text-end formControlName="custKey"></ion-input>
+        </ion-item>
+
+      <ion-item>
+        <ion-label>Server URL</ion-label>
+        <ion-input text-end formControlName="hostURL"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Geolocation</ion-label>
+        <ion-toggle color="secondary"></ion-toggle>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Push Notification</ion-label>
+        <ion-toggle color="secondary"></ion-toggle>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Scoff Messages</ion-label>
+        <ion-toggle color="secondary"></ion-toggle>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>vChalk</ion-label>
+        <ion-toggle color="secondary"></ion-toggle>
+      </ion-item>
+
+      <ion-list-header color="medium">
+        <ion-label>Set Required Fields</ion-label>
+      </ion-list-header>
     </ion-list>
   </form>
 </ion-content>

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA, ErrorHandler as BaseErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 
@@ -9,6 +9,7 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { Camera } from '@ionic-native/camera/ngx';
 import { File } from '@ionic-native/file/ngx';
 import { FileTransfer } from '@ionic-native/file-transfer/ngx';
+import { GoogleMaps } from '@ionic-native/google-maps/ngx';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
@@ -16,6 +17,9 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ServicesModule } from './services/services.module';
 import { HttpInterceptor } from './shared/http-interceptor';
+import { ErrorHandler } from './shared/error-handler';
+import { ComponentsModule } from './components/components.module';
+import { PipesModule } from './pipes/pipes.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -25,7 +29,9 @@ import { HttpInterceptor } from './shared/http-interceptor';
     IonicModule.forRoot(),
     HttpClientModule,
     AppRoutingModule,
-    ServicesModule
+    ServicesModule,
+    ComponentsModule,
+    PipesModule
 
   ],
   providers: [
@@ -33,11 +39,16 @@ import { HttpInterceptor } from './shared/http-interceptor';
     Camera,
     File,
     FileTransfer,
+    GoogleMaps,
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    { provide: BaseErrorHandler,   useClass: ErrorHandler },
     { provide: HTTP_INTERCEPTORS,  useClass: HttpInterceptor, multi: true }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA
+  ]
 })
 export class AppModule {}

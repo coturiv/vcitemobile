@@ -1,0 +1,25 @@
+:host {
+    .text-no-content {
+        position: absolute;
+        padding: 4vh;
+        line-height: 1.4;
+        color: var(--ion-color-dark);
+        opacity: .9;
+    }
+
+    ion-thumbnail {
+        width: calc(50vw - 5px);
+        height: calc(50vw - 5px);
+
+        display: table-cell;
+        vertical-align: middle;
+        text-align: center;
+        
+        background: var(--ion-color-light) !important;
+
+        ion-icon {
+            width: 2em;
+            height: 2em;
+        }
+    }
+}

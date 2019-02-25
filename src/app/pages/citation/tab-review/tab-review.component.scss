@@ -1,0 +1,35 @@
+:host {
+    ion-grid {
+        ion-col {
+            border-color: var(--ion-color-medium) !important;
+            border-style: solid !important;
+            border-width:  0.55px 0px 0px 0.55px !important;
+        
+            &:last-child {
+                border-width:  0.55px 0.55px 0px 0.55px !important;
+            }
+        }
+
+        ion-row:last-child {
+            ion-col {
+                border-width:  0.55px 0px 0.55px 0.55px !important;
+                
+                &:last-child {
+                    border-width:  0.55px 0.55px 0.55px 0.55px !important;
+                }
+            }
+
+        }
+
+        --ion-grid-column-padding: 10px;
+    }
+
+    ion-grid.review-comments, ion-grid.review-violations {
+        padding-top: 0 !important;
+    }
+
+    .button-submit {
+        width: 240px;
+        margin: 0 auto;
+    }
+}

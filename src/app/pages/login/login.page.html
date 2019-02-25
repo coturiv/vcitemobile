@@ -13,12 +13,12 @@
 
     <ion-list>
       <ion-item>
-        <ion-icon name="person" slot="start" color="primary"></ion-icon>
+        <ion-icon slot="start" [src]="'user' | icomoon: 'blue'" class="color-trans"></ion-icon>
         <ion-input formControlName="userName" type="text" placeholder="User Name"></ion-input>
       </ion-item>
       <show-hide-container>
         <ion-item>
-          <ion-icon name="lock" slot="start" color="primary"></ion-icon>
+          <ion-icon slot="start" [src]="'lock' | icomoon: 'blue'" class="color-trans"></ion-icon>
           <ion-input formControlName="passWord" type="password" placeholder="Password" class="show-hide-input" show-hide-input></ion-input>
         </ion-item>
       </show-hide-container>

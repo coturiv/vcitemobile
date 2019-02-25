@@ -109,8 +109,7 @@ export class Citation extends BaseEntity {
     
     // COMMENTS
     @Column({
-        type: "varchar",
-        length: 250
+        nullable: true
     })
     comments: string;
     
@@ -163,4 +162,10 @@ export class Citation extends BaseEntity {
         nullable: true
     })
     icon_color: string;
+
+    // local property(none-submit prop)
+    @Column({
+        default: false
+    })
+    is_visible: boolean;
 }

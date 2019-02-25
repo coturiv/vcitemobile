@@ -4,6 +4,7 @@ import { NavController } from '@ionic/angular';
 import { Citation } from 'src/app/entities';
 import { CitationService } from 'src/app/services/citation.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { CommonService } from 'src/app/services/common.service';
 
 @Component({
   selector: 'app-citations',
@@ -15,7 +16,12 @@ export class CitationsPage implements OnInit {
 
   citations: Citation[];
 
-  constructor(private navCtrl: NavController, private citationService: CitationService, private authService: AuthService) { }
+  constructor(
+    private navCtrl: NavController, 
+    private citationService: CitationService, 
+    private authService: AuthService,
+    private commonService: CommonService
+  ) { }
 
   async ngOnInit() {
     if (!this.authService.loginInfo) {
@@ -37,8 +43,17 @@ export class CitationsPage implements OnInit {
     }
   }
   
-  async deleteCitation(citation: Citation) {
-    await citation.remove();
+  async clearLog(citations: Citation[]) {
+    this.commonService.showConfirm('Are you sure you want to remove this citation from the log?', 'Confirm', async() => {
+      try {
+        citations.forEach(async citation => {
+          citation.is_visible = false;
+          await citation.save();
+        })
+      } catch(e) {
+
+      }
+    });
   }
 
   private isCitationValid(citation: Citation): boolean {

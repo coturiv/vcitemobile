@@ -1,0 +1,18 @@
+:host {
+    
+    ion-list-header {
+        ion-button {
+            --background: none !important;
+            --background-activated: none !important;
+        }
+    }
+
+    ion-item {
+        // --min-height: 54px;
+
+        ion-label {
+            --color: var(--theme-blue-deep);
+            // font-size: large;
+        }
+    }
+}

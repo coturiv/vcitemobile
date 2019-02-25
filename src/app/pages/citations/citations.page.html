@@ -9,7 +9,7 @@
 
     <ion-buttons slot="end">
       <ion-button (click)="navigateTo('/qrscan')">
-        <ion-icon slot="icon-only" name="add"></ion-icon>
+        <ion-icon slot="icon-only" [src]="'plus' | icomoon: 'white'" class="color-trans"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -23,37 +23,33 @@
   <ion-list lines="full">
     <ion-list-header color="medium">
       <ion-label>{{today | date}}</ion-label>
+
+      <ion-button (click)="clearLog([])" size="small">
+        <ion-label>Clear all</ion-label>
+      </ion-button>
     </ion-list-header>
-    <ion-item-sliding detail="false" *ngFor="let citation of citations">
-      <ion-item (click)="navigateTo('/citation/' + citation.id)">
-        <ion-label>
-          <ion-text color="dark">
-            <span class="ct-sn">
-                {{citation.serial_number}},
-            </span>
-            
-            <span class="ct-license">
-                {{citation.vehicle_license}}
-            </span>
-          </ion-text>
-          <ion-text class="ct-location">
-            <p>
-              Loc. {{citation.location}}
-            </p>
-          </ion-text>
-          <ion-text class="ct-expdate">
-            <p>Exp. {{citation.timestamp | date: 'short'}}</p>
-          </ion-text>
-        </ion-label>
-        <ion-icon slot="end" [name]="citation.list_icon || 'information-circle'" [color]="citation.list_icon_color || 'primary'" slot="end"></ion-icon>
-        <div class='sliding-snip'></div>
-      </ion-item>
-  
-      <ion-item-options side="end">
-        <ion-item-option slot="icon-only" color="danger" (click)="deleteCitation(citation)">
-          <ion-icon name="trash" size="large"></ion-icon>
-        </ion-item-option>
-      </ion-item-options>
-    </ion-item-sliding>
+    <ion-item button *ngFor="let citation of citations" (click)="navigateTo('/citation/' + citation.id)" detail="false">
+      <ion-label>
+        <ion-text color="dark">
+          <span class="ct-sn">
+              {{citation.serial_number}},
+          </span>
+          
+          <span class="ct-license">
+              {{citation.vehicle_license}}
+          </span>
+        </ion-text>
+        <ion-text class="ct-location">
+          <p>
+            Loc. {{citation.location}}
+          </p>
+        </ion-text>
+        <ion-text class="ct-expdate">
+          <p>Exp. {{citation.timestamp | date: 'short'}}</p>
+        </ion-text>
+      </ion-label>
+      <ion-icon slot="end" [name]="citation.list_icon || 'information-circle'" [color]="citation.list_icon_color || 'primary'" slot="end"></ion-icon>
+      <div class='sliding-snip'></div>
+    </ion-item>
   </ion-list>
 </ion-content>

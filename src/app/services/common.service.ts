@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AlertController, ToastController } from '@ionic/angular';
+import { ToastOptions } from '@ionic/core';
 
 @Injectable({
   providedIn: 'root'
@@ -39,16 +40,46 @@ export class CommonService {
       message: message,
       header: title,
       buttons: [{
-        text: 'No',
+        text: 'Cancel',
         role: 'cancel',
         handler: cancel
       }, {
-        text: 'Yes',
+        text: 'Ok',
         handler: confirm
       }]
     });
 
     await alert.present();
+  }
+
+  /**
+   * Show Prompt
+   * 
+   * @param title 
+   * @param confirm 
+   * @param cancel 
+   */
+  async showPrompt(title: string, confirm: any, cancel: any = () => {}) {
+    const alert = await this.alertCtrl.create({
+      header: title,
+      inputs: [{
+        name: 'fileName',
+        type: 'text',
+        placeholder: 'File Name'
+      }],
+      buttons: [{
+        text: 'Cancel',
+        role: 'cancel',
+        handler: cancel
+      }, {
+        text: 'Ok',
+        handler: data => {
+          confirm(data.fileName);
+        }
+      }]
+    });
+
+    alert.present();
   }
 
   /**
@@ -70,16 +101,16 @@ export class CommonService {
 
     const colorDic = {
       'success': 'success',
-      'info'   : 'sceondary',
+      'info'   : 'secondary',
       'warning': 'warning',
-      'error'  : 'error'
+      'error'  : 'danger'
     };
 
     const toast = await this.toastCtrl.create({
       message: message,
       color: colorDic[type],
       showCloseButton: showCloseBtn,
-      duration: duration,
+      duration: showCloseBtn ? null : duration,
       position: position
     });
 

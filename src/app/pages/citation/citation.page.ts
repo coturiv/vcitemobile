@@ -1,13 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { ModalController, LoadingController } from '@ionic/angular';
-import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+import { LoadingController } from '@ionic/angular';
 
 import { Citation } from 'src/app/entities';
 import { CitationService } from 'src/app/services/citation.service';
-import { AttachmentModal } from './attatchment/attachment.modal';
-import { ViolationModal } from './violation/violation.modal';
 import { CommonService } from 'src/app/services/common.service';
 
 @Component({
@@ -17,15 +14,12 @@ import { CommonService } from 'src/app/services/common.service';
 })
 export class CitationPage implements OnInit, OnDestroy {
 
-  curSegment: 'vehicle' | 'violation' | 'photos' | 'review' = 'review';
+  curSegment: 'vehicle' | 'violation' | 'photos' | 'review' = 'violation';
 
   citation: Citation = new Citation();
-  textEmptyAttachs: string = 'For best results, rotate your phone to a landscape position is if it were a regular camera.';
 
   constructor(
     private route: ActivatedRoute,
-    private camera: Camera,
-    private modalCtrl: ModalController,
     private loadingCtrl: LoadingController,
     private citationService: CitationService,
     private commonService: CommonService
@@ -73,52 +67,6 @@ export class CitationPage implements OnInit, OnDestroy {
         this.commonService.showAlert(JSON.stringify(e), 'Error');
       }
     });
-  }
-
-  inputToUppercase(event: any) {
-    event.target.value = (event.target.value as string).toUpperCase();
-  }
-
-  /**
-   * create/edit violation(s)
-   */
-  async editViolations() {
-    const modal = await this.modalCtrl.create({
-      component: ViolationModal,
-      componentProps: {
-        citation: this.citation
-      }
-    });
-    modal.present();
-  }
-
-  /**
-   * take a picture(attachment)
-   */
-  async takePicture() {
-    const options: CameraOptions = {
-      quality: 100,
-      destinationType: this.camera.DestinationType.DATA_URL,
-      encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.PICTURE
-    }
-
-    const imageData = await this.camera.getPicture(options);
-    if (imageData) {
-      const modal = await this.modalCtrl.create({
-        component: AttachmentModal,
-        componentProps: {
-          attachment: imageData,
-          citation: this.citation
-        }
-      });
-      modal.present();
-  
-      const { data } = await modal.onDidDismiss();
-      if (data) {
-        this.citation.attachments.push(data);
-      }
-    }
   }
 
   /**

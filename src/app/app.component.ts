@@ -20,23 +20,23 @@ export class AppComponent {
     {
       title: 'Citations',
       url: '/citations',
-      icon: 'list-box'
+      icon: 'qrcode'
     }, {
       title: 'vChalk',
       url: '/reference',
-      icon: 'clock'
+      icon: 'pencil'
     }, {
       title: 'Reference',
       url: '/reference',
-      icon: 'book'
+      icon: 'books'
     }, {
       title: 'About',
       url: '/about',
-      icon: 'information-circle'
+      icon: 'info'
     }, {
       title: 'Settings',
       url: '/settings',
-      icon: 'settings'
+      icon: 'cogs'
     }
   ];
 

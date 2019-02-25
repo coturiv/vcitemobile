@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, ToastController, Platform } from '@ionic/angular';
+import { NavController, Platform } from '@ionic/angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { SettingsService } from 'src/app/services/settings.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { CitationService } from 'src/app/services/citation.service';
 import { Citation, VehState } from 'src/app/entities';
+import { CommonService } from 'src/app/services/common.service';
 
 @Component({
   selector: 'app-settings',
@@ -21,20 +22,22 @@ export class SettingsPage implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private navCtrl: NavController,
-    private toastCtrl: ToastController,
     private platform: Platform,
     private settingsService: SettingsService,
     private authService: AuthService,
-    private citationService: CitationService
+    private citationService: CitationService,
+    private commonService: CommonService
   ) { }
 
   async ngOnInit() {
     const settings: any = this.settingsService.getSettings() || {};
     
     const loginInfo = JSON.parse(localStorage.getItem('loginInfo'));
+    console.log(loginInfo);
     if (loginInfo) {
       // settings.userID  = loginInfo.userID;
       settings.custKey = loginInfo.custKey;
+      settings.userID  = loginInfo.userName;
     }
     
     this.settingsForm = this.formBuilder.group({
@@ -55,8 +58,7 @@ export class SettingsPage implements OnInit {
     const settings = this.settingsForm.getRawValue();
     await this.settingsService.setSettings(settings);
 
-    await this.showMessage('Settings have been submitted successfully!');
-
+    await this.commonService.showNotify('Settings have been submitted successfully!');
 
     if (this.authService.loginInfo) {
 
@@ -67,13 +69,13 @@ export class SettingsPage implements OnInit {
     }
   }
 
-  private async showMessage(message: string) {
-    const toast = await this.toastCtrl.create({
-      message: message,
-      color: 'secondary',
-      duration: 1500
-    });
-    toast.present();
+  changePassword() {
+    this.navCtrl.navigateForward('/change-password');
+  }
+
+  logout() {
+    this.authService.loginInfo = null;
+    this.navCtrl.navigateRoot('/login');
   }
 
 }

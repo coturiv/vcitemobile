@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1018793851831",
+    "firebase_url": "https://vcitemobile-t2.firebaseio.com",
+    "project_id": "vcitemobile-t2",
+    "storage_bucket": "vcitemobile-t2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1018793851831:android:ed424bcc43208b50",
+        "android_client_info": {
+          "package_name": "com.velosum.vcitemobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1018793851831-ub0o4gqsjc4umkibsutaotc59m1q7661.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCc9w0D1TQSWDCETHOTTc2lgfNWcRqZLtE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

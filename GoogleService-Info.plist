@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AD_UNIT_ID_FOR_BANNER_TEST</key>
+	<string>ca-app-pub-3940256099942544/2934735716</string>
+	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
+	<string>ca-app-pub-3940256099942544/4411468910</string>
+	<key>CLIENT_ID</key>
+	<string>1018793851831-q1q0fe0cii4snafk5cdg5fjf7lan6g16.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.1018793851831-q1q0fe0cii4snafk5cdg5fjf7lan6g16</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCvuFcXB96-5XSeM7ge97UWNKKR01sE4-M</string>
+	<key>GCM_SENDER_ID</key>
+	<string>1018793851831</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.velosum.vcitemobile</string>
+	<key>PROJECT_ID</key>
+	<string>vcitemobile-t2</string>
+	<key>STORAGE_BUCKET</key>
+	<string>vcitemobile-t2.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<true></true>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:1018793851831:ios:ed424bcc43208b50</string>
+	<key>DATABASE_URL</key>
+	<string>https://vcitemobile-t2.firebaseio.com</string>
+</dict>
+</plist>

@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./about.page.scss'],
 })
 export class AboutPage {
-  version: string = '0.0.1';
+  version: string = '0.1.0';
   today: Date     = new Date();
   company: string = 'PenFormsUSA Inc.';
 

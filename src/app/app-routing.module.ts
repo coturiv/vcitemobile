@@ -34,6 +34,10 @@ const routes: Routes = [
   { 
     path: 'about', 
     loadChildren: './pages/about/about.module#AboutPageModule' 
+  },
+  { 
+    path: 'change-password', 
+    loadChildren: './pages/change-password/change-password.module#ChangePasswordPageModule'
   }
 
 ];

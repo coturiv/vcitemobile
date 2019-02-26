@@ -3,11 +3,11 @@ import { File } from '@ionic-native/file/ngx';
 import { FileTransfer, FileTransferObject, FileUploadResult } from '@ionic-native/file-transfer/ngx';
 import { json2xml } from 'xml-js';
 import * as vkbeautify from 'vkbeautify';
-import { getRepository, Not } from 'typeorm';
+import { getRepository, Not, getManager } from 'typeorm';
 
-import { Citation, Violation, VehState, VehColor, VehMake, Attachment } from '../entities';
+import { Citation, Violation, Attachment } from '../entities';
 import { Platform } from '@ionic/angular';
-import { StorageKeys } from '../utility/constant';
+import { StorageKeys, DefaultValues } from '../utility/constant';
 
 
 const citationFieldIds = {
@@ -27,7 +27,6 @@ const citationFieldIds = {
   'remarks': 'Remarks',
 };
 
-const DEFAULT_ID = -1;
 
 @Injectable({
   providedIn: 'root'
@@ -51,18 +50,14 @@ export class CitationService {
     });
   }
 
-  private getRepository(entityName: string = 'citation') {
-    return getRepository(entityName);
-  }
-
   /**
    * get citations
    */
   async getCitations() {
-    return await this.getRepository().find({
+    return await getManager().find(Citation, {
       where: {
-        // id: Not(DEFAULT_ID)
-        id: DEFAULT_ID,
+        // id: Not(DefaultValues.DB_CITATION_ID)
+        id: DefaultValues.DB_CITATION_ID,
         is_visible: false
       }
     }) as Citation[];
@@ -72,7 +67,7 @@ export class CitationService {
    * get citation by id
    */
   async getCitation(id: number) {
-    let citation = await this.getRepository().findOne(id) as Citation;
+    let citation = await getRepository(Citation).findOne(id) as Citation;
     if (!citation) {
       citation = await this.getDefaultCitation();
       citation.id = id;
@@ -80,28 +75,14 @@ export class CitationService {
     }
 
     //TODO: remove when typeorm-eager is fixed.
-    citation.attachments = await this.getRepository('attachment').find({ citation: citation }) as Attachment[];
-    citation.violations = await this.getRepository('violation').find({ citation: citation }) as Violation[];
+    citation.attachments = await getRepository(Attachment).find({ citation: citation }) as Attachment[];
+    citation.violations = await getRepository(Violation).find({ citation: citation }) as Violation[];
 
     return citation;
   }
 
   async getDefaultCitation() {
-
-    let citation = await this.getRepository().findOne(DEFAULT_ID) as Citation;
-    if (!citation) {
-
-      citation = new Citation();
-      citation.id = -1;
-
-      citation.vehicle_state = await this.getRepository('vehstate').findOne() as VehState;
-      citation.vehicle_color = await this.getRepository('vehcolor').findOne() as VehColor;
-      citation.vehicle_make  = await this.getRepository('vehmake').findOne() as VehMake;
-
-      await citation.save();
-    }
-
-    return citation;
+    return this.getCitation(DefaultValues.DB_CITATION_ID);
   }
 
   getCurrentCitation() {

@@ -62,7 +62,7 @@ export class LoginPage implements OnInit {
         const strCredentials = JSON.stringify(credential);
         if (strError.includes('LOGIN SUCCESS') || (strCredentials.includes('LynnTest') && strCredentials.includes('1234'))) {
 
-          this.showMessage('Logged in successfully', 'secondary');
+          // this.showMessage('Logged in successfully', 'secondary');
           this.authService.loginInfo = credential;
           this.events.publish('loggedIn');
 

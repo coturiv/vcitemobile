@@ -4,9 +4,6 @@ import { Platform, NavController, Events } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
-import { SettingsService } from './services/settings.service';
-import { DbService } from './services/db.service';
-
 import 'reflect-metadata';
 import { AuthService } from './services/auth.service';
 
@@ -49,20 +46,16 @@ export class AppComponent {
     private navCtrl: NavController,
     private events: Events,
 
-    private settingsService: SettingsService,
-    private authService: AuthService,
-    private dbService: DbService
+    private authService: AuthService
   ) {
     this.initializeApp();
 
   }
   
-  async initializeApp() {
-    this.platform.ready().then(async () => {
+  initializeApp() {
+    this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-      
-      await this.dbService.ready();
     });
     
     this.isLoggedIn = !!this.authService.loginInfo;

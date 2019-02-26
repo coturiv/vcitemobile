@@ -1,7 +1,7 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { NavController, Platform } from '@ionic/angular';
 import { CitationService } from 'src/app/services/citation.service';
-import { GoogleMap, GoogleMaps, Geocoder, LocationService } from '@ionic-native/google-maps/ngx';
+import { GoogleMap, GoogleMaps, Geocoder, LocationService, MyLocation, LatLng, GoogleMapOptions, Marker, GoogleMapsAnimation } from '@ionic-native/google-maps/ngx';
 
 @Component({
   selector: 'app-maps',
@@ -10,6 +10,7 @@ import { GoogleMap, GoogleMaps, Geocoder, LocationService } from '@ionic-native/
 })
 export class MapsPage implements OnInit {
   map: GoogleMap;
+  myLocation: MyLocation; 
 
   constructor(private navCtrl: NavController, private platform: Platform, private citationService: CitationService) { }
 
@@ -21,9 +22,12 @@ export class MapsPage implements OnInit {
   //   });
   // }
 
-  ngOnInit() {
+  async ngOnInit() {
     if (this.platform.is('cordova')) {
-      this.loadMap();
+      this.myLocation = await LocationService.getMyLocation();
+      console.log(this.myLocation);
+
+      await this.loadMap(this.myLocation.latLng);
     } else {
       throw 'cordova_not_avaiable';
     }
@@ -33,28 +37,24 @@ export class MapsPage implements OnInit {
     this.navCtrl.back();
   }
 
-  async loadMap() {
-    try {
-      const mylocation = await LocationService.getMyLocation();
+  async loadMap(latlng?: LatLng) {
+    const mapOptions: GoogleMapOptions = {};
+    mapOptions.camera = {
+      zoom: 18,
+      tilt: 30,
+      target: latlng
+    };
 
-      console.log(mylocation);
-    } catch(e) {
-      console.log(e);
+    this.map = GoogleMaps.create('map_canvas', mapOptions);
+
+    if (latlng) {
+      const marker: Marker = await this.map.addMarker({
+        position: latlng,
+        animation: GoogleMapsAnimation.BOUNCE
+      });
+
+      // marker.showInfoWindow();
     }
-
-    // this.map = GoogleMaps.create('map_canvas');
-    
-    
-    // const myLocation = await this.map.getMyLocation();
-    // if (myLocation) {
-    //   this.map.clear();
-
-    //   this.map.animateCamera({
-    //     target: myLocation.latLng,
-    //     zoom: 18,
-    //     tilt: 30
-    //   });
-    // }
     
   }
 

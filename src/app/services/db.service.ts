@@ -1,94 +1,127 @@
 import { Injectable } from '@angular/core';
 import { Platform, LoadingController } from '@ionic/angular';
 
-import { createConnection, ConnectionOptions, getConnection, Connection } from 'typeorm';
+import { createConnection, ConnectionOptions, getConnection, getManager, getRepository } from 'typeorm';
 
-import { EntityFactory, VehColor, Citation, VehState, VehMake } from '../entities';
-import { AssetsService } from './assets.service';
+import { EntityFactory, VehColor, Citation, VehState, VehMake, Location, Attachment, AttachmentType, PlateType, Violation } from '../entities';
+import { StorageKeys, DefaultValues } from '../utility/constant';
+import { HttpClient } from '@angular/common/http';
+import { catchError, map } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DbService {
-  
-  private get isFirstRun() {
-    return localStorage.getItem('is_first_run') == 'true';
-  } 
 
-  private set isFirstRun(val: boolean) {
-    localStorage.setItem('is_first_run', String(val));
+  get isDbSynchronized() {
+    return localStorage.getItem(StorageKeys.DB_IS_SYNCHRONZIED) == 'true';
+  }
+
+  set isDbSynchronized(synchronzied: boolean) {
+    localStorage.setItem(StorageKeys.DB_IS_SYNCHRONZIED, String(synchronzied));
   }
   
-  constructor(private platform: Platform, private assetService: AssetsService, private loadingCtrl: LoadingController) { }
+  constructor(
+    private platform: Platform,
+    private httpClient: HttpClient,
+    private loadingCtrl: LoadingController) { }
 
   async ready() {
     try {
 
-      await getConnection();
+      getConnection();
 
     } catch(ex) {
-      // console.log('Connection not initialized.', ex);
-
-      await this.initialize();
+      
+      await this.createConnection();
 
     }
   }
 
   /**
-   * Initialize DB
+   * Synchronization
+   * 
+   * @param entities 
    */
-  public async initialize() {
+  async synchronize(entities: any[]) {
+    const loading = await this.loadingCtrl.create({
+      message: 'initializing database...'
+    });
+
     try {
-      const connection = await this.createConnection();
+      await getManager().transaction(async tem => {
+        loading.present();
 
-      if (!this.isFirstRun) {
-        try {
-          await connection.transaction(async tem => {
-            const loading = await this.loadingCtrl.create({
-              message: 'Initializing database...'
-            });
-            loading.present();
+        for (const entity of entities) {
+          const tableName = entity.name.toLowerCase();
+          const records = await this.httpClient.get(`assets/data/${tableName}.json`)
+            .pipe(
+              catchError(_=> of([])),
+              map((items: Object[]) => {
+                switch(entity) {
+                  case Attachment:
+                    return items.map(i => Object.assign(new Attachment(), i));
+                  case AttachmentType:
+                    return items.map(i => Object.assign(new AttachmentType(), i));
+                  case Citation:
+                    return items.map(i => Object.assign(new Citation(), i));
+                  case Location:
+                    return items.map(i => Object.assign(new Location(), i));
+                  case PlateType:
+                    return items.map(i => Object.assign(new PlateType(), i));
+                  case VehColor:
+                    return items.map(i => Object.assign(new VehColor(), i));
+                  case VehMake:
+                    return items.map(i => Object.assign(new VehMake(), i));
+                  case VehState:
+                    return items.map(i => Object.assign(new VehState(), i));
+                  case Violation:
+                    return items.map(i => Object.assign(new Violation(), i));
+                }
+              })
+            )
+            .toPromise() as any[];
 
-            const vehColors = await this.assetService.getVehColors();
-            await tem.save(vehColors);
-            console.log('vehColor synchronzied');
+          if (records.length) {
 
-            const vehStates = await this.assetService.getVehStates();
-            await tem.save(vehStates);
-            console.log('vehstate synchronzied');
-
-            const vehMakes = await this.assetService.getVehMakes();
-            await tem.save(vehMakes);
-            console.log('vehmake synchronzied');
-
-            const violations = await this.assetService.getViolations();
-            await tem.save(violations);
-            console.log('violation synchronzied');
-
-            const streets    = await this.assetService.getLocations();
-            await tem.save(streets);
-            console.log('location synchronzied');
-
-            loading.dismiss(); 
-                      
-            this.isFirstRun = true;
-          });
-        } catch(ex) {
-          console.log('Transaction failed.', ex);
+            await tem.clear(entity);
+            await tem.save(records);
+          
+          }
         }
-      }
 
-    } catch(ex) {
+        await this.initializeDb();
 
-      console.log('Connection failed.', ex);
-
+        loading.dismiss();
+      });
+    } catch (e) {
+      console.log(e);
+      loading.dismiss();
     }
   }
 
+  async initializeDb() {
+    let defaultCitation = await getRepository(Citation).findOne(DefaultValues.DB_CITATION_ID);
+
+    if (defaultCitation) {
+      // TODO: update default citation after a new synchronzation completed.
+    } else {
+      defaultCitation = new Citation();
+      defaultCitation.id = DefaultValues.DB_CITATION_ID;
+      defaultCitation.vehicle_state = await getRepository(VehState).findOne();
+      defaultCitation.vehicle_color = await getRepository(VehColor).findOne();
+      defaultCitation.vehicle_make = await getRepository(VehMake).findOne();
+
+      await defaultCitation.save();
+    }
+  }
+
+  
   /**
    * Create DB connection
    */
-  private createConnection(): Promise<Connection> {
+  private async createConnection(){
     let dbOptions: ConnectionOptions;
     
     if (this.platform.is('cordova')) {
@@ -115,7 +148,20 @@ export class DbService {
       entities: EntityFactory.getAllEntities()
     });
 
-    return createConnection(dbOptions);
-  }
+    try {
 
+      await createConnection(dbOptions);
+
+    } catch(e) {
+
+      console.log('Create connection failed.', e);
+
+    }
+
+    if (!this.isDbSynchronized) {
+      await this.synchronize([VehColor, VehMake, VehState, Location, Violation]);
+
+      this.isDbSynchronized = true;
+    }
+  }
 }

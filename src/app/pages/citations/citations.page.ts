@@ -5,7 +5,7 @@ import { Citation } from 'src/app/entities';
 import { CitationService } from 'src/app/services/citation.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { CommonService } from 'src/app/services/common.service';
-import { getConnection } from 'typeorm';
+import { DbService } from 'src/app/services/db.service';
 
 @Component({
   selector: 'app-citations',
@@ -19,7 +19,8 @@ export class CitationsPage implements OnInit {
 
   constructor(
     private navCtrl: NavController, 
-    private citationService: CitationService, 
+    private citationService: CitationService,
+    private dbService: DbService,
     private authService: AuthService,
     private commonService: CommonService,
     private platform: Platform
@@ -31,14 +32,17 @@ export class CitationsPage implements OnInit {
       
       this.navCtrl.navigateRoot('login');
     
-    } else {
-      
-      this.platform.ready().then(async () => {
-        await this.loadData();
-      });
-
-
     }
+  }
+  
+  async ionViewDidEnter() {
+    if (this.authService.loginInfo) {
+
+      await this.platform.ready();
+      await this.dbService.ready();
+      await this.loadData();
+    }
+
   }
 
   navigateTo(url: string) {

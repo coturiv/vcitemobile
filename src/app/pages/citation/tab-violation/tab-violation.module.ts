@@ -5,13 +5,15 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { AboutPage } from './about.page';
+import { TabViolationPage } from './tab-violation.page';
+import { ComponentsModule } from 'src/app/components/components.module';
 import { PipesModule } from 'src/app/pipes/pipes.module';
+import { ViolationListModalModule } from './violation-list/violation-list.module';
 
 const routes: Routes = [
   {
     path: '',
-    component: AboutPage
+    component: TabViolationPage
   }
 ];
 
@@ -21,8 +23,11 @@ const routes: Routes = [
     FormsModule,
     IonicModule,
     RouterModule.forChild(routes),
-    PipesModule
+    ComponentsModule,
+    PipesModule,
+
+    ViolationListModalModule
   ],
-  declarations: [AboutPage]
+  declarations: [TabViolationPage]
 })
-export class AboutPageModule {}
+export class TabViolationPageModule {}

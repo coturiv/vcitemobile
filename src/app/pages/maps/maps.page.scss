@@ -1,0 +1,12 @@
+:host {
+    ion-searchbar {
+        --background: var(--ion-color-primary-contrast);
+        --color: var(--theme-blue);
+        --icon-color: var(--theme-blue);
+
+        margin: 16px;
+        padding: 0;
+        width: calc(100% - 32px);
+        border-radius: 5px;
+    }
+}

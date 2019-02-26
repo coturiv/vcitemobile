@@ -5,13 +5,13 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { AboutPage } from './about.page';
+import { TabPhotosPage } from './tab-photos.page';
 import { PipesModule } from 'src/app/pipes/pipes.module';
 
 const routes: Routes = [
   {
     path: '',
-    component: AboutPage
+    component: TabPhotosPage
   }
 ];
 
@@ -23,6 +23,6 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     PipesModule
   ],
-  declarations: [AboutPage]
+  declarations: [TabPhotosPage]
 })
-export class AboutPageModule {}
+export class TabPhotosPageModule {}

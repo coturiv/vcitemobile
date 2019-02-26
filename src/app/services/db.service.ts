@@ -51,18 +51,23 @@ export class DbService {
 
             const vehColors = await this.assetService.getVehColors();
             await tem.save(vehColors);
+            console.log('vehColor synchronzied');
 
             const vehStates = await this.assetService.getVehStates();
             await tem.save(vehStates);
+            console.log('vehstate synchronzied');
 
             const vehMakes = await this.assetService.getVehMakes();
             await tem.save(vehMakes);
+            console.log('vehmake synchronzied');
 
             const violations = await this.assetService.getViolations();
             await tem.save(violations);
+            console.log('violation synchronzied');
 
             const streets    = await this.assetService.getLocations();
             await tem.save(streets);
+            console.log('location synchronzied');
 
             loading.dismiss(); 
                       

@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Icomoon, Icomoons, Colors } from '../utility';
+import { Icomoon, Icomoons, Colors } from '../utility/icomoon';
 
 @Pipe({
   name: 'icomoon'

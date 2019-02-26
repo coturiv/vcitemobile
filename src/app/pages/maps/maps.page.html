@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="navPop($event)">
+        <ion-label>Cancel</ion-label>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-title>Maps</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div id="map_canvas" style="width: 100%; height: 100%;">
+    <ion-searchbar placeholder="Search Locations" margin-top></ion-searchbar>
+  </div>
+</ion-content>

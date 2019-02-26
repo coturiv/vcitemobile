@@ -1,22 +1,22 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MapsModal } from './maps.modal';
+import { TabVehiclePage } from './tab-vehicle.page';
 
-describe('MapsModal', () => {
-  let component: MapsModal;
-  let fixture: ComponentFixture<MapsModal>;
+describe('TabVehiclePage', () => {
+  let component: TabVehiclePage;
+  let fixture: ComponentFixture<TabVehiclePage>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MapsModal ],
+      declarations: [ TabVehiclePage ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MapsModal);
+    fixture = TestBed.createComponent(TabVehiclePage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

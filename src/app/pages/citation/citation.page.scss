@@ -1,72 +1,15 @@
 :host {
-    ion-menu-button {
+    
+    ion-tab-bar {
+        background: var(--theme-blue-gradient) !important;
+    }
+
+    ion-tab-button {
+        background: transparent !important;
+
         ion-icon {
-            width: 24px;
-            height: 24px;
+            font-size: 2.4em;
+            padding-bottom: 4px;
         }
-    }
-
-    ion-segment {
-        padding-top: 2px;
-        
-        ion-segment-button {
-
-            &.segment-button-checked {
-                background: var(--background) !important;
-                color: var(--ion-color-primary) !important;
-            }
-    
-            // color: var(--ion-color-light) !important;
-            --color-checked: var(--ion-color-primary) !important;
-            --border-width: 0 !important;
-    
-            ion-label {
-                font-size: 10px !important;
-            }
-    
-            ion-icon {
-                font-size: 22px !important;
-            }
-        }
-    }
-
-    ion-card ion-thumbnail {
-        width: 100%;
-        height: 100%;
-    }
-
-    /** Attachment button **/
-    ion-fab {
-        position: fixed;
-        bottom: 60px;
-    }
-
-    ion-item {
-        // --min-height: 54px;
-
-        ion-label {
-            --color: var(--theme-blue-deep);
-        }
-
-        ion-input, ion-datetime, ion-textarea, veh-select, veh-location {
-            opacity: .8;
-        };
-
-        veh-location {
-            margin-right: 0;
-        }
-    }
-
-    ion-item-divider {
-        min-height: 54px;
-
-        ion-button {
-            --ion-color-secondary: var(--theme-orange) !important;
-            --background-activated: transparent !important;
-        }
-    }
-
-    .opacity-8 {
-        opacity: .8;
     }
 }

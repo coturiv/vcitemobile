@@ -23,7 +23,7 @@ export class AppComponent {
       icon: 'qrcode'
     }, {
       title: 'vChalk',
-      url: '/reference',
+      url: '/vchalk',
       icon: 'pencil'
     }, {
       title: 'Reference',

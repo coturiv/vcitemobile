@@ -11,6 +11,7 @@ export class ErrorHandler extends BaseErrorHandler {
     }
 
     handleError(error: Error | any) {
-        this.commonService.showNotify(error.message, 'error');
+        console.log(error);
+        // this.commonService.showNotify(error.message, 'error');
     }
 }

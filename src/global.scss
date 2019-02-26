@@ -24,6 +24,8 @@ ion-list.list-md {
     ion-toolbar, ion-segment, ion-button, ion-fab-button, ion-toggle, ion-checkbox {
         --ion-color-primary: var(--theme-blue-gradient) !important;
         --ion-color-secondary: var(--theme-orange-gradient) !important;
+        --ion-color-secondary-shade: var(--theme-orange) !important;
+        --ion-color-secondary-tint: var(--theme-orange) !important;
         --background-activated: var(--theme-blue-gradient-shade) !important;
     }
 
@@ -40,7 +42,14 @@ ion-list.list-md {
         font-weight: normal;
     }
 
-    .color-trans {
+    ion-icon.color-trans {
         color: transparent !important;
+    }
+    ion-icon.toolbar-icon {
+        font-size: 28px !important;
+    }
+
+    ion-list-header ion-button {
+        --box-shadow: none;
     }
 }

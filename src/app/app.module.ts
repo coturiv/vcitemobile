@@ -1,4 +1,4 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA, ErrorHandler as BaseErrorHandler } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA, ErrorHandler as BaseErrorHandler, Injector } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 
@@ -20,6 +20,7 @@ import { HttpInterceptor } from './shared/http-interceptor';
 import { ErrorHandler } from './shared/error-handler';
 import { ComponentsModule } from './components/components.module';
 import { PipesModule } from './pipes/pipes.module';
+import { AppInjector } from './app.injector';
 
 @NgModule({
   declarations: [AppComponent],
@@ -51,4 +52,10 @@ import { PipesModule } from './pipes/pipes.module';
     CUSTOM_ELEMENTS_SCHEMA
   ]
 })
-export class AppModule {}
+export class AppModule {
+
+  constructor(injector: Injector) {
+    AppInjector.injector = injector;
+  }
+  
+}

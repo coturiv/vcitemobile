@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController } from '@ionic/angular';
+import { NavController, Platform } from '@ionic/angular';
 
 import { Citation } from 'src/app/entities';
 import { CitationService } from 'src/app/services/citation.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { CommonService } from 'src/app/services/common.service';
+import { getConnection } from 'typeorm';
 
 @Component({
   selector: 'app-citations',
@@ -20,15 +21,24 @@ export class CitationsPage implements OnInit {
     private navCtrl: NavController, 
     private citationService: CitationService, 
     private authService: AuthService,
-    private commonService: CommonService
+    private commonService: CommonService,
+    private platform: Platform
   ) { }
 
   async ngOnInit() {
+    
     if (!this.authService.loginInfo) {
+      
       this.navCtrl.navigateRoot('login');
-    }
+    
+    } else {
+      
+      this.platform.ready().then(async () => {
+        await this.loadData();
+      });
 
-    await this.loadData();
+
+    }
   }
 
   navigateTo(url: string) {

@@ -7,6 +7,7 @@ import { getRepository, Not } from 'typeorm';
 
 import { Citation, Violation, VehState, VehColor, VehMake, Attachment } from '../entities';
 import { Platform } from '@ionic/angular';
+import { StorageKeys } from '../utility/constant';
 
 
 const citationFieldIds = {
@@ -34,6 +35,14 @@ const DEFAULT_ID = -1;
 export class CitationService {
   fileTransfer: FileTransferObject;
   readonly entityName = 'citation';
+
+  get currentId(): number {
+    return Number(localStorage.getItem(StorageKeys.CURRENT_CITATION_ID));
+  }
+
+  set currentId(cId: number) {
+    localStorage.setItem(StorageKeys.CURRENT_CITATION_ID, String(cId));
+  }
 
   constructor(private file: File, private transfer: FileTransfer, private platform: Platform) {
 
@@ -93,6 +102,10 @@ export class CitationService {
     }
 
     return citation;
+  }
+
+  getCurrentCitation() {
+    return this.getCitation(this.currentId);
   }
 
   /**

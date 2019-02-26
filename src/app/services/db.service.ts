@@ -113,6 +113,12 @@ export class DbService {
       defaultCitation.vehicle_color = await getRepository(VehColor).findOne();
       defaultCitation.vehicle_make = await getRepository(VehMake).findOne();
 
+      const location = new Location();
+      location.street = '';
+      location.source = 'input';
+
+      defaultCitation.location = location;
+
       await defaultCitation.save();
     }
   }

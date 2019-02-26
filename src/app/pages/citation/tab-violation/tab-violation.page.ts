@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { ModalController, NavController } from '@ionic/angular';
+import { ModalController, NavController, Events } from '@ionic/angular';
 
 import { CitationTab } from '../citation.tab';
 import { ViolationListModal } from './violation-list/violation-list.modal';
+import { appEvents } from 'src/app/utility/constant';
 
 @Component({
   selector: 'app-tab-violation',
@@ -11,11 +12,14 @@ import { ViolationListModal } from './violation-list/violation-list.modal';
 })
 export class TabViolationPage extends CitationTab {
 
-  constructor(private modalCtrl: ModalController, private navCtrl: NavController) {
+  constructor(private modalCtrl: ModalController, private navCtrl: NavController, private events: Events) {
     super();
   }
 
   ngOnInit() {
+    this.events.subscribe(appEvents.EVENT_MAP_SELECTED, async () => {
+      this.citation = await this.citationService.getCurrentCitation();
+    });
   }
 
   /**
@@ -34,6 +38,12 @@ export class TabViolationPage extends CitationTab {
 
   async openMaps() {
     this.navCtrl.navigateForward('/maps');
+  }
+
+  async ionViewWillLeave() {
+    this.events.unsubscribe(appEvents.EVENT_MAP_SELECTED);
+    
+    await super.ionViewWillLeave();
   }
 
 }

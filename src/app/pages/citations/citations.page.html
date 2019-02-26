@@ -44,7 +44,7 @@
         </ion-text>
         <ion-text class="ct-location">
           <p>
-            Loc. {{citation.location}}
+            Loc. {{citation.location.street}}<span *ngIf="citation.location.unit">, {{citation.location.unit}}</span>
           </p>
         </ion-text>
         <ion-text class="ct-expdate">

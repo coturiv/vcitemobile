@@ -5,7 +5,7 @@ import { json2xml } from 'xml-js';
 import * as vkbeautify from 'vkbeautify';
 import { getRepository, Not, getManager } from 'typeorm';
 
-import { Citation, Violation, Attachment } from '../entities';
+import { Citation, Violation, Attachment, Location } from '../entities';
 import { Platform } from '@ionic/angular';
 import { StorageKeys, DefaultValues } from '../utility/constant';
 

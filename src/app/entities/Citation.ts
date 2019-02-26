@@ -135,7 +135,7 @@ export class Citation extends BaseEntity {
     vehicle_color: VehColor;
     
     // Location
-    @ManyToOne(type => Location, {eager: true})
+    @ManyToOne(type => Location, {eager: true, cascade: true})
     @JoinColumn({name: 'location_id'})
     location: Location;
     

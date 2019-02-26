@@ -27,13 +27,13 @@ export class CitationTab implements OnInit {
 	}
 
 	ngOnInit() {
-	}
+  }
 
 	async ionViewWillEnter() {
 		// const loading = await this.loadingCtrl.create();
 		// loading.present();
 
-		this.citation = await this.citationService.getCurrentCitation();
+    this.citation = await this.citationService.getCurrentCitation();
 
 		// loading.dismiss();
   }

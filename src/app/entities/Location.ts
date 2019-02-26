@@ -8,7 +8,9 @@ export class Location extends BaseEntity {
     @Column()
     street: string;
 
-    @Column()
+    @Column({
+        nullable: true
+    })
     unit: number;
 
     @Column({
@@ -20,4 +22,9 @@ export class Location extends BaseEntity {
         nullable: true
     })
     longitude: number;
+
+    @Column({
+        nullable: true
+    })
+    source: string;     // 'picker' | 'maps' | 'input';
 }

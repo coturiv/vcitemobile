@@ -30,12 +30,12 @@ export class CitationTab implements OnInit {
   }
 
 	async ionViewWillEnter() {
-		// const loading = await this.loadingCtrl.create();
-		// loading.present();
+		const loading = await this.loadingCtrl.create();
+		loading.present();
 
     this.citation = await this.citationService.getCurrentCitation();
 
-		// loading.dismiss();
+		loading.dismiss();
   }
 
   async ionViewWillLeave() {

@@ -48,7 +48,7 @@
           </p>
         </ion-text>
         <ion-text class="ct-expdate">
-          <p>Exp. {{citation.timestamp | date: 'short'}}</p>
+          <p>Exp. {{citation.expiration_date | date: 'MMM, y'}}</p>
         </ion-text>
       </ion-label>
       <ion-icon slot="end" [name]="citation.list_icon || 'information-circle'" [color]="citation.list_icon_color || 'primary'" slot="end"></ion-icon>

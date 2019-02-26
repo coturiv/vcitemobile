@@ -22,38 +22,35 @@
     </ion-list-header>
 
     <ion-grid>
-      <ng-container *ngFor="let item of images, let i=index">
+      <ng-container *ngFor="let item of citation.attachments, let i=index">
         <ion-row *ngIf="i % 2 == 0">
           <ion-col>
             <ion-thumbnail *ngIf="i == 0" (click)="takePhoto()">
               <ion-icon [src]="'plus' | icomoon: 'orange'" class="color-trans"></ion-icon>
             </ion-thumbnail>
 
+            <ion-thumbnail *ngIf="i != 0" (click)="viewPhoto(item)">
+              <ion-img [src]="'data:image/jpeg;base64,' + item.data"></ion-img>
+              <div class="image-description">
+                {{item.name}}.{{item.type}}
+              </div>
+            </ion-thumbnail>
+
           </ion-col>
           <ion-col>
-            <ion-thumbnail *ngIf="images[i+1] as nextItem">
-              <ion-img [src]="nextItem"></ion-img>
+            <ion-thumbnail *ngIf="citation.attachments[i+1] as nextItem" (click)="viewPhoto(nextItem)">
+              <ion-img [src]="'data:image/jpeg;base64,' + nextItem.data"></ion-img>
+              <div class="image-description">
+                {{nextItem.name}}.{{nextItem.type}}
+              </div>
             </ion-thumbnail>
           </ion-col>
         </ion-row>
       </ng-container>
     </ion-grid>
 
-    <ion-card *ngFor="let attachment of citation.attachments;">
-      <ion-item lines="full" [detail]="false">
-        <ion-label>{{attachment.name}}</ion-label>
-        <ion-note color="primary" text-end text-uppercase>{{attachment.type}}</ion-note>
-      </ion-item>
-
-      <ion-card-content>
-        <ion-thumbnail>
-          <ion-img [src]="'data:image/jpeg;base64,' + attachment.data"></ion-img>
-        </ion-thumbnail>
-      </ion-card-content>
-    </ion-card>
-
-    <ion-text *ngIf="!citation.attachments?.length" class="text-no-content ">
-      {{textEmptyAttachs}}
+    <ion-text *ngIf="!citation.attachments.length < 2" class="text-no-content ">
+      {{noContentText}}
     </ion-text>
   </div>
 

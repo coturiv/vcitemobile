@@ -21,5 +21,20 @@
             width: 2em;
             height: 2em;
         }
+
+        ion-img {
+            height: calc(50vw - 5px);
+        }
+
+        .image-description {
+            position: absolute;
+            width: calc(100% - 10px);
+            height: 32px;
+            bottom: 5px;
+            padding: 8px;
+            color: var(--theme-orange);
+            background: rgba(var(--ion-color-primary-contrast-rgb), .7);
+            text-align: center;
+        }
     }
 }

@@ -1,22 +1,20 @@
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TabReviewPage } from './tab-review.page';
+import { TabViolationComponent } from './tab-violation.component';
 
-describe('TabReviewPage', () => {
-  let component: TabReviewPage;
-  let fixture: ComponentFixture<TabReviewPage>;
+describe('TabViolationComponent', () => {
+  let component: TabViolationComponent;
+  let fixture: ComponentFixture<TabViolationComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TabReviewPage ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+      declarations: [ TabViolationComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TabReviewPage);
+    fixture = TestBed.createComponent(TabViolationComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

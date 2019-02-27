@@ -1,20 +1,20 @@
 import { Component } from '@angular/core';
-import { CitationTab } from '../citation.tab';
+import { AbstractComponent } from '../abstract.component';
 
 @Component({
-  selector: 'app-tab-vehicle',
-  templateUrl: './tab-vehicle.page.html',
-  styleUrls: ['./tab-vehicle.page.scss'],
+  selector: 'tab-vehicle',
+  templateUrl: './tab-vehicle.component.html',
+  styleUrls: ['./tab-vehicle.component.scss']
 })
-export class TabVehiclePage extends CitationTab {
+export class TabVehicleComponent extends AbstractComponent {
 
   constructor() {
     super();
   }
 
-  ngOnInit() {
+  async ngOnInit() {
   }
-
+  
   /**
    * Convert input text to uppercase
    * 

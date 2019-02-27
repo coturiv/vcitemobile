@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
@@ -6,59 +6,22 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { CitationPage } from './citation.page';
+import { ComponentsModule } from 'src/app/components/components.module';
 import { PipesModule } from 'src/app/pipes/pipes.module';
-import { CitationTab } from './citation.tab';
+
+import { TabVehicleComponent } from './tab-vehicle/tab-vehicle.component';
+import { TabViolationComponent } from './tab-violation/tab-violation.component';
+import { TabPhotosComponent } from './tab-photos/tab-photos.component';
+import { TabReviewComponent } from './tab-review/tab-review.component';
+import { ViolationListModalModule } from './violation-list/violation-list.module';
+import { AbstractComponent } from './abstract.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: CitationPage,
-    children: [
-      {
-        path: 'vehicle',
-        children: [
-          {
-            path: '',
-            loadChildren: './tab-vehicle/tab-vehicle.module#TabVehiclePageModule'
-          }
-        ]
-      },
-      {
-        path: 'violation',
-        children: [
-          {
-            path: '',
-            loadChildren: './tab-violation/tab-violation.module#TabViolationPageModule'
-          }
-        ]
-      },
-      {
-        path: 'photos',
-        children: [
-          {
-            path: '',
-            loadChildren: './tab-photos/tab-photos.module#TabPhotosPageModule'
-          }
-        ]
-      },
-      {
-        path: 'review',
-        children: [
-          {
-            path: '',
-            loadChildren: './tab-review/tab-review.module#TabReviewPageModule'
-          }
-        ]
-      },
-      {
-        path: '',
-        redirectTo: '/vehicle',
-        pathMatch: 'full'
-      }
-    ]
+    component: CitationPage
   }
 ];
-
 
 @NgModule({
   imports: [
@@ -66,8 +29,21 @@ const routes: Routes = [
     FormsModule,
     IonicModule,
     RouterModule.forChild(routes),
-    PipesModule
+    ComponentsModule,
+    PipesModule,
+
+    ViolationListModalModule
   ],
-  declarations: [CitationPage, CitationTab]
+  declarations: [
+    CitationPage, 
+    TabVehicleComponent, 
+    TabViolationComponent, 
+    TabPhotosComponent, 
+    TabReviewComponent,
+    AbstractComponent
+  ],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA
+  ]
 })
 export class CitationPageModule {}

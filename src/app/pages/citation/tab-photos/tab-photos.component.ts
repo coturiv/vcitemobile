@@ -1,31 +1,31 @@
 import { Component } from '@angular/core';
-import { CitationTab } from '../citation.tab';
-import { CommonService } from 'src/app/services/common.service';
+import { AbstractComponent } from '../abstract.component';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+import { CommonService } from 'src/app/services/common.service';
 import { Attachment } from 'src/app/entities';
 import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
 
 @Component({
-  selector: 'app-tab-photos',
-  templateUrl: './tab-photos.page.html',
-  styleUrls: ['./tab-photos.page.scss'],
+  selector: 'tab-photos',
+  templateUrl: './tab-photos.component.html',
+  styleUrls: ['./tab-photos.component.scss']
 })
-export class TabPhotosPage extends CitationTab {
-  noContentText: string = 'For best results, rotate your phone to a landscape position is if it were a regular camera.';
+export class TabPhotosComponent extends AbstractComponent {
 
-  constructor(private camera: Camera, private photoViewer: PhotoViewer) {
+  noContentText: string = 'For best results, rotate your phone to a landscape position is if it were a regular camera.';
+  photos: Attachment[] = [null];
+
+  constructor(private camera: Camera, private commonService: CommonService, private photoViewer: PhotoViewer) {
     super();
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+
+    this.citation.attachments.forEach(a => {
+      this.photos.push(a);
+    });
+
   }
-
-  async ionViewWillEnter() {
-    await super.ionViewWillEnter();
-
-    this.citation.attachments.unshift(null);
-  }
-
 
   async takePhoto() {
     this.commonService.showPrompt('Suggest name?', async fileName => {
@@ -47,6 +47,7 @@ export class TabPhotosPage extends CitationTab {
         attachment.type = 'jpg';
 
         this.citation.attachments.push(attachment);
+        this.photos.push(attachment);
       }
     });
   }
@@ -55,9 +56,4 @@ export class TabPhotosPage extends CitationTab {
     // this.photoViewer.show('data:image/jpeg;base64,' + photo.data, `${photo.name}.${photo.type}`, {share: false});
   }
 
-  async ionViewWillLeave() {
-    this.citation.attachments.shift();
-
-    await super.ionViewWillLeave();
-  }
 }

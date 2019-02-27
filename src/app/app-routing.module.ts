@@ -16,39 +16,37 @@ const routes: Routes = [
     loadChildren: './pages/qrscan/qrscan.module#QrscanPageModule'
   },
   { 
-    path: 'citation/:cId', 
+    path: 'citation/:cId',
     loadChildren: './pages/citation/citation.module#CitationPageModule' 
   },
   { 
-    path: 'vchalk', 
+    path: 'vchalk',
     loadChildren: './pages/vchalk/vchalk.module#VchalkPageModule' 
   },
   { 
-    path: 'login', 
+    path: 'login',
     loadChildren: './pages/login/login.module#LoginPageModule' 
   },
   { 
-    path: 'settings', 
+    path: 'settings',
     loadChildren: './pages/settings/settings.module#SettingsPageModule' 
   },
   { 
-    path: 'reference', 
+    path: 'reference',
     loadChildren: './pages/reference/reference.module#ReferencePageModule' 
   },
   { 
-    path: 'about', 
+    path: 'about',
     loadChildren: './pages/about/about.module#AboutPageModule' 
   },
   { 
-    path: 'change-password', 
+    path: 'change-password',
     loadChildren: './pages/change-password/change-password.module#ChangePasswordPageModule'
   },
   { 
-    path: 'maps', 
+    path: 'maps',
     loadChildren: './pages/maps/maps.module#MapsPageModule' 
   }
-
-
 
 ];
 

@@ -1,22 +1,20 @@
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TabPhotosPage } from './tab-photos.page';
+import { TabPhotosComponent } from './tab-photos.component';
 
-describe('TabPhotosPage', () => {
-  let component: TabPhotosPage;
-  let fixture: ComponentFixture<TabPhotosPage>;
+describe('TabPhotosComponent', () => {
+  let component: TabPhotosComponent;
+  let fixture: ComponentFixture<TabPhotosComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TabPhotosPage ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+      declarations: [ TabPhotosComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TabPhotosPage);
+    fixture = TestBed.createComponent(TabPhotosComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

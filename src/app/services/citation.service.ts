@@ -33,7 +33,6 @@ const citationFieldIds = {
 })
 export class CitationService {
   fileTransfer: FileTransferObject;
-  readonly entityName = 'citation';
 
   get currentId(): number {
     return Number(localStorage.getItem(StorageKeys.CURRENT_CITATION_ID));

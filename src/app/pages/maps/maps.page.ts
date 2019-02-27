@@ -5,7 +5,7 @@ import { GoogleMap, GoogleMaps, Geocoder, LocationService, MyLocation, LatLng, G
 import { ActionSheetButton } from '@ionic/core';
 import { getRepository } from 'typeorm';
 import { Location } from 'src/app/entities';
-import { appEvents } from 'src/app/utility/constant';
+import { AppEvents } from 'src/app/utility/constant';
 
 @Component({
   selector: 'app-maps',
@@ -51,7 +51,7 @@ export class MapsPage implements OnInit {
         await location.save();
         await citation.save();
 
-        this.events.publish(appEvents.EVENT_MAP_SELECTED);
+        this.events.publish(AppEvents.EVENT_MAP_SELECTED);
 
       } else {
         location.latitude = this.myLocation.latLng.lat;
@@ -61,7 +61,7 @@ export class MapsPage implements OnInit {
         await location.save();
         await citation.save();
 
-        this.events.publish(appEvents.EVENT_MAP_SELECTED);
+        this.events.publish(AppEvents.EVENT_MAP_SELECTED);
       }
     }
 

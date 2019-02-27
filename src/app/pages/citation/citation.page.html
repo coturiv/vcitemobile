@@ -1,25 +1,65 @@
-<ion-tabs>
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button>
+        <ion-icon [src]="'menu' | icomoon: 'white'" class="color-trans toolbar-icon"></ion-icon>
+      </ion-menu-button>
+    </ion-buttons>
+    <ion-title>Citation # {{citation?.id}}</ion-title>
 
-  <ion-tab-bar slot="bottom" color="primary">
-    <ion-tab-button tab="vehicle">
-      <ion-icon [src]="'car' | icomoon: 'white'"></ion-icon>
-      <ion-label>Vehicle</ion-label>
-    </ion-tab-button>
+    <ion-buttons slot="end">
+      <ion-button (click)="onSubmit()">
+        <ion-icon [src]="'upload' | icomoon: 'white'" class="color-trans toolbar-icon"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
 
-    <ion-tab-button tab="violation">
-      <ion-icon [src]="'balance' | icomoon: 'white'"></ion-icon>
-      <ion-label>Violation</ion-label>
-    </ion-tab-button>
+<ion-content>
+  <ng-container *ngIf="citation">
+      <ng-container [ngSwitch]="segment">
+    
+          <!-- /Vehicle -->
+          <tab-vehicle [citation]="citation" *ngSwitchCase="'vehicle'"></tab-vehicle>
+      
+          <!-- /Violation -->
+          <tab-violation [citation]="citation" *ngSwitchCase="'violation'"></tab-violation>
+      
+          <!-- /Photos -->
+          <tab-photos [citation]="citation" *ngSwitchCase="'photos'"></tab-photos>
+      
+          <!-- /Review -->
+          <tab-review [citation]="citation" *ngSwitchCase="'review'" (submitClick)="onSubmit()"></tab-review>
+      
+        </ng-container>
+  </ng-container>
+</ion-content>
 
-    <ion-tab-button tab="photos">
-      <ion-icon [src]="'images' | icomoon: 'white'"></ion-icon>
-      <ion-label>Photos</ion-label>
-    </ion-tab-button>
+<ion-footer>
 
-    <ion-tab-button tab="review">
-      <ion-icon [src]="'checkmark' | icomoon: 'white'"></ion-icon>
-      <ion-label>Review</ion-label>
-    </ion-tab-button>
-  </ion-tab-bar>
+  <ion-toolbar color="primary">
 
-</ion-tabs>
+    <ion-segment [(ngModel)]="segment" (ionChange)="segment=$event.target.value" color="primary">
+      <ion-segment-button value="vehicle">
+        <ion-label>Vehicle</ion-label>
+        <ion-icon [src]="'car' | icomoon: 'white'" class="color-trans"></ion-icon>
+      </ion-segment-button>
+
+      <ion-segment-button value="violation">
+        <ion-label>Violation</ion-label>
+        <ion-icon [src]="'balance' | icomoon: 'white'" class="color-trans"></ion-icon>
+      </ion-segment-button>
+
+      <ion-segment-button value="photos">
+        <ion-label>Photos</ion-label>
+        <ion-icon [src]="'images' | icomoon: 'white'" class="color-trans"></ion-icon>
+      </ion-segment-button>
+
+      <ion-segment-button value="review">
+        <ion-label>Review</ion-label>
+        <ion-icon [src]="'checkmark' | icomoon: 'white'" class="color-trans"></ion-icon>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+
+</ion-footer>

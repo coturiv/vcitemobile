@@ -33,7 +33,6 @@
         "@ionic/angular": "4.0.0",
         "@ionic/storage": "^2.2.0",
         "@types/node": "^10.12.18",
-        "com-sarriaroman-photoviewer": "1.2.0",
         "cordova-plugin-file": "6.0.1",
         "cordova-plugin-file-transfer": "1.7.1",
         "cordova-plugin-googlemaps": "2.5.1",
@@ -104,8 +103,7 @@
                 "API_KEY_FOR_IOS": "AIzaSyCvuFcXB96-5XSeM7ge97UWNKKR01sE4-M",
                 "PLAY_SERVICES_VERSION": "15.0.1",
                 "ANDROID_SUPPORT_V4_VERSION": "27.+"
-            },
-            "com-sarriaroman-photoviewer": {}
+            }
         },
         "platforms": [
             "android"

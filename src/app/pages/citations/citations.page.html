@@ -31,7 +31,7 @@
         <ion-label>Clear all</ion-label>
       </ion-button>
     </ion-list-header>
-    <ion-item button *ngFor="let citation of citations" (click)="navigateTo('/citation/' + citation.id + '/vehicle')" detail="false">
+    <ion-item button *ngFor="let citation of citations" (click)="navigateTo('/citation/' + citation.id)" detail="false">
       <ion-label>
         <ion-text color="dark">
           <span class="ct-sn">
@@ -44,7 +44,7 @@
         </ion-text>
         <ion-text class="ct-location">
           <p>
-            Loc. {{citation.location.street}}<span *ngIf="citation.location.unit">, {{citation.location.unit}}</span>
+            Loc. {{citation.location?.street}}<span *ngIf="citation.location?.unit">, {{citation.location?.unit}}</span>
           </p>
         </ion-text>
         <ion-text class="ct-expdate">

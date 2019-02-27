@@ -1,15 +1,25 @@
 :host {
+    ion-segment {
+        padding-top: 2px;
+        
+        ion-segment-button {
+
+            &.segment-button-checked {
+                background: var(--background) !important;
+                color: var(--ion-color-primary) !important;
+            }
     
-    ion-tab-bar {
-        background: var(--theme-blue-gradient) !important;
-    }
-
-    ion-tab-button {
-        background: transparent !important;
-
-        ion-icon {
-            font-size: 2.4em;
-            padding-bottom: 4px;
+            // color: var(--ion-color-light) !important;
+            --color-checked: var(--ion-color-primary) !important;
+            --border-width: 0 !important;
+    
+            ion-label {
+                font-size: 10px !important;
+            }
+    
+            ion-icon {
+                font-size: 22px !important;
+            }
         }
     }
 }

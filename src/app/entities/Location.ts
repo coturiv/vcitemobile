@@ -1,17 +1,33 @@
 import {Entity, PrimaryColumn, Column, BaseEntity} from 'typeorm';
 
-@Entity("location")
+@Entity('location')
 export class Location extends BaseEntity {
     @PrimaryColumn()
     id: number;
-    
+
     @Column()
-    street: string;
+    Street: string;
 
     @Column({
         nullable: true
     })
-    unit: number;
+    StreetNumber: number;
+
+    @Column({
+        nullable: true
+    })
+    Unit: number;
+
+    @Column({
+        nullable: true
+    })
+    ParcelID: string;
+
+    // street + address
+    @Column({
+        nullable: true
+    })
+    address: string;
 
     @Column({
         nullable: true

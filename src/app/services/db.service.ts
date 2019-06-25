@@ -3,48 +3,56 @@ import { Platform, LoadingController } from '@ionic/angular';
 
 import { createConnection, ConnectionOptions, getConnection, getManager, getRepository } from 'typeorm';
 
-import { EntityFactory, VehColor, Citation, VehState, VehMake, Location, Attachment, AttachmentType, PlateType, Violation } from '../entities';
+import {
+  EntityFactory,
+  VehColor,
+  Citation,
+  VehState,
+  VehMake,
+  Location,
+  Attachment,
+  AttachmentType,
+  PlateType,
+  Violation
+} from '../entities';
 import { StorageKeys, DefaultValues } from '../utility/constant';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
-import { of } from 'rxjs';
+import { of, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DbService {
 
-  get isDbSynchronized() {
-    return localStorage.getItem(StorageKeys.DB_IS_SYNCHRONZIED) == 'true';
-  }
+  synchronizeChange: Subject<number>;
 
-  set isDbSynchronized(synchronzied: boolean) {
-    localStorage.setItem(StorageKeys.DB_IS_SYNCHRONZIED, String(synchronzied));
-  }
-  
   constructor(
     private platform: Platform,
     private httpClient: HttpClient,
-    private loadingCtrl: LoadingController) { }
+    private loadingCtrl: LoadingController
+  ) {
+    this.synchronizeChange = new Subject();
+  }
 
-  async ready() {
-    try {
 
-      getConnection();
-
-    } catch(ex) {
-      
-      await this.createConnection();
-
-    }
+  get isSynchronized() {
+    return !!localStorage.getItem(StorageKeys.DB_SYNCHRONIZED);
   }
 
   /**
    * Synchronization
-   * 
-   * @param entities 
+   *
+   * @param entities
    */
-  async synchronize(entities: any[]) {
+  async synchronize(force = false) {
+
+    if (this.isSynchronized && !force) {
+      return;
+    }
+
+    const entities: any[] = [VehColor, VehMake, VehState, PlateType, Location, Violation];
+
     const loading = await this.loadingCtrl.create({
       message: 'initializing database...'
     });
@@ -57,9 +65,9 @@ export class DbService {
           const tableName = entity.name.toLowerCase();
           const records = await this.httpClient.get(`assets/data/${tableName}.json`)
             .pipe(
-              catchError(_=> of([])),
+              catchError(_ => of([])),
               map((items: Object[]) => {
-                switch(entity) {
+                switch (entity) {
                   case Attachment:
                     return items.map(i => Object.assign(new Attachment(), i));
                   case AttachmentType:
@@ -84,14 +92,15 @@ export class DbService {
             .toPromise() as any[];
 
           if (records.length) {
-
             await tem.clear(entity);
             await tem.save(records);
-          
+
           }
         }
 
         await this.initializeDb();
+
+        localStorage.setItem(StorageKeys.DB_SYNCHRONIZED, JSON.stringify({updatedTime: Date.now()}));
 
         loading.dismiss();
       });
@@ -102,20 +111,22 @@ export class DbService {
   }
 
   async initializeDb() {
-    let defaultCitation = await getRepository(Citation).findOne(DefaultValues.DB_CITATION_ID);
+    let defaultCitation = await getRepository(Citation).findOne(DefaultValues.CITATION_DEFAULT_ID);
 
     if (defaultCitation) {
       // TODO: update default citation after a new synchronzation completed.
     } else {
       defaultCitation = new Citation();
-      defaultCitation.id = DefaultValues.DB_CITATION_ID;
+      defaultCitation.id = DefaultValues.CITATION_DEFAULT_ID;
       defaultCitation.vehicle_state = await getRepository(VehState).findOne();
       defaultCitation.vehicle_color = await getRepository(VehColor).findOne();
       defaultCitation.vehicle_make = await getRepository(VehMake).findOne();
+      defaultCitation.plate_type = await getRepository(PlateType).findOne();
 
       const location = new Location();
-      location.street = '';
+      location.Street = '';
       location.source = 'input';
+      location.id = Date.now();
 
       defaultCitation.location = location;
 
@@ -123,14 +134,14 @@ export class DbService {
     }
   }
 
-  
+
   /**
    * Create DB connection
    */
-  private async createConnection(){
+  async createConnection() {
     let dbOptions: ConnectionOptions;
-    
-    if (this.platform.is('cordova')) {
+
+    if (this.platform.is('cordova') && this.platform.is('ios')) {
 
       dbOptions = {
         type: 'cordova',
@@ -138,19 +149,26 @@ export class DbService {
         location: 'default'
       };
     } else {
-
       dbOptions = {
         type: 'sqljs',
         location: 'browser',
-        synchronize: true,
         autoSave: true
       };
-    }
+    } /* else {
+      dbOptions = {
+        type: 'websql',
+        database: '__vcitemobile',
+        version: '1',
+        description: '',
+        size: 2 * 1024 * 1024
+      };
+
+    }*/
 
     // additional options
     Object.assign(dbOptions, {
-      // logging: true,
-      synchronize:true,
+      logging: false,
+      synchronize: true,
       entities: EntityFactory.getAllEntities()
     });
 
@@ -158,16 +176,11 @@ export class DbService {
 
       await createConnection(dbOptions);
 
-    } catch(e) {
+    } catch (e) {
 
       console.log('Create connection failed.', e);
 
     }
 
-    if (!this.isDbSynchronized) {
-      await this.synchronize([VehColor, VehMake, VehState, Location, Violation]);
-
-      this.isDbSynchronized = true;
-    }
   }
 }

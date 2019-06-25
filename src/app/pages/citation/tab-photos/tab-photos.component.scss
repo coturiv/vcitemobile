@@ -1,10 +1,24 @@
 :host {
+    ion-list-header {
+        min-height: 52.8px;
+        
+        ion-button {
+            --background: none !important;
+            --background-activated: none !important;
+        }
+    }
     .text-no-content {
         position: absolute;
         padding: 4vh;
         line-height: 1.4;
         color: var(--ion-color-dark);
         opacity: .9;
+    }
+
+    ion-fab-button {
+        margin-bottom: 16px;
+        --background: var(--theme-orange) !important;
+        --background-activated: var(--theme-orange) !important;
     }
 
     ion-thumbnail {
@@ -24,6 +38,29 @@
 
         ion-img {
             height: calc(50vw - 5px);
+
+            &.selectable {
+                &::after {
+                    content: "";
+                    position: absolute;
+                    top: 16px;
+                    left: 16px;
+                    color: var(--theme-orange);
+                    background: rgba(var(--ion-color-primary-contrast-rgb), 1);
+                    border-radius: 50%;
+                    width: 24px;
+                    height: 24px;
+                    line-height: 27px;
+                    text-align: center;
+                    font-size: 20px;
+                }
+    
+                &.selected {
+                    &::after {
+                        content: "\2713";
+                    }
+                }
+            }
         }
 
         .image-description {
@@ -35,6 +72,28 @@
             color: var(--theme-orange);
             background: rgba(var(--ion-color-primary-contrast-rgb), .7);
             text-align: center;
+
+            & > ion-button {
+                position: absolute;
+                margin-top: -14px;
+                --background-activated: transparent !important;
+
+                ion-icon {
+                    width: 1.2rem;
+                    margin-top: 0px;
+                }
+            }
+
+            & > ion-button.btn-photo-preview {
+                left: 0;
+                --padding-end: 0px;
+            }
+
+            & > ion-button.btn-photo-remove {
+                right: 0;
+                --padding-start: 0px;
+            }
         }
+
     }
 }

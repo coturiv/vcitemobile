@@ -6,8 +6,9 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { SettingsPage } from './settings.page';
-import { ComponentsModule } from 'src/app/components/components.module';
-import { PipesModule } from 'src/app/pipes/pipes.module';
+import { ComponentsModule } from 'src/app/shared/components/components.module';
+import { PipesModule } from 'src/app/shared/pipes/pipes.module';
+import { AccordionListModule } from 'ionic4-kits';
 
 const routes: Routes = [
   {
@@ -24,7 +25,8 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes),
     ComponentsModule,
-    PipesModule
+    PipesModule,
+    AccordionListModule
   ],
   declarations: [SettingsPage]
 })

@@ -49,15 +49,27 @@ ion-list.list-md {
         font-size: 28px !important;
     }
 
-    ion-list-header ion-button {
-        --box-shadow: none;
+    ion-list-header {
+        ion-label {
+            text-transform: initial;
+        }
+        
+        ion-button {
+            --box-shadow: none;
+        }
+    }
+
+    ion-toast {
+        font-size: 17px;
+
+        --ion-color-warning: #e65123 !important;
     }
 
     .maps-action-sheet {
         button.action-sheet-button {
             text-align: left !important;
             font-size: 16px !important;
-            color: var(--theme-orange) !important;
+            color: var(--theme-blue) !important;
         }
         
         .action-sheet-button-inner {
@@ -67,5 +79,28 @@ ion-list.list-md {
         ion-icon {
             font-size: 24px !important;
         }
+    }
+
+    $header-gradient-border: 4px;
+
+    ion-header:after {
+        left: 0;
+        bottom: -$header-gradient-border;
+        background-position: left 0 top 0;
+        position: absolute;
+        width: 100%;
+        height: $header-gradient-border;
+        background-repeat: repeat-x;
+        background: var(--theme-orange-gradient);
+        content: "";
+    }
+
+    ion-content {
+        top: $header-gradient-border;
+    }
+
+    ion-list-header {
+        font-size: 16px;
+        text-transform: uppercase;
     }
 }

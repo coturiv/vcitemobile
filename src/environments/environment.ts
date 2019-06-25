@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://api.example.com'
+  apiUrl: 'http://www.vciteplus.com/api'
 };
 
 /*

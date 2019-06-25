@@ -1,0 +1,20 @@
+:host {
+    ion-item-divider {
+        ion-label {
+            width: 100%;
+            font-size: 14px;
+            text-align: center;
+        }
+    }
+
+    ion-select.unit-picker {
+        color: var(--theme-orange);
+    }
+
+    ion-footer {
+        ion-item {
+            --background: transparent;
+            color: var(--ion-color-primary-contrast);
+        }
+    }
+}

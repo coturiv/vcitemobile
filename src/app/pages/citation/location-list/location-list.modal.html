@@ -1,0 +1,80 @@
+<ion-header>
+  <ion-toolbar color="primary">
+
+    <ion-buttons slot="start">
+      <ion-button (click)="close()">
+        <ion-icon slot="icon-only" [src]="'close' | icomoon: 'white'" class="color-trans"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-title>Address Lookup</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button [disabled]="!selected" (click)="confirm()">
+        Confirm
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-toolbar color="primary">
+    <ion-searchbar (ionChange)="search($event)" debounce="500" placeholder="Search Street" animated></ion-searchbar>
+    <ion-buttons slot="end" *ngIf="searchbar.value && !locations.length">
+      <ion-button (click)="create()">
+        Create
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item-divider color="medium" *ngIf="selected" class="address-selected">
+    <ion-label>
+      <ng-container *ngIf="selected.StreetNumber">
+        {{selected.StreetNumber + ' '}}
+      </ng-container>
+      
+      <ng-container *ngIf="selected.Street">
+        {{selected.Street + ' '}}
+      </ng-container>
+
+      <ng-container *ngIf="selected.Unit">
+        {{selected.Unit}}
+      </ng-container>
+    </ion-label>
+  </ion-item-divider>
+
+  <ion-virtual-scroll [items]="locations">
+    <ion-item button *virtualItem="let item" (click)="onStreetSelected(item)">
+      <ion-label>{{item.Street}}</ion-label>
+    </ion-item>
+  </ion-virtual-scroll>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar color="medium" *ngIf="selected" no-padding>
+    <ion-item lines="none">
+      <ion-label>{{selected.Street}}</ion-label>
+      <!-- Choose Street Number -->
+      <ion-select [interfaceOptions]="{header: 'Street Number'}"
+        (ionChange)="onStreetNumberSelected($event.target.value)" placeholder="Street Number">
+        <ng-container *ngFor="let location of streetNumbers">
+          <ion-select-option *ngIf="location.StreetNumber" [value]="location">
+            {{location.StreetNumber}}
+          </ion-select-option>
+        </ng-container>
+      </ion-select>
+      <!-- Choose Unit -->
+      <ion-select [interfaceOptions]="{header: 'Unit'}" class="unit-picker"
+        (ionChange)="selected=$event.target.value" placeholder="Unit">
+        <ng-container *ngFor="let location of streetUnits">
+          <ion-select-option *ngIf="location.Unit" [value]="location">
+            {{location.Unit}}
+          </ion-select-option>
+        </ng-container>
+      </ion-select>
+    </ion-item>
+  </ion-toolbar>
+
+  <ion-toolbar color="primary" no-padding text-center>
+    <ion-label color="dark">Last Updated {{lastUpdated | date: 'MM/dd/y'}}</ion-label>
+  </ion-toolbar>
+</ion-footer>

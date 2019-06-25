@@ -1,10 +1,18 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { NavController, Platform, ActionSheetController, Events } from '@ionic/angular';
 import { CitationService } from 'src/app/services/citation.service';
-import { GoogleMap, GoogleMaps, Geocoder, LocationService, MyLocation, LatLng, GoogleMapOptions, Marker, GoogleMapsAnimation, GeocoderResult } from '@ionic-native/google-maps/ngx';
+import {
+  GoogleMap,
+  GoogleMaps,
+  Geocoder,
+  LocationService,
+  MyLocation,
+  LatLng,
+  GoogleMapOptions,
+  Marker,
+  GoogleMapsAnimation,
+  GeocoderResult } from '@ionic-native/google-maps/ngx';
 import { ActionSheetButton } from '@ionic/core';
-import { getRepository } from 'typeorm';
-import { Location } from 'src/app/entities';
 import { AppEvents } from 'src/app/utility/constant';
 
 @Component({
@@ -14,14 +22,14 @@ import { AppEvents } from 'src/app/utility/constant';
 })
 export class MapsPage implements OnInit {
   map: GoogleMap;
-  myLocation: MyLocation; 
+  myLocation: MyLocation;
   myAddress: string;
 
   constructor(
-    private navCtrl: NavController, 
-    private platform: Platform, 
-    private citationService: CitationService, 
-    private actionSheetCtrl: ActionSheetController, 
+    private navCtrl: NavController,
+    private platform: Platform,
+    private citationService: CitationService,
+    private actionSheetCtrl: ActionSheetController,
     private events: Events
   ) { }
 
@@ -40,13 +48,17 @@ export class MapsPage implements OnInit {
 
   async done() {
     const citation = await this.citationService.getCurrentCitation();
-    let location = citation.location;
+    const location = citation.location;
 
     if (location) {
-      location.street = this.myAddress;
-      
-      if (location.source === 'maps' && location.latitude === this.myLocation.latLng.lat && location.longitude === this.myLocation.latLng.lng) {
-        // other stuff
+      location.address = this.myAddress;
+
+      if (location.source === 'maps' &&
+        location.latitude === this.myLocation.latLng.lat &&
+        location.longitude === this.myLocation.latLng.lng
+        ) {
+
+          // other stuff
 
         await location.save();
         await citation.save();
@@ -101,7 +113,7 @@ export class MapsPage implements OnInit {
         }
       }
     } else {
-      throw 'cordova_not_avaiable';
+      throw new Error('cordova_not_avaiable');
     }
   }
 
@@ -112,7 +124,7 @@ export class MapsPage implements OnInit {
       tilt: 30
     };
 
-    this.map = GoogleMaps.create('map_canvas');    
+    this.map = GoogleMaps.create('map_canvas');
   }
 
   async getAddresses(latLng: LatLng) {
@@ -131,7 +143,7 @@ export class MapsPage implements OnInit {
         handler: () => {
           handler(address);
         }
-      }
+      };
     });
 
     const actionSheet = await this.actionSheetCtrl.create({

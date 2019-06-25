@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./vchalk.page.scss'],
 })
 export class VchalkPage implements OnInit {
+  vchalk = 'assets/pdfs/lynnpark_vcitemobile_vchalk_info.pdf';
 
   constructor() { }
 

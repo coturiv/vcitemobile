@@ -8,20 +8,26 @@
     }
 
     .qr-button-container {
-        margin-top: 36px;
+        margin-top: 10vh;
 
         h5 {
             color: var(--theme-blue);
-            margin-top: 8px;
-            font-size: 15px;
+            font-size: 18px;
             font-weight: 200;
         }
     }
 
     ion-button.btn-scan {
         --border-radius: 50%;
-        width: 56px;
-        height: 56px;
-        font-size: 14px;
+        width: 64px;
+        height: 64px;
+        font-size: 18px;
+    }
+
+    ion-buttons {
+
+        ion-button {
+            --background-activated: transparent !important;
+        }
     }
 }

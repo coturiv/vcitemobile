@@ -1,14 +1,14 @@
 import {Entity, PrimaryColumn, Column, BaseEntity, ManyToOne, JoinColumn} from 'typeorm';
 import { Citation } from './Citation';
 
-@Entity("attachment")
+@Entity('attachment')
 export class Attachment extends BaseEntity {
     @PrimaryColumn()
     id: number;
-    
+
     // name of attachment
     @Column()
-    name: string;
+    Name: string;
 
     // type of attachment: AttachmentType('JPEG' | 'PNG' | ...)
     @Column()

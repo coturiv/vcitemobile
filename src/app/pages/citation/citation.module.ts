@@ -6,8 +6,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { CitationPage } from './citation.page';
-import { ComponentsModule } from 'src/app/components/components.module';
-import { PipesModule } from 'src/app/pipes/pipes.module';
+import { ComponentsModule } from 'src/app/shared/components/components.module';
+import { PipesModule } from 'src/app/shared/pipes/pipes.module';
 
 import { TabVehicleComponent } from './tab-vehicle/tab-vehicle.component';
 import { TabViolationComponent } from './tab-violation/tab-violation.component';
@@ -15,6 +15,8 @@ import { TabPhotosComponent } from './tab-photos/tab-photos.component';
 import { TabReviewComponent } from './tab-review/tab-review.component';
 import { ViolationListModalModule } from './violation-list/violation-list.module';
 import { AbstractComponent } from './abstract.component';
+import { LocationListModalModule } from './location-list/location-list.module';
+import { Ionic4KitsModule } from 'ionic4-kits';
 
 const routes: Routes = [
   {
@@ -32,13 +34,16 @@ const routes: Routes = [
     ComponentsModule,
     PipesModule,
 
-    ViolationListModalModule
+    ViolationListModalModule,
+    LocationListModalModule,
+
+    Ionic4KitsModule
   ],
   declarations: [
-    CitationPage, 
-    TabVehicleComponent, 
-    TabViolationComponent, 
-    TabPhotosComponent, 
+    CitationPage,
+    TabVehicleComponent,
+    TabViolationComponent,
+    TabPhotosComponent,
     TabReviewComponent,
     AbstractComponent
   ],

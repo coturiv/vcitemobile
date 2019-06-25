@@ -15,7 +15,7 @@
       <ion-icon name="qr-scanner"></ion-icon>
     </ion-fab-button>
   </ion-fab> -->
-  
+
   <!-- scan button -->
   <div class="qr-button-container" text-center>
     <ion-button (click)="onScan()" color="secondary" class="btn-scan">
@@ -28,32 +28,32 @@
 
   <!-- scan result -> 'success' -->
   <ion-card *ngIf="scanResult?.status == 'success'" class="citation-info">
-      <ion-card-header>
-          <ion-card-subtitle color="secondary">{{scanResult.message}}</ion-card-subtitle>
-        </ion-card-header>
-    
-        <ion-card-content>
-          <ion-list>
-            <ion-item lines="full">
-              <ion-label>Citation #</ion-label>
-              <ion-note>{{citation?.custKey}}</ion-note>
-            </ion-item>
-      
-            <ion-item lines="full">
-              <ion-label>Organization #</ion-label>
-              <ion-note>{{citation?.serial_number}}</ion-note>
-            </ion-item>
-          </ion-list>
-        </ion-card-content>
-    
-        <ion-item lines="none">
-          <ion-buttons slot="end">
-            <ion-button (click)="onContinue()">
-              <ion-label>Continue</ion-label>
-              <ion-icon name="arrow-forward"></ion-icon>
-            </ion-button>
-          </ion-buttons>
+    <ion-card-header>
+      <ion-card-subtitle color="secondary">{{scanResult.message}}</ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-list>
+        <ion-item lines="full">
+          <ion-label>Citation #</ion-label>
+          <ion-note>{{citation?.serial_number}}</ion-note>
         </ion-item>
+
+        <ion-item lines="full">
+          <ion-label>Organization #</ion-label>
+          <ion-note>{{citation?.custKey}}</ion-note>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+
+    <ion-item lines="none">
+      <ion-buttons slot="end">
+        <ion-button (click)="onContinue()">
+          <ion-label>Continue</ion-label>
+          <ion-icon name="arrow-forward"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
   </ion-card>
 
   <!-- scan result -> 'invalid' -->

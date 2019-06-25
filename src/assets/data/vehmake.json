@@ -1,306 +1,306 @@
 [
    {
-      "name": "Acura",
-      "abbreviation": "ACUR"
+      "Name": "Acura",
+      "Abbreviation": "ACUR"
    },
    {
-      "name": "Alfa Romeo",
-      "abbreviation": "ALFA"
+      "Name": "Alfa Romeo",
+      "Abbreviation": "ALFA"
    },
    {
-      "name": "American Motors",
-      "abbreviation": "AMER"
+      "Name": "American Motors",
+      "Abbreviation": "AMER"
    },
    {
-      "name": "Audi",
-      "abbreviation": "AUDI"
+      "Name": "Audi",
+      "Abbreviation": "AUDI"
    },
    {
-      "name": "Avanti",
-      "abbreviation": "AVTI"
+      "Name": "Avanti",
+      "Abbreviation": "AVTI"
    },
    {
-      "name": "Bentley",
-      "abbreviation": "BENT"
+      "Name": "Bentley",
+      "Abbreviation": "BENT"
    },
    {
-      "name": "BMW",
-      "abbreviation": "BMW"
+      "Name": "BMW",
+      "Abbreviation": "BMW"
    },
    {
-      "name": "Buick",
-      "abbreviation": "BUIC"
+      "Name": "Buick",
+      "Abbreviation": "BUIC"
    },
    {
-      "name": "Cadillac",
-      "abbreviation": "CADI"
+      "Name": "Cadillac",
+      "Abbreviation": "CADI"
    },
    {
-      "name": "Chevrolet",
-      "abbreviation": "CHEV"
+      "Name": "Chevrolet",
+      "Abbreviation": "CHEV"
    },
    {
-      "name": "Chrysler",
-      "abbreviation": "CHRY"
+      "Name": "Chrysler",
+      "Abbreviation": "CHRY"
    },
    {
-      "name": "Citroen",
-      "abbreviation": "CITR"
+      "Name": "Citroen",
+      "Abbreviation": "CITR"
    },
    {
-      "name": "Daewoo",
-      "abbreviation": "DAEW"
+      "Name": "Daewoo",
+      "Abbreviation": "DAEW"
    },
    {
-      "name": "Daihatsu",
-      "abbreviation": "DAIH"
+      "Name": "Daihatsu",
+      "Abbreviation": "DAIH"
    },
    {
-      "name": "Datsun",
-      "abbreviation": "DATS"
+      "Name": "Datsun",
+      "Abbreviation": "DATS"
    },
    {
-      "name": "Dodge",
-      "abbreviation": "DODG"
+      "Name": "Dodge",
+      "Abbreviation": "DODG"
    },
    {
-      "name": "Eagle",
-      "abbreviation": "EAGL"
+      "Name": "Eagle",
+      "Abbreviation": "EAGL"
    },
    {
-      "name": "Ferrari",
-      "abbreviation": "FERR"
+      "Name": "Ferrari",
+      "Abbreviation": "FERR"
    },
    {
-      "name": "Fiat",
-      "abbreviation": "FIAT"
+      "Name": "Fiat",
+      "Abbreviation": "FIAT"
    },
    {
-      "name": "Ford",
-      "abbreviation": "FORD"
+      "Name": "Ford",
+      "Abbreviation": "FORD"
    },
    {
-      "name": "Freightliner",
-      "abbreviation": "FRTL"
+      "Name": "Freightliner",
+      "Abbreviation": "FRTL"
    },
    {
-      "name": "Geo",
-      "abbreviation": "GEO"
+      "Name": "Geo",
+      "Abbreviation": "GEO"
    },
    {
-      "name": "General Motors",
-      "abbreviation": "GMC"
+      "Name": "General Motors",
+      "Abbreviation": "GMC"
    },
    {
-      "name": "Grumman",
-      "abbreviation": "GRUM"
+      "Name": "Grumman",
+      "Abbreviation": "GRUM"
    },
    {
-      "name": "Harley Davidson",
-      "abbreviation": "HD"
+      "Name": "Harley Davidson",
+      "Abbreviation": "HD"
    },
    {
-      "name": "Honda",
-      "abbreviation": "HOND"
+      "Name": "Honda",
+      "Abbreviation": "HOND"
    },
    {
-      "name": "Hummer",
-      "abbreviation": "HUM"
+      "Name": "Hummer",
+      "Abbreviation": "HUM"
    },
    {
-      "name": "Hyundai",
-      "abbreviation": "HYUN"
+      "Name": "Hyundai",
+      "Abbreviation": "HYUN"
    },
    {
-      "name": "Indian",
-      "abbreviation": "INDI"
+      "Name": "Indian",
+      "Abbreviation": "INDI"
    },
    {
-      "name": "Infiniti",
-      "abbreviation": "INFI"
+      "Name": "Infiniti",
+      "Abbreviation": "INFI"
    },
    {
-      "name": "International",
-      "abbreviation": "INTL"
+      "Name": "International",
+      "Abbreviation": "INTL"
    },
    {
-      "name": "Isuzu",
-      "abbreviation": "ISUZ"
+      "Name": "Isuzu",
+      "Abbreviation": "ISUZ"
    },
    {
-      "name": "Jaguar",
-      "abbreviation": "JAGU"
+      "Name": "Jaguar",
+      "Abbreviation": "JAGU"
    },
    {
-      "name": "Jeep",
-      "abbreviation": "JEEP"
+      "Name": "Jeep",
+      "Abbreviation": "JEEP"
    },
    {
-      "name": "Kawasaki",
-      "abbreviation": "KAWA"
+      "Name": "Kawasaki",
+      "Abbreviation": "KAWA"
    },
    {
-      "name": "Kenworth",
-      "abbreviation": "KENW"
+      "Name": "Kenworth",
+      "Abbreviation": "KENW"
    },
    {
-      "name": "Kia",
-      "abbreviation": "KIA"
+      "Name": "Kia",
+      "Abbreviation": "KIA"
    },
    {
-      "name": "Lamborghini",
-      "abbreviation": "LAMB"
+      "Name": "Lamborghini",
+      "Abbreviation": "LAMB"
    },
    {
-      "name": "Lexus",
-      "abbreviation": "LEXS"
+      "Name": "Lexus",
+      "Abbreviation": "LEXS"
    },
    {
-      "name": "Lincoln",
-      "abbreviation": "LINC"
+      "Name": "Lincoln",
+      "Abbreviation": "LINC"
    },
    {
-      "name": "Land Rover",
-      "abbreviation": "LNDR"
+      "Name": "Land Rover",
+      "Abbreviation": "LNDR"
    },
    {
-      "name": "Lotus",
-      "abbreviation": "LOTU"
+      "Name": "Lotus",
+      "Abbreviation": "LOTU"
    },
    {
-      "name": "Mack",
-      "abbreviation": "MACK"
+      "Name": "Mack",
+      "Abbreviation": "MACK"
    },
    {
-      "name": "Maserati",
-      "abbreviation": "MASE"
+      "Name": "Maserati",
+      "Abbreviation": "MASE"
    },
    {
-      "name": "Mazda",
-      "abbreviation": "MAZD"
+      "Name": "Mazda",
+      "Abbreviation": "MAZD"
    },
    {
-      "name": "Mercury",
-      "abbreviation": "MERC"
+      "Name": "Mercury",
+      "Abbreviation": "MERC"
    },
    {
-      "name": "Merkur",
-      "abbreviation": "MERK"
+      "Name": "Merkur",
+      "Abbreviation": "MERK"
    },
    {
-      "name": "Mercedes-Benz",
-      "abbreviation": "MERZ"
+      "Name": "Mercedes-Benz",
+      "Abbreviation": "MERZ"
    },
    {
-      "name": "MG",
-      "abbreviation": "MG"
+      "Name": "MG",
+      "Abbreviation": "MG"
    },
    {
-      "name": "Mini Cooper",
-      "abbreviation": "MINI"
+      "Name": "Mini Cooper",
+      "Abbreviation": "MINI"
    },
    {
-      "name": "Mitsubishi",
-      "abbreviation": "MITS"
+      "Name": "Mitsubishi",
+      "Abbreviation": "MITS"
    },
    {
-      "name": "Nissan",
-      "abbreviation": "NISS"
+      "Name": "Nissan",
+      "Abbreviation": "NISS"
    },
    {
-      "name": "Oldsmobile",
-      "abbreviation": "OLDS"
+      "Name": "Oldsmobile",
+      "Abbreviation": "OLDS"
    },
    {
-      "name": "Peterbilt",
-      "abbreviation": "PETR"
+      "Name": "Peterbilt",
+      "Abbreviation": "PETR"
    },
    {
-      "name": "Peugeot",
-      "abbreviation": "PEUG"
+      "Name": "Peugeot",
+      "Abbreviation": "PEUG"
    },
    {
-      "name": "Plymouth",
-      "abbreviation": "PLYM"
+      "Name": "Plymouth",
+      "Abbreviation": "PLYM"
    },
    {
-      "name": "Pontiac",
-      "abbreviation": "PONT"
+      "Name": "Pontiac",
+      "Abbreviation": "PONT"
    },
    {
-      "name": "Porsche",
-      "abbreviation": "PORS"
+      "Name": "Porsche",
+      "Abbreviation": "PORS"
    },
    {
-      "name": "Renault",
-      "abbreviation": "RENA"
+      "Name": "Renault",
+      "Abbreviation": "RENA"
    },
    {
-      "name": "Rolls-Royce",
-      "abbreviation": "ROLS"
+      "Name": "Rolls-Royce",
+      "Abbreviation": "ROLS"
    },
    {
-      "name": "Range Rover",
-      "abbreviation": "RROV"
+      "Name": "Range Rover",
+      "Abbreviation": "RROV"
    },
    {
-      "name": "Saab",
-      "abbreviation": "SAAB"
+      "Name": "Saab",
+      "Abbreviation": "SAAB"
    },
    {
-      "name": "Scion",
-      "abbreviation": "SCIO"
+      "Name": "Scion",
+      "Abbreviation": "SCIO"
    },
    {
-      "name": "Sterling",
-      "abbreviation": "STLG"
+      "Name": "Sterling",
+      "Abbreviation": "STLG"
    },
    {
-      "name": "Saturn",
-      "abbreviation": "STRN"
+      "Name": "Saturn",
+      "Abbreviation": "STRN"
    },
    {
-      "name": "Subaru",
-      "abbreviation": "SUBA"
+      "Name": "Subaru",
+      "Abbreviation": "SUBA"
    },
    {
-      "name": "Suzuki",
-      "abbreviation": "SUZU"
+      "Name": "Suzuki",
+      "Abbreviation": "SUZU"
    },
    {
-      "name": "Tesla",
-      "abbreviation": "TESL"
+      "Name": "Tesla",
+      "Abbreviation": "TESL"
    },
    {
-      "name": "Toyota",
-      "abbreviation": "TOYT"
+      "Name": "Toyota",
+      "Abbreviation": "TOYT"
    },
    {
-      "name": "Triumph",
-      "abbreviation": "TRIU"
+      "Name": "Triumph",
+      "Abbreviation": "TRIU"
    },
    {
-      "name": "Vespa",
-      "abbreviation": "VESP"
+      "Name": "Vespa",
+      "Abbreviation": "VESP"
    },
    {
-      "name": "Volvo",
-      "abbreviation": "VOLV"
+      "Name": "Volvo",
+      "Abbreviation": "VOLV"
    },
    {
-      "name": "Volkswagen",
-      "abbreviation": "VW"
+      "Name": "Volkswagen",
+      "Abbreviation": "VW"
    },
    {
-      "name": "Yamaha",
-      "abbreviation": "YAMA"
+      "Name": "Yamaha",
+      "Abbreviation": "YAMA"
    },
    {
-      "name": "Yugo",
-      "abbreviation": "YUGO"
+      "Name": "Yugo",
+      "Abbreviation": "YUGO"
    },
    {
-      "name": "(unknown)",
-      "abbreviation": "UNKN"
+      "Name": "(unknown)",
+      "Abbreviation": "UNKN"
    }
 ]

@@ -1,114 +1,114 @@
 [
    {
-      "name": "Beige",
-      "abbreviation": "BGE"
+      "Name": "Beige",
+      "Abbreviation": "BGE"
    },
    {
-      "name": "Black",
-      "abbreviation": "BLK"
+      "Name": "Black",
+      "Abbreviation": "BLK"
    },
    {
-      "name": "Blue",
-      "abbreviation": "BLU"
+      "Name": "Blue",
+      "Abbreviation": "BLU"
    },
    {
-      "name": "Blue, Dark",
-      "abbreviation": "DBL"
+      "Name": "Blue, Dark",
+      "Abbreviation": "DBL"
    },
    {
-      "name": "Blue, Light",
-      "abbreviation": "LBL"
+      "Name": "Blue, Light",
+      "Abbreviation": "LBL"
    },
    {
-      "name": "Bronze",
-      "abbreviation": "BRZ"
+      "Name": "Bronze",
+      "Abbreviation": "BRZ"
    },
    {
-      "name": "Brown",
-      "abbreviation": "BRO"
+      "Name": "Brown",
+      "Abbreviation": "BRO"
    },
    {
-      "name": "Camouflage",
-      "abbreviation": "CAM"
+      "Name": "Camouflage",
+      "Abbreviation": "CAM"
    },
    {
-      "name": "Chrome/Steel",
-      "abbreviation": "COM"
+      "Name": "Chrome/Steel",
+      "Abbreviation": "COM"
    },
    {
-      "name": "Copper",
-      "abbreviation": "CPR"
+      "Name": "Copper",
+      "Abbreviation": "CPR"
    },
    {
-      "name": "Cream/Ivory",
-      "abbreviation": "CRM"
+      "Name": "Cream/Ivory",
+      "Abbreviation": "CRM"
    },
    {
-      "name": "Gold",
-      "abbreviation": "GLD"
+      "Name": "Gold",
+      "Abbreviation": "GLD"
    },
    {
-      "name": "Grey",
-      "abbreviation": "GRY"
+      "Name": "Grey",
+      "Abbreviation": "GRY"
    },
    {
-      "name": "Green",
-      "abbreviation": "GRN"
+      "Name": "Green",
+      "Abbreviation": "GRN"
    },
    {
-      "name": "Green, Dark",
-      "abbreviation": "DGR"
+      "Name": "Green, Dark",
+      "Abbreviation": "DGR"
    },
    {
-      "name": "Green, Light",
-      "abbreviation": "LGR"
+      "Name": "Green, Light",
+      "Abbreviation": "LGR"
    },
    {
-      "name": "Lavender/Mauve",
-      "abbreviation": "LAV"
+      "Name": "Lavender/Mauve",
+      "Abbreviation": "LAV"
    },
    {
-      "name": "Maroon",
-      "abbreviation": "MAR"
+      "Name": "Maroon",
+      "Abbreviation": "MAR"
    },
    {
-      "name": "Orange",
-      "abbreviation": "ONG"
+      "Name": "Orange",
+      "Abbreviation": "ONG"
    },
    {
-      "name": "Pink",
-      "abbreviation": "PNK"
+      "Name": "Pink",
+      "Abbreviation": "PNK"
    },
    {
-      "name": "Primer (Grey/Black)",
-      "abbreviation": "PRM"
+      "Name": "Primer (Grey/Black)",
+      "Abbreviation": "PRM"
    },
    {
-      "name": "Purple",
-      "abbreviation": "PLE"
+      "Name": "Purple",
+      "Abbreviation": "PLE"
    },
    {
-      "name": "Red",
-      "abbreviation": "RED"
+      "Name": "Red",
+      "Abbreviation": "RED"
    },
    {
-      "name": "Silver/Aluminum",
-      "abbreviation": "SIL"
+      "Name": "Silver/Aluminum",
+      "Abbreviation": "SIL"
    },
    {
-      "name": "Tan",
-      "abbreviation": "TAN"
+      "Name": "Tan",
+      "Abbreviation": "TAN"
    },
    {
-      "name": "Teal",
-      "abbreviation": "TEA"
+      "Name": "Teal",
+      "Abbreviation": "TEA"
    },
    {
-      "name": "White",
-      "abbreviation": "WHI"
+      "Name": "White",
+      "Abbreviation": "WHI"
    },
    {
-      "name": "Yellow",
-      "abbreviation": "YEL"
+      "Name": "Yellow",
+      "Abbreviation": "YEL"
    }
 ]

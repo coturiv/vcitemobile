@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./reference.page.scss'],
 })
 export class ReferencePage implements OnInit {
+  reference = 'assets/pdfs/lynnpark_vcitemobile_reference.pdf';
 
   constructor() { }
 

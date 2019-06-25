@@ -9,18 +9,18 @@
 
   <ion-item>
     <ion-label>Plate Type</ion-label>
-    <veh-select entity="vehcolor"></veh-select>
+    <veh-select [(ngModel)]="citation.plate_type" (selectChange)="citation.plate_type=$event" entity="platetype"></veh-select>
   </ion-item>
 
   <ion-item>
     <ion-label>License Plate #</ion-label>
-    <ion-input text-end [(ngModel)]="citation.vehicle_license" (ionInput)="inputToUppercase($event)"></ion-input>
-    <ion-icon [src]="'enlarge' | icomoon: 'orange'" slot="end" class="color-trans"></ion-icon>
+    <ion-input text-end textUpper [(ngModel)]="citation.vehicle_license"></ion-input>
+    <ion-icon (click)="scanLicensePlate()" [src]="'enlarge' | icomoon: 'orange'" slot="end" class="color-trans"></ion-icon>
   </ion-item>
 
   <ion-item>
     <ion-label>State of issuance</ion-label>
-    <veh-select [default]="citation.vehicle_state" (selectChange)="citation.vehicle_state=$event" entity="vehstate">
+    <veh-select [(ngModel)]="citation.vehicle_state" (selectChange)="citation.vehicle_state=$event" entity="vehstate">
     </veh-select>
   </ion-item>
 
@@ -31,19 +31,21 @@
 
   <ion-item>
     <ion-label>VIN</ion-label>
-    <ion-input text-end [(ngModel)]="citation.vehicle_vin" (ionInput)="inputToUppercase($event)"></ion-input>
+    <ion-input [(ngModel)]="citation.vehicle_vin" 
+               [maxlength]="VIN_MAX_LENGTH" 
+               (keypress)="validVinInput($event)" text-end textUpper></ion-input>
     <ion-icon [src]="'enlarge' | icomoon: 'orange'" slot="end" class="color-trans"></ion-icon>
   </ion-item>
 
   <ion-item>
     <ion-label>Color</ion-label>
-    <veh-select [default]="citation.vehicle_color" (selectChange)="citation.vehicle_color=$event" entity="vehcolor">
+    <veh-select [(ngModel)]="citation.vehicle_color" (selectChange)="citation.vehicle_color=$event" entity="vehcolor">
     </veh-select>
   </ion-item>
 
   <ion-item>
     <ion-label>Make</ion-label>
-    <veh-select [default]="citation.vehicle_make" (selectChange)="citation.vehicle_make=$event" entity="vehmake">
+    <veh-select [(ngModel)]="citation.vehicle_make" (selectChange)="citation.vehicle_make=$event" entity="vehmake">
     </veh-select>
   </ion-item>
 

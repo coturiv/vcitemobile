@@ -16,7 +16,7 @@
       <ion-label>State</ion-label>
     </ion-col>
     <ion-col text-end>
-      <ion-note>{{citation.vehicle_state?.name}}</ion-note>
+      <ion-note>{{citation.vehicle_state?.Name}}</ion-note>
     </ion-col>
   </ion-row>
   <ion-row>
@@ -32,7 +32,7 @@
       <ion-label>Location</ion-label>
     </ion-col>
     <ion-col text-end>
-      <ion-note>{{citation.location?.street}}<span *ngIf="citation.location?.unit">, {{citation.location?.unit}}</span>
+      <ion-note>{{citation.location?.address}}
       </ion-note>
     </ion-col>
   </ion-row>

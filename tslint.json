@@ -11,9 +11,10 @@
       "check-space"
     ],
     "curly": true,
-    "deprecation": {
-      "severity": "warn"
-    },
+    "deprecation": false,
+    // "deprecation": {
+    //   "severity": "warn"
+    // },
     "eofline": true,
     "forin": true,
     "import-spacing": true,
@@ -115,23 +116,23 @@
     "directive-selector": [
       true,
       "attribute",
-      "app",
+      // "app",
       "camelCase"
     ],
     "component-selector": [
       true,
       "element",
-      "app",
-      "page",
+      // "app",
+      // "page",
       "kebab-case"
     ],
     "no-output-on-prefix": true,
     "use-input-property-decorator": true,
     "use-output-property-decorator": true,
     "use-host-property-decorator": true,
-    "no-input-rename": true,
+    "no-input-rename": false,
     "no-output-rename": true,
-    "use-life-cycle-interface": true,
+    // "use-life-cycle-interface": true,
     "use-pipe-transform-interface": true,
     "directive-class-suffix": true
   }

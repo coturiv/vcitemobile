@@ -24,35 +24,52 @@
   </ion-refresher>
   
   <ion-list lines="full">
-    <ion-list-header color="medium">
-      <ion-label>{{today | date}}</ion-label>
+    <ng-container *ngFor="let citation of citations; let i=index">
+      <ion-list-header color="medium" *ngIf="i == 0 || citations[i].date > citations[i-1].date">
+        <ion-label>{{citation.timestamp | date}}</ion-label>
+  
+        <ion-button size="small" (click)="clearLog(citation.date)">
+          <ion-label>Clear all</ion-label>
+        </ion-button>
+      </ion-list-header>
+      <ion-item *ngIf="citation.is_visible">
+        <ion-label (click)="navigateTo('/citation/' + citation.id)">
+          <ion-text color="dark">
+            <span class="ct-sn">
+                {{citation.serial_number}},
+            </span>
+            
+            <span *ngIf="citation.vehicle_license" class="ct-license">
+                {{citation.vehicle_license}},
+            </span>
+            
+            <span *ngIf="citation.vehicle_vin" class="ct-vin">
+                {{citation.vehicle_vin | subText: 4}}
+            </span>
+          </ion-text>
+          <ion-text class="ct-location">
+            <p>
 
-      <ion-button (click)="clearLog([])">
-        <ion-label>Clear all</ion-label>
-      </ion-button>
-    </ion-list-header>
-    <ion-item button *ngFor="let citation of citations" (click)="navigateTo('/citation/' + citation.id)" detail="false">
-      <ion-label>
-        <ion-text color="dark">
-          <span class="ct-sn">
-              {{citation.serial_number}},
-          </span>
-          
-          <span class="ct-license">
-              {{citation.vehicle_license}}
-          </span>
-        </ion-text>
-        <ion-text class="ct-location">
-          <p>
-            Loc. {{citation.location?.street}}<span *ngIf="citation.location?.unit">, {{citation.location?.unit}}</span>
-          </p>
-        </ion-text>
-        <ion-text class="ct-expdate">
-          <p>Exp. {{citation.expiration_date | date: 'MMM, y'}}</p>
-        </ion-text>
-      </ion-label>
-      <ion-icon slot="end" [name]="citation.list_icon || 'information-circle'" [color]="citation.list_icon_color || 'primary'" slot="end"></ion-icon>
-      <div class='sliding-snip'></div>
-    </ion-item>
+              <span class="label-blue">Location.</span> {{citation.location?.address}}
+            </p>
+          </ion-text>
+          <ion-text class="ct-expdate">
+            <p>
+              <span class="label-blue">Issued.</span> {{citation.timestamp | date: 'medium'}}
+            </p>
+          </ion-text>
+          <ion-text color="danger" *ngIf="!citation.is_valid" class="missing-text" margin-top>
+            Missing: [<span>{{missingFields(citation)}}</span>]
+          </ion-text>
+        </ion-label>
+
+        <ion-button [disabled]="citation.is_submitted || !citation.is_valid" (click)="submit(citation)" fill="clear">
+          <ion-icon *ngIf="citation.is_submitted" [src]="'checkmark3' | icomoon: 'success'" slot="icon-only" class="color-trans"></ion-icon>
+          <ion-icon *ngIf="!citation.is_submitted && citation.is_valid" [src]="'upload' | icomoon: 'blue'" slot="icon-only" class="color-trans"></ion-icon>
+          <ion-icon *ngIf="!citation.is_submitted && !citation.is_valid" [src]="'spam' | icomoon: 'danger'" slot="icon-only" class="color-trans"></ion-icon>
+        </ion-button>
+      </ion-item>
+    </ng-container>
+    <empty-content *ngIf="!citations || !citations.length" icon="logo-buffer" text="No citations!"></empty-content>
   </ion-list>
 </ion-content>

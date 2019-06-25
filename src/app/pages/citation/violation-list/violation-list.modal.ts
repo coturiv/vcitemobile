@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { Citation, Violation } from 'src/app/entities';
 import { getRepository } from 'typeorm';
-import { CommonService } from 'src/app/services/common.service';
+import { DefaultValues } from 'src/app/utility/constant';
+import { NotifyService } from 'ionic4-kits';
 
 @Component({
   selector: 'app-violation-list',
@@ -13,9 +14,9 @@ export class ViolationListModal implements OnInit {
   citation: Citation;
   violations: Violation[];
 
-  readonly VIOLATIONS_MAX = 3;
+  readonly VIOLATIONS_MAX = DefaultValues.CITATION_MAX_VIOLATIONS;
 
-  constructor(private modalCtrl: ModalController, private commonService: CommonService) { }
+  constructor(private modalCtrl: ModalController, private notifyService: NotifyService) { }
 
   async ngOnInit() {
     this.violations = await getRepository('violation').find() as Violation[];
@@ -27,7 +28,7 @@ export class ViolationListModal implements OnInit {
 
   validChecklist(ev: any) {
     if (this.violations.filter((v: any) => v.checked).length > this.VIOLATIONS_MAX) {
-      this.commonService.showNotify(`Limitted to a maximum of ${this.VIOLATIONS_MAX} violations.`, 'warning');
+      this.notifyService.showNotify(`Limitted to a maximum of ${this.VIOLATIONS_MAX} violations.`, 'warning', false, 3000);
 
       ev.target.checked = false;
     }

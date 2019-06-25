@@ -4,8 +4,9 @@ import { Citation } from 'src/app/entities';
 import { CitationService } from 'src/app/services/citation.service';
 import { DbService } from 'src/app/services/db.service';
 import { StorageKeys, AppEvents } from 'src/app/utility/constant';
-import { Events, LoadingController } from '@ionic/angular';
-import { CommonService } from 'src/app/services/common.service';
+import { Events, LoadingController, NavController } from '@ionic/angular';
+import { throwAppError } from 'src/app/shared/error-handler';
+import { NotifyService } from 'ionic4-kits';
 
 @Component({
   selector: 'app-citation',
@@ -17,7 +18,7 @@ export class CitationPage implements OnInit, OnDestroy {
   segment: 'vehicle' | 'violation' | 'photos' | 'review';
 
   citation: Citation;
-  
+
   private get curSegment() {
     return localStorage.getItem(StorageKeys.CURRENT_CITATION_VIEW);
   }
@@ -27,22 +28,36 @@ export class CitationPage implements OnInit, OnDestroy {
   }
 
   constructor(
-    private route: ActivatedRoute, 
-    private citationService: CitationService, 
-    private dbService: DbService, 
+    private route: ActivatedRoute,
+    private citationService: CitationService,
+    private navCtrl: NavController,
     private events: Events,
     private loadingCtrl: LoadingController,
-    private commonService: CommonService,
+    private notifyService: NotifyService,
 
   ) { }
 
   async ngOnInit() {
+
     this.segment = this.curSegment as any || 'vehicle';
 
     const { cId } = this.route.snapshot.params;
 
     this.citationService.currentId = cId;
-    this.citation = await this.citationService.getCitation(Number(cId));
+
+    const loading = await this.loadingCtrl.create();
+    loading.present();
+
+    try {
+      this.citation = await this.citationService.getCitation(Number(cId));
+      loading.dismiss();
+    } catch (e) {
+      loading.dismiss();
+
+      console.log(e);
+
+      throwAppError('DB_ENTITY_READ_FAILED');
+    }
 
     this.events.subscribe(AppEvents.EVENT_MAP_SELECTED, async () => {
       this.citation = await this.citationService.getCurrentCitation();
@@ -52,33 +67,46 @@ export class CitationPage implements OnInit, OnDestroy {
   async onSubmit() {
 
     try {
-
       await this.citation.save();
+    } catch (e) {
+      console.log(e);
 
-    } catch(e) {
-
-      console.log('Unable to save citation!', e);
-
+      throwAppError('DB_ENTITY_UPDATE_FAILED');
     }
 
-    this.commonService.showConfirm('All changes have been saved to your device storage. Do you want to upload now?', 'Confirm', async () => {
-      const loading = await this.loadingCtrl.create();
-      loading.present();
+    this.notifyService.showConfirm(
+      'All changes have been saved to your device storage. Do you want to upload now?',
+      'Confirm',
+      async () => {
+        const loading = await this.loadingCtrl.create();
+        loading.present();
 
-      try {
-        const success = await this.citationService.submitCitation(this.citation);
-        loading.dismiss();
+        try {
+          const success = await this.citationService.submitCitation(this.citation);
+          loading.dismiss();
 
-        if (success) {
-          this.commonService.showAlert(success.response, 'Success');
+          if (success) {
+
+            try {
+              this.citation.is_submitted = true;
+              await this.citation.save();
+            } catch (e) {
+              console.log(e);
+
+              throwAppError('DB_ENTITY_UPDATE_FAILED');
+            }
+
+            this.notifyService.showAlert(success.response, 'Success');
+
+            this.navCtrl.navigateRoot('/citations');
+          }
+        } catch (e) {
+          loading.dismiss();
+
+          console.log('Submit fails!', e);
+
+          this.notifyService.showAlert(JSON.stringify(e), 'Error');
         }
-      } catch (e) {
-        loading.dismiss();
-        
-        console.log('Submit fails!', e);
-
-        this.commonService.showAlert(JSON.stringify(e), 'Error');
-      }
     });
   }
 

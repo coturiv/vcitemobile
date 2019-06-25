@@ -7,7 +7,9 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { Camera } from '@ionic-native/camera/ngx';
+import { DocumentViewer } from '@ionic-native/document-viewer/ngx';
 import { File } from '@ionic-native/file/ngx';
+import { FileOpener } from '@ionic-native/file-opener/ngx';
 import { FileTransfer } from '@ionic-native/file-transfer/ngx';
 import { GoogleMaps } from '@ionic-native/google-maps/ngx';
 import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
@@ -17,11 +19,13 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ServicesModule } from './services/services.module';
+import { AppInjector } from './app.injector';
 import { HttpInterceptor } from './shared/http-interceptor';
 import { ErrorHandler } from './shared/error-handler';
-import { ComponentsModule } from './components/components.module';
-import { PipesModule } from './pipes/pipes.module';
-import { AppInjector } from './app.injector';
+import { ComponentsModule } from './shared/components/components.module';
+import { PipesModule } from './shared/pipes/pipes.module';
+
+import { Ionic4KitsModule } from 'ionic4-kits';
 
 @NgModule({
   declarations: [AppComponent],
@@ -33,13 +37,15 @@ import { AppInjector } from './app.injector';
     AppRoutingModule,
     ServicesModule,
     ComponentsModule,
-    PipesModule
-
+    PipesModule,
+    Ionic4KitsModule.forRoot()
   ],
   providers: [
     BarcodeScanner,
     Camera,
+    DocumentViewer,
     File,
+    FileOpener,
     FileTransfer,
     GoogleMaps,
     PhotoViewer,
@@ -59,5 +65,5 @@ export class AppModule {
   constructor(injector: Injector) {
     AppInjector.injector = injector;
   }
-  
+
 }

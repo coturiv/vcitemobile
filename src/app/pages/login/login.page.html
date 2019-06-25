@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content>
-  <form [formGroup]="loginForm" class="login-form" margin-top padding>
+  <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="login-form" margin-top padding>
 
     <div class="logo">
       <img src="assets/imgs/vCiteMobile-logo.png">
@@ -13,19 +13,32 @@
 
     <ion-list>
       <ion-item>
+        <ion-icon slot="start" [src]="'office' | icomoon: 'blue'" class="color-trans"></ion-icon>
+        <ion-input formControlName="DNSName" type="text" placeholder="DNS"></ion-input>
+        
+        <ion-buttons (click)="dnsControl.enable()" *ngIf="dnsControl.disabled || dnsControl.enabled && isSynchronized" class="btn-edit-dns">
+          <ion-button fill="clear">
+            <ion-icon [src]="'create' | icomoon: 'blue'" class="color-trans"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-item>
+      <ion-item>
         <ion-icon slot="start" [src]="'user' | icomoon: 'blue'" class="color-trans"></ion-icon>
-        <ion-input formControlName="userName" type="text" placeholder="User Name"></ion-input>
+        <ion-input formControlName="UserID" type="text" placeholder="User ID"></ion-input>
       </ion-item>
       <show-hide-container>
         <ion-item>
           <ion-icon slot="start" [src]="'lock' | icomoon: 'blue'" class="color-trans"></ion-icon>
-          <ion-input formControlName="passWord" type="password" placeholder="Password" class="show-hide-input" show-hide-input></ion-input>
+          <ion-input formControlName="Password" type="password" placeholder="Password" class="show-hide-input" show-hide-input></ion-input>
         </ion-item>
       </show-hide-container>
-      <!-- <ion-item>
-        <ion-icon name="disc" slot="start" color="primary"></ion-icon>
-        <ion-input formControlName="custKey" type="text" placeholder="Customer ID"></ion-input>
-      </ion-item> -->
+      
+      <ion-item *ngIf="uuid">
+        <ion-label class="text-device-id">
+          Device ID:
+          <ion-note>{{uuid}}</ion-note>
+        </ion-label>
+      </ion-item>
     </ion-list>
 
     <ion-button (click)="onLogin()" type="submit" expand="full" color="secondary" class="button-submit">Login</ion-button>

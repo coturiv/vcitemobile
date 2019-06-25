@@ -6,7 +6,9 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { CitationsPage } from './citations.page';
-import { PipesModule } from 'src/app/pipes/pipes.module';
+import { ComponentsModule } from 'src/app/shared/components/components.module';
+import { PipesModule } from 'src/app/shared/pipes/pipes.module';
+import { Ionic4KitsModule } from 'ionic4-kits';
 
 const routes: Routes = [
   {
@@ -21,7 +23,9 @@ const routes: Routes = [
     FormsModule,
     IonicModule,
     RouterModule.forChild(routes),
-    PipesModule
+    ComponentsModule,
+    PipesModule,
+    Ionic4KitsModule,
   ],
   declarations: [CitationsPage]
 })

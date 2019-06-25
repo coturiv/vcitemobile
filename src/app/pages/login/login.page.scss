@@ -2,7 +2,8 @@
     
     .login-form {
     
-        margin: 5vh auto;
+        margin: 0 auto;
+        padding-top: 10vh;
 
         .logo {
             text-align: center;
@@ -12,6 +13,10 @@
                 max-width: 180px;
             }
         
+        }
+
+        ion-list {
+            margin-top: 5vh;
         }
   
         ion-input.show-hide-input {
@@ -27,8 +32,37 @@
             --inner-border-width: 0;
         }
 
+        ion-item:last-child {
+            --border-width: 0px;
+        }
+
         ion-button.button-submit {
             margin-top: 48px;
+        }
+
+        .text-device-id {
+            color: var(--theme-blue-deep);
+            font-size: 15px;
+
+            ion-note {
+                margin-left: 8px;
+                color: var(--ion-color-dark);
+                // font-weight: bold;
+            }
+        }
+    }
+
+    ion-buttons.btn-edit-dns {
+        position: absolute;
+        right: 4px;
+        background: white;
+
+        ion-button {
+            --background-activated: transparent !important;
+        }
+
+        ion-icon {
+            font-size: 18px !important;
         }
     }
     

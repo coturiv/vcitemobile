@@ -1,7 +1,6 @@
 :host {
   ion-text {
     .ct-sn {
-      font-size: smaller;
       color: var(--ion-color-dark);
     }
   }
@@ -28,10 +27,25 @@
     --ion-text-color: var(--theme-orange);
   }
 
-  ion-toolbar, ion-list-header {
+  ion-toolbar, ion-list-header, ion-item {
     ion-button {
       --background: transparent;
       --background-activated: transparent !important;
     }
+  }
+
+  .label-blue {
+    color: var(--theme-blue-deep);
+    font-weight: bold;
+    opacity: 9;
+  }
+
+  ion-label p, ion-label span {
+    font-size: 15px;
+  }
+
+  ion-text.missing-text {
+    white-space: normal !important;
+    font-size: 12px;
   }
 }  

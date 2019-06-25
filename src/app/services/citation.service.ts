@@ -3,7 +3,7 @@ import { File } from '@ionic-native/file/ngx';
 import { FileTransfer, FileTransferObject, FileUploadResult } from '@ionic-native/file-transfer/ngx';
 import { json2xml } from 'xml-js';
 import * as vkbeautify from 'vkbeautify';
-import { getRepository, Not, getManager } from 'typeorm';
+import { getRepository, Not, getManager, FindConditions, FindManyOptions } from 'typeorm';
 
 import { Citation, Violation, Attachment, Location } from '../entities';
 import { Platform } from '@ionic/angular';
@@ -52,36 +52,45 @@ export class CitationService {
   /**
    * get citations
    */
-  async getCitations() {
-    return await getManager().find(Citation, {
-      where: {
-        // id: Not(DefaultValues.DB_CITATION_ID)
-        id: DefaultValues.DB_CITATION_ID,
-        is_visible: false
+  async getCitations(isVisible = true) {
+    const options: FindManyOptions = {
+      order: {
+        timestamp: 'DESC'
       }
-    }) as Citation[];
+    };
+
+    if (isVisible) {
+      options.where = {
+        id: Not(DefaultValues.CITATION_DEFAULT_ID),
+        // id: DefaultValues.CITATION_DEFAULT_ID,
+        is_visible: true
+      };
+    } else {
+      options.where = {
+        id: Not(DefaultValues.CITATION_DEFAULT_ID),
+        // id: DefaultValues.CITATION_DEFAULT_ID,
+      };
+    }
+    return await getManager().find(Citation, options) as Citation[];
   }
 
   /**
    * get citation by id
    */
   async getCitation(id: number) {
-    let citation = await getRepository(Citation).findOne(id) as Citation;
-    if (!citation) {
-      citation = await this.getDefaultCitation();
-      citation.id = id;
-      citation.timestamp = String(Date.now());
-    }
+    const citation = await getRepository(Citation).findOne(id) as Citation;
 
-    //TODO: remove when typeorm-eager is fixed.
-    citation.attachments = await getRepository(Attachment).find({ citation: citation }) as Attachment[];
-    citation.violations = await getRepository(Violation).find({ citation: citation }) as Violation[];
+    if (citation) {
+        // TODO: remove when typeorm-eager is fixed.
+        citation.attachments = await getRepository(Attachment).find({ citation: citation }) as Attachment[];
+        citation.violations = await getRepository(Violation).find({ citation: citation }) as Violation[];
+    }
 
     return citation;
   }
 
   async getDefaultCitation() {
-    return this.getCitation(DefaultValues.DB_CITATION_ID);
+    return this.getCitation(DefaultValues.CITATION_DEFAULT_ID);
   }
 
   getCurrentCitation() {
@@ -90,8 +99,8 @@ export class CitationService {
 
   /**
    * submit citation
-   * 
-   * @param citation 
+   *
+   * @param citation
    */
   async submitCitation(citation: Citation): Promise<any> {
 
@@ -104,7 +113,10 @@ export class CitationService {
         const filePath = `${this.platform.is('ios') ? this.file.dataDirectory : ''}` + newFile.fullPath;
 
         console.log('New file', newFile);
-        return await this.uploadFile(filePath, 'http://216.83.136.41/Velosum/AlfWebListener/default.aspx');
+        return await this.uploadFile(filePath, 'http://216.83.136.41/Velosum/AlfWebListener/default.aspx', {
+          fileName: newFile.name,
+          mimeType: 'application/xml'
+        });
 
       }
     }
@@ -127,7 +139,7 @@ export class CitationService {
     delete citation['id'];
 
     const elements = [];
-    for (let key in citation) {
+    for (const key of Object.keys(citation)) {
       const ele = {};
       ele['type'] = 'element';
       ele['name'] = key;
@@ -136,16 +148,16 @@ export class CitationService {
       if (key === 'attachments') {
 
         const attachEls = [];
-        for (let attachment of citation[key]) {
+        for (const attachment of citation[key]) {
           attachEls.push({
             type: 'element',
-            name: 'attachment',
+            Name: 'attachment',
             elements: [{
               type: 'cdata',
               cdata: attachment.data
             }],
             attributes: {
-              name: attachment.name,
+              Name: attachment.Name,
               type: attachment.type,
             }
           });
@@ -158,7 +170,7 @@ export class CitationService {
         // violations
       } else if (key === 'violations') {
         const violationEls = [];
-        for (let violation of citation[key]) {
+        for (const violation of citation[key]) {
           violationEls.push({
             type: 'element',
             name: 'violation',
@@ -175,7 +187,7 @@ export class CitationService {
 
         ele['elements'] = [{
           type: 'text',
-          text: citation[key]['abbreviation']
+          text: citation[key]['Abbreviation']
         }];
 
       } else if (key === 'location') {
@@ -194,7 +206,7 @@ export class CitationService {
       if (fieldId) {
         ele['attributes'] = {
           fieldId: fieldId
-        }
+        };
       }
 
       elements.push(ele);

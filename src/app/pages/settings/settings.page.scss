@@ -4,8 +4,6 @@
     }
 
     ion-segment {
-        margin-top: 10%;
-
         --ion-color-base: var(--theme-orange) !important;
         
         ion-segment-button {
@@ -17,12 +15,11 @@
 
     ion-item {
         ion-label {
-            --color: var(--ion-color-medium);
-            font-size: smaller;
+            --color: var(--ion-color-dark);
         }
 
         ion-input, ion-datetime, ion-textarea, veh-select, veh-location {
-            opacity: .8;
+            opacity: 1;
         };
 
         veh-location {
@@ -30,4 +27,16 @@
         }
     }
     
+}
+
+.md {
+    ion-segment {
+        --ion-color-base: var(--theme-orange) !important;
+        
+        ion-segment-button {
+            ion-label {
+                padding: 0px 0;
+            }
+        }
+    }
 }

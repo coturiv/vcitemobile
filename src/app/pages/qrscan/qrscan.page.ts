@@ -4,12 +4,14 @@ import { ToastController, NavController, AlertController } from '@ionic/angular'
 
 import { Citation } from 'src/app/entities/Citation';
 import { CitationService } from 'src/app/services/citation.service';
+import { DefaultValues } from 'src/app/utility/constant';
+import { throwAppError } from 'src/app/shared/error-handler';
 
 
 export interface ScanResult {
-  message?: string,
-  status?: 'not_found' | 'invalid' | 'success',
-  data?: string
+  message?: string;
+  status?: 'not_found' | 'invalid' | 'success';
+  data?: string;
 }
 
 
@@ -19,13 +21,13 @@ export interface ScanResult {
   styleUrls: ['./qrscan.page.scss'],
 })
 export class QrscanPage implements OnInit {
-  
+
   scanResult: ScanResult;
 
   citation: Citation;
 
   constructor(
-    private barcodeScanner: BarcodeScanner, 
+    private barcodeScanner: BarcodeScanner,
     private navCtrl: NavController,
     private toastCtrl: ToastController,
     private alertCtrl: AlertController ,
@@ -40,13 +42,13 @@ export class QrscanPage implements OnInit {
 
     try {
       this.scanResult = {};
-      
+
       const barcode = await this.barcodeScanner.scan();
 
       this.scanResult.data = barcode.text;
 
       // stop now if scan was no good, or format wasn't QR_CODE
-      if (!barcode.format || barcode.format != 'QR_CODE') {
+      if (!barcode.format || barcode.format !== 'QR_CODE') {
         this.scanResult.message = 'Bad scan, or not a valid QR Code.';
         this.scanResult.status = 'invalid';
 
@@ -63,8 +65,12 @@ export class QrscanPage implements OnInit {
 
       console.log(this.citation);
 
+      if (!this.citation) {
+        this.citation = new Citation();
+      }
+
       const {cid, sn} = this.parseParams(this.scanResult.data);
-      this.citation.id = cid;
+      this.citation.id = Date.now();
       this.citation.custKey = cid;
       this.citation.serial_number = sn;
 
@@ -72,6 +78,7 @@ export class QrscanPage implements OnInit {
       this.scanResult.status = 'success';
 
     } catch (e) {
+      console.log(e);
 
       this.showMessage(e, 'danger');
 
@@ -84,13 +91,29 @@ export class QrscanPage implements OnInit {
   async onContinue() {
     try {
       const citation = await this.citationService.getCitation(this.citation.id);
-      if (citation.id) {
+      if (!citation || citation.id === DefaultValues.CITATION_DEFAULT_ID) {
 
-        // this.showMessage('Citation exists!', 'danger');
+        this.citation.timestamp = String(Date.now());
+        this.citation.is_visible = true;
+
+        console.log(this.citation);
+
+        try {
+          await this.citation.save();
+          this.navCtrl.navigateForward(`/citation/${this.citation.id}`);
+        } catch (e) {
+          console.log(e);
+
+          throwAppError('DB_ENTITY_INSERT_FAILED');
+        }
+
+
+      } else {
 
         const alert = await this.alertCtrl.create({
           subHeader: 'Citation exists!',
-          message: `A citation with <string>#${this.citation.id}</string> already exists, but you can continue to Citation page as edit mode.`,
+          message: `A citation with <string>#${this.citation.id}</string> already exists, \
+                    but you can continue to Citation page as edit mode.`,
           buttons: [{
             text: 'Cancel',
             role: 'cancel',
@@ -104,16 +127,11 @@ export class QrscanPage implements OnInit {
         });
         alert.present();
 
-        return;
       }
-
-      this.citation.timestamp = String(Date.now());
-      await this.citation.save();
-      this.navCtrl.navigateForward(`/citation/${this.citation.id}`);
     } catch (e) {
-      console.log(JSON.stringify(e));
-      
-      this.showMessage(e, 'danger');
+      console.log(e);
+
+      throwAppError('DB_ENTITY_READ_FAILED');
     }
   }
 
@@ -121,25 +139,26 @@ export class QrscanPage implements OnInit {
 
   /**
    * parse query params from a url
-   * 
+   *
    * @param url string
    */
   private parseParams(url: string) {
-    let match,
-    pl     = /\+/g,  // Regex for replacing addition symbol with a space
-    search = /([^&=]+)=?([^&]*)/g,
-    decode = (s) => { return decodeURIComponent(s.replace(pl, ' ')); },
-    query  = url.split('?').pop();
-    
-    let urlParams: any = {};
-    while (match = search.exec(query))
+    const pl     = /\+/g;  // Regex for replacing addition symbol with a space
+    const search = /([^&=]+)=?([^&]*)/g;
+    const decode = (s) => decodeURIComponent(s.replace(pl, ' '));
+    const query  = url.split('?').pop();
+
+    let match;
+    const urlParams: any = {};
+    while (match = search.exec(query)) {
        urlParams[decode(match[1])] = decode(match[2]);
+    }
 
     return urlParams;
   }
 
   private async showMessage(message: string | any, type?: 'primary' | 'danger') {
-    if (typeof message != 'string' ) {
+    if (typeof message !== 'string' ) {
       message = message.message || JSON.stringify(message);
     }
 

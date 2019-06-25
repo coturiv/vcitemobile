@@ -1,0 +1,5 @@
+<ion-select [(ngModel)]="value" [placeholder]="placeholder" [compareWith]="entityCompare" trackBy="id">
+  <ion-select-option *ngFor="let option of list" [value]="option">
+    {{option[displayField]}}
+  </ion-select-option>
+</ion-select>

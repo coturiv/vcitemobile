@@ -1,18 +1,32 @@
-import { Component, OnInit } from '@angular/core';
-import { NavController, ToastController, LoadingController, Events } from '@ionic/angular';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { NavController, ToastController, LoadingController, Events, Platform, MenuController } from '@ionic/angular';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 
-import { AuthService, AuthCredential } from 'src/app/services/auth.service';
-import { SettingsService } from 'src/app/services/settings.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { DbService } from 'src/app/services/db.service';
+// import { ConfigService } from 'src/app/services/config.service';
+
+import { Device } from '@ionic-native/device/ngx';
+import { Subscription, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { StorageKeys } from 'src/app/utility/constant';
+import { NotifyService } from 'ionic4-kits';
+import { ApiResponse } from 'src/app/services/api.service';
 
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
-  styleUrls: ['./login.page.scss']
+  styleUrls: ['./login.page.scss'],
+  providers: [ Device ]
 })
-export class LoginPage implements OnInit {
+export class LoginPage implements OnInit, OnDestroy {
   loginForm: FormGroup;
+  uuid: string;
+
+  isSynchronized = false;
+
+  authSubject: Subject<any>;
 
   constructor(
     private navCtrl: NavController,
@@ -21,74 +35,80 @@ export class LoginPage implements OnInit {
     private formBuilder: FormBuilder,
     private events: Events,
     private authService: AuthService,
-    private settingsService: SettingsService
+    private notifyService: NotifyService,
+    // private configService: ConfigService,
+    private platform: Platform,
+    private device: Device,
+    private menuCtrl: MenuController
   ) {
+    this.authSubject = new Subject();
   }
 
-  ngOnInit() {
-    // const {userID, custKey} = this.settingsService.getSettings();
+  get dnsControl() {
+    return this.loginForm.controls['DNSName'];
+  }
+
+  ionViewWillEnter() {
+    this.menuCtrl.enable(false);
+  }
+
+  ionViewWillLeave() {
+    this.menuCtrl.enable(true);
+  }
+
+  async ngOnInit() {
+    const DNSName = 'lynnma.vciteplus.com';
 
     this.loginForm = this.formBuilder.group({
-      userName: ['', Validators.compose([Validators.required])],
-      passWord: ['', Validators.compose([Validators.minLength(1), Validators.maxLength(50), Validators.required])],
-      // custKey:  ['', Validators.compose([Validators.required])]
+      UserID  : ['', Validators.compose([Validators.required])],
+      Password: ['', Validators.compose([Validators.minLength(1), Validators.maxLength(50), Validators.required])],
+      DNSName : [DNSName ? {value: DNSName, disabled: true} : '', Validators.compose([Validators.required])]
+    });
+
+    this.platform.ready().then(() => {
+      if (this.platform.is('cordova')) {
+        this.uuid = this.device.uuid.replace(/-/g, '').substr(-16).toUpperCase();
+      }
     });
 
   }
 
   async onLogin() {
     if (this.loginForm.valid) {
-      const loading = await this.loadingCtrl.create();
+
+      const {UserID, Password, DNSName} = this.loginForm.getRawValue();
+      localStorage.setItem(StorageKeys.CURRENT_DNS_NAME, DNSName);
+
+      const loading = await this.loadingCtrl.create({
+        message: 'authenticating...'
+      });
       loading.present();
 
-      const credential = this.loginForm.getRawValue() as AuthCredential;
-      this.authService.signInWithCredential(credential).subscribe(res => {
+      this.authService.signInWithCredential(UserID, Password)
+        .pipe(takeUntil(this.authSubject))
+        .subscribe((resp: ApiResponse<any>) => {
+          loading.dismiss();
 
-        // this.showMessage('Logged in successfully', 'secondary');
-        // this.authService.loginInfo = credential;
+          if (resp.status.success) {
+            localStorage.setItem(StorageKeys.CURRENT_USER, JSON.stringify(resp.data));
 
-        // this.navCtrl.navigateForward('/citations');
-        loading.dismiss();
+            // this.notifyService.showNotify('Logged in successfully', 'success');
+
+            this.navCtrl.navigateForward('/citations');
+          } else {
+            this.notifyService.showNotify(resp.status.message, 'error');
+          }
 
       }, (error) => {
 
         loading.dismiss();
-
-        console.log(error);
-
-        const strError = JSON.stringify(error);
-
-        // TODO: remove me when CORS issue is resolved in the rest api.
-        const strCredentials = JSON.stringify(credential);
-        if (strError.includes('LOGIN SUCCESS') || (strCredentials.includes('LynnTest') && strCredentials.includes('1234'))) {
-
-          // this.showMessage('Logged in successfully', 'secondary');
-          this.authService.loginInfo = credential;
-          this.events.publish('loggedIn');
-
-          this.navCtrl.navigateForward('/citations');
-        // } else if (strError.includes('ERROR:no match')) {
-        } else {
-
-          this.showMessage('Login credential is not correct, please try again.', 'danger');
-
-        // } else {
-
-        //   this.showMessage('Unknown error', 'danger');
-
-        }
+        this.notifyService.showNotify('Login credential is not correct, please try again.', 'error');
       });
     }
   }
 
-  private async showMessage(message: string, type: 'secondary' | 'danger') {
-    const toast = await this.toastCtrl.create({
-      message: message,
-      showCloseButton: type == 'danger',
-      color: type,
-      duration: 1500
-    });
-
-    toast.present();
+  ngOnDestroy() {
+    this.authSubject.next();
+    this.authSubject.complete();
   }
 }

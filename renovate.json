@@ -1,0 +1,67 @@
+{
+  "extends": [
+    "config:base",
+    ":disableDevDependencies"
+  ],
+  "automerge": true,
+  "major": {
+    "automerge": false
+  },
+  "assignees": [
+    "coturiv"
+  ],
+  "reviewers": [
+    "coturiv"
+  ],
+  "rebaseStalePrs": true,
+  "separateMajorMinor": false,
+  "semanticCommits": true,
+  "semanticPrefix": "chore",
+  "commitMessage": "{{semanticPrefix}} update {{depName}} to version {{newVersion}}",
+  "labels": [
+    "deps"
+  ],
+  "packageRules": [
+    {
+      "packagePattern": "^@angular\/.*",
+      "groupName": "angular",
+      "pinVersions": false
+    },
+    {
+      "packagePattern": "^@angular-devkit\/.*",
+      "groupName": "angular devkit",
+      "pinVersions": false
+    },
+    {
+      "packagePattern": "^@ionic\/.*",
+      "groupName": "ionic",
+      "pinVersions": true
+    },
+    {
+      "packagePattern": "^@ionic-native\/.*",
+      "groupName": "ionic native",
+      "pinVersions": true
+    },
+    {
+      "packagePattern": "^@types\/.*",
+      "groupName": "type definitions",
+      "pinVersions": false
+    },
+    {
+      "packagePattern": "^jasmine.*",
+      "groupName": "jasmine",
+      "pinVersions": false
+    },
+    {
+      "packagePattern": "^karma.*",
+      "groupName": "karma",
+      "pinVersions": false
+    },
+    {
+      "packageNames": [
+        "typescript"
+      ],
+      "updateTypes": "patch"
+    }
+  ]
+}

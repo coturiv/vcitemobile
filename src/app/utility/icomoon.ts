@@ -15,6 +15,7 @@ export const iconDict = {
     'balance': '0742-balance',
     'images': '0059-images',
     'checkmark': '1139-checkmark4',
+    'checkmark3': '1138-checkmark3',
     'bubble-notification': '0495-bubble-notification2',
     'menu': '0882-menu7',
     'create': '0021-pencil7',
@@ -24,7 +25,15 @@ export const iconDict = {
     'lock': '0594-lock2',
     'eye': '0947-eye2',
     'eye-off': '0948-eye-blocked2',
-}
+    'cloud-upload': '0888-cloud-upload',
+    'cloud-check': '0889-cloud-check',
+    'cloud-info': '1124-info',
+    'spam': '1132-spam',
+    'office': '0010-office',
+    'trash': '0766-bin',
+    'trash2': '0767-bin2',
+    'loop': '1194-loop2'
+};
 
 export type Icomoons = keyof typeof iconDict;
 export type Colors   = 'white' | 'dark' | 'blue' | 'orange';

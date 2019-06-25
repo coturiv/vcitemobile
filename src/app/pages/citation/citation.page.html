@@ -5,7 +5,7 @@
         <ion-icon [src]="'menu' | icomoon: 'white'" class="color-trans toolbar-icon"></ion-icon>
       </ion-menu-button>
     </ion-buttons>
-    <ion-title>Citation # {{citation?.id}}</ion-title>
+    <ion-title>Citation # {{citation?.serial_number}}</ion-title>
 
     <ion-buttons slot="end">
       <ion-button (click)="onSubmit()">
@@ -39,23 +39,23 @@
 
   <ion-toolbar color="primary">
 
-    <ion-segment [(ngModel)]="segment" (ionChange)="segment=$event.target.value" color="primary">
-      <ion-segment-button value="vehicle">
+    <ion-segment mode="ios" [(ngModel)]="segment" (ionChange)="segment=$event.target.value" color="primary">
+      <ion-segment-button mode="ios" value="vehicle">
         <ion-label>Vehicle</ion-label>
         <ion-icon [src]="'car' | icomoon: 'white'" class="color-trans"></ion-icon>
       </ion-segment-button>
 
-      <ion-segment-button value="violation">
+      <ion-segment-button mode="ios" value="violation">
         <ion-label>Violation</ion-label>
         <ion-icon [src]="'balance' | icomoon: 'white'" class="color-trans"></ion-icon>
       </ion-segment-button>
 
-      <ion-segment-button value="photos">
+      <ion-segment-button mode="ios" value="photos">
         <ion-label>Photos</ion-label>
         <ion-icon [src]="'images' | icomoon: 'white'" class="color-trans"></ion-icon>
       </ion-segment-button>
 
-      <ion-segment-button value="review">
+      <ion-segment-button mode="ios" value="review">
         <ion-label>Review</ion-label>
         <ion-icon [src]="'checkmark' | icomoon: 'white'" class="color-trans"></ion-icon>
       </ion-segment-button>

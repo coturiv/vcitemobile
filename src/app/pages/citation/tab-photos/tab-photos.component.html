@@ -1,5 +1,9 @@
-<ion-list-header color="medium">
+<ion-list-header color="medium" >
   <ion-label>Photo Evidence</ion-label>
+  
+  <ion-button (click)="isEditing = !isEditing; isMultiSelected = false" fill="clear">
+    <ion-icon [src]="'create' | icomoon: 'white'" class="color-trans"></ion-icon>
+  </ion-button>
 </ion-list-header>
 
 <ion-grid>
@@ -9,20 +13,40 @@
         <ion-thumbnail *ngIf="i == 0" (click)="takePhoto()">
           <ion-icon [src]="'plus' | icomoon: 'orange'" class="color-trans"></ion-icon>
         </ion-thumbnail>
+        
+        <ion-thumbnail *ngIf="i != 0" >
+          <ion-img [src]="'data:image/jpeg;base64,' + item.data"
+          (click)="selectPhoto(item)" 
+          [ngClass]="{'selectable': isEditing, 'selected': item.selected}"></ion-img>
+          <div class="image-description" *ngIf="!isEditing">
+            <!-- {{item.Name}}.{{item.type}} -->
 
-        <ion-thumbnail *ngIf="i != 0" (click)="viewPhoto(item)">
-          <ion-img [src]="'data:image/jpeg;base64,' + item.data"></ion-img>
-          <div class="image-description">
-            {{item.name}}.{{item.type}}
+            <ion-button (click)="previewPhoto(item)" class="btn-photo-preview" fill="clear">
+              <ion-icon [src]="'eye' | icomoon: 'blue'" class="color-trans"></ion-icon>
+            </ion-button>
+            
+            <ion-button (click)="removePhoto(item)" class="btn-photo-remove" fill="clear">
+              <ion-icon [src]="'trash2' | icomoon: 'blue'" class="color-trans"></ion-icon>
+            </ion-button>
           </div>
         </ion-thumbnail>
-
+        
       </ion-col>
       <ion-col>
-        <ion-thumbnail *ngIf="photos[i+1] as nextItem" (click)="viewPhoto(nextItem)">
-          <ion-img [src]="'data:image/jpeg;base64,' + nextItem.data"></ion-img>
-          <div class="image-description">
-            {{nextItem.name}}.{{nextItem.type}}
+        <ion-thumbnail *ngIf="photos[i+1] as nextItem">
+          <ion-img [src]="'data:image/jpeg;base64,' + nextItem.data" 
+          (click)="selectPhoto(nextItem)" 
+          [ngClass]="{'selectable': isEditing, 'selected': nextItem.selected}"></ion-img>
+          <div class="image-description" *ngIf="!isEditing">
+            <!-- {{nextItem.Name}}.{{nextItem.type}} -->
+            
+            <ion-button (click)="previewPhoto(nextItem)" class="btn-photo-preview" fill="clear">
+              <ion-icon [src]="'eye' | icomoon: 'blue'" class="color-trans"></ion-icon>
+            </ion-button>
+            
+            <ion-button (click)="removePhoto(nextItem)" class="btn-photo-remove" fill="clear">
+              <ion-icon [src]="'trash2' | icomoon: 'blue'" class="color-trans"></ion-icon>
+            </ion-button>
           </div>
         </ion-thumbnail>
       </ion-col>
@@ -33,3 +57,9 @@
 <ion-text *ngIf="citation.attachments.length < 2" class="text-no-content ">
   {{noContentText}}
 </ion-text>
+
+<ion-fab *ngIf="isEditing && isMultiSelected" vertical="bottom" horizontal="end" slot="fixed" color="secondary">
+  <ion-fab-button (click)="removeSelected()">
+    <ion-icon [src]="'trash2' | icomoon: 'white'" class="color-trans"></ion-icon>
+  </ion-fab-button>
+</ion-fab>

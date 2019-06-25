@@ -1,11 +1,11 @@
 import { Entity, PrimaryColumn, Column, BaseEntity, ManyToOne, JoinColumn } from 'typeorm';
 import { Citation } from '../entities';
 
-@Entity("violation")
+@Entity('violation')
 export class Violation extends BaseEntity {
     @PrimaryColumn()
     id: number;
-    
+
     @Column()
     violation_id: string;
 

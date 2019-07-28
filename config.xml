@@ -115,5 +115,5 @@
     <plugin name="cordova-plugin-app-version" spec="0.1.9" />
     <plugin name="com-sarriaroman-photoviewer" spec="1.2.1" />
     <engine name="android" spec="8.0.0" />
-    <plugin name="cordova-plugin-tesseract" spec="0.0.1" />
+    <engine name="ios" spec="~4.5.5" />
 </widget>

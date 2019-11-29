@@ -40,6 +40,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-deps
 
+      - name: Use Node 10
+        uses: actions/setup-node@v1
+        with:
+          node-version: '10.x'
+
       - name: Install dependencies
         run: npm install
         
@@ -79,6 +84,11 @@ jobs:
           key: ${{ runner.os }}-plugins
           restore-keys: |
             ${{ runner.os }}-plugins
+
+      - name: Use Node 10
+        uses: actions/setup-node@v1
+        with:
+          node-version: '10.x'
 
       - name: Setup Ionic
         uses: coturiv/setup-ionic@v1
@@ -124,6 +134,11 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
+
+      - name: Use Node 10
+        uses: actions/setup-node@v1
+        with:
+          node-version: '10.x'
       
       - name: Setup Ionic
         uses: coturiv/setup-ionic@v1

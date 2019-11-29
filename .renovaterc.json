@@ -1,0 +1,31 @@
+{
+  "extends": [
+    "config:base",
+    "schedule:weekly",
+    ":preserveSemverRanges",
+    ":disableDevDependencies"
+  ],
+  "automerge": true,
+  "rebaseStalePrs": true,
+  "separateMajorMinor": true,
+  "groupName": "all dependencies",
+  "groupSlug": "all",
+  "labels": [
+    "deps"
+  ],
+  "packageRules": [
+    {
+      "packagePatterns": [
+        "*"
+      ],
+      "groupName": "all dependencies",
+      "groupSlug": "all"
+    }
+  ],
+  "ignoreDeps": [
+    "@types/node",
+    "core-js",
+    "cordova-ios",
+    "cordova-android"
+  ]
+}

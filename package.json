@@ -1,5 +1,5 @@
 {
-  "name": "vcitemobile-t2",
+  "name": "vcitemobile",
   "version": "0.2.1",
   "author": "Ionic Framework",
   "homepage": "http://ionicframework.com/",
@@ -36,7 +36,6 @@
     "@ionic/angular": "4.5.0",
     "@ionic/storage": "2.2.0",
     "com-sarriaroman-photoviewer": "^1.2.2",
-    "cordova": "^8.0.0",
     "cordova-android": "8.0.0",
     "cordova-android-support-gradle-release": "^3.0.0",
     "cordova-ios": "^4.5.5",

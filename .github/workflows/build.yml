@@ -1,0 +1,139 @@
+
+name: CI
+
+#
+# Documentation:
+# https://help.github.com/en/articles/workflow-syntax-for-github-actions
+#
+
+on:
+  push:
+    branches:
+      - 'develop'
+    tags:
+      - 'v*'
+    paths-ignore:
+      - 'docs/*'
+      - 'resources/*'
+      - '**.md'
+
+  pull_request:
+    branches:
+      - 'develop'
+env:
+  CI: true
+
+jobs:
+
+  build:
+    name: "Build"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v1
+      
+      - name: Cache dependencies
+        uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-deps-${{ hashFiles('package.json') }}
+          restore-keys: |
+            ${{ runner.os }}-deps
+
+      - name: Install dependencies
+        run: npm install
+        
+      - name: Lint
+        run: |
+          npm run lint
+        
+      # - name: Run Test
+      #   run: |
+      #     npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
+
+      - name: Build web
+        run: |
+          npx ionic build --prod
+
+  build_ios:
+    name: Build IPA
+    if: contains(github.ref, 'refs/tags/v')
+    needs: build
+    runs-on: macos-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v1
+
+      - name: Cache dependencies
+        uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-deps-${{ hashFiles('package.json') }}
+          restore-keys: |
+            ${{ runner.os }}-deps
+      
+      - name: Cache plugins
+        uses: actions/cache@v1
+        with:
+          path: plugins
+          key: ${{ runner.os }}-plugins
+          restore-keys: |
+            ${{ runner.os }}-plugins
+
+      - name: Setup Ionic
+        uses: coturiv/setup-ionic@v1
+        with:
+          cordova-version: 9
+
+      - name: Install dependencies
+        run: npm install
+      
+      - name: Build iOS
+        run: |
+          ionic cordova build ios --prod
+
+  build_android:
+    name: Build APK
+    if: contains(github.ref, 'refs/tags/v')
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v1
+
+      - name: Cache dependencies
+        uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-deps-${{ hashFiles('package.json') }}
+          restore-keys: |
+            ${{ runner.os }}-deps
+      
+      - name: Cache plugins
+        uses: actions/cache@v1
+        with:
+          path: plugins
+          key: ${{ runner.os }}-plugins
+          restore-keys: |
+            ${{ runner.os }}-plugins
+
+      - name: Cache gradle
+        uses: actions/cache@v1
+        with:
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+      
+      - name: Setup Ionic
+        uses: coturiv/setup-ionic@v1
+        with:
+          cordova-version: 9
+    
+      - name: Install dependencies
+        run: npm install
+      
+      - name: Build Android
+        run: |
+          ionic cordova build android --prod
+          

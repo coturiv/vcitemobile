@@ -26,6 +26,7 @@
     "@types/node",
     "core-js",
     "cordova-ios",
-    "cordova-android"
+    "cordova-android",
+    "cordova-plugin-googlemaps"
   ]
 }

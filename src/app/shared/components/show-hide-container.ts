@@ -29,7 +29,7 @@ import { ShowHideInputDirective } from './show-hide-input';
 export class ShowHideContainer {
   show = false;
 
-  @ContentChild(ShowHideInputDirective) input: ShowHideInputDirective;
+  @ContentChild(ShowHideInputDirective, {static: false}) input: ShowHideInputDirective;
 
   constructor() {}
 

@@ -18,7 +18,7 @@ export class LocationListModal implements OnInit {
   selected: Location;
   lastUpdated: Date;
 
-  @ViewChild(IonSearchbar)
+  @ViewChild(IonSearchbar, {static: false})
   searchbar: IonSearchbar;
 
   constructor(private modalCtrl: ModalController, private alertCtrl: AlertController, private notifyService: NotifyService) { }

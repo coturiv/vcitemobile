@@ -63,7 +63,7 @@
     "rxjs": "6.5.5",
     "sql.js": "0.5.0",
     "tesseract.js": "1.0.19",
-    "typeorm": "0.2.24",
+    "typeorm": "0.2.25",
     "vkbeautify": "0.99.3",
     "xml-js": "1.6.11",
     "zone.js": "0.10.3"

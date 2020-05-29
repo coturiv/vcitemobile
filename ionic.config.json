@@ -1,7 +1,5 @@
 {
-  "name": "vcitemobile-t2",
-  "integrations": {
-    "cordova": {}
-  },
+  "name": "vcitemobile",
+  "integrations": {},
   "type": "angular"
 }

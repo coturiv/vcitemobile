@@ -1,120 +1,69 @@
-import { Component } from '@angular/core';
-import { Platform, NavController, Events } from '@ionic/angular';
+import { Component, OnInit } from '@angular/core';
 
+import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { File } from '@ionic-native/file/ngx';
-import { FileOpener } from '@ionic-native/file-opener/ngx';
-import { DocumentViewer, DocumentViewerOptions } from '@ionic-native/document-viewer/ngx';
-
-import 'reflect-metadata';
-import { AuthService } from './services/auth.service';
-import { AppEvents } from './utility/constant';
-import { DbService } from './services/db.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+  public selectedIndex = 0;
   public appPages = [
     {
-      title: 'Citations',
-      url: '/citations',
-      icon: 'qrcode'
-    }, {
-      title: 'vChalk',
-      url: '/vchalk',
-      file: 'lynnpark_vcitemobile_vchalk_info.pdf',
-      icon: 'pencil'
-    }, {
-      title: 'Reference',
-      url: '/reference',
-      file: 'lynnpark_vcitemobile_reference.pdf',
-      icon: 'books'
-    }, {
-      title: 'About',
-      url: '/about',
-      icon: 'info'
-    }, {
-      title: 'Settings',
-      url: '/settings',
-      icon: 'cogs'
+      title: 'Inbox',
+      url: '/folder/Inbox',
+      icon: 'mail'
+    },
+    {
+      title: 'Outbox',
+      url: '/folder/Outbox',
+      icon: 'paper-plane'
+    },
+    {
+      title: 'Favorites',
+      url: '/folder/Favorites',
+      icon: 'heart'
+    },
+    {
+      title: 'Archived',
+      url: '/folder/Archived',
+      icon: 'archive'
+    },
+    {
+      title: 'Trash',
+      url: '/folder/Trash',
+      icon: 'trash'
+    },
+    {
+      title: 'Spam',
+      url: '/folder/Spam',
+      icon: 'warning'
     }
   ];
-
-  isLoggedIn: boolean;
+  public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
 
   constructor(
     private platform: Platform,
-    private file: File,
-    private fileOpener: FileOpener,
     private splashScreen: SplashScreen,
-    private statusBar: StatusBar,
-    private document: DocumentViewer,
-    private navCtrl: NavController,
-    private events: Events,
-    private dbService: DbService,
-    private authService: AuthService
+    private statusBar: StatusBar
   ) {
     this.initializeApp();
-
   }
 
   initializeApp() {
-    this.platform.ready().then(async () => {
+    this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-
-      await this.dbService.createConnection();
     });
-
-    this.isLoggedIn = !!this.authService.currentUser;
-
-    this.events.subscribe(AppEvents.EVENT_LOGGED_IN, () => {
-      this.isLoggedIn = !!this.authService.currentUser;
-    });
-
   }
 
-  navigateTo(url: string) {
-    this.navCtrl.navigateForward(url);
-  }
-
-  async openLocalPDF(fileName: string, title: string) {
-    const fileFormat = 'application/pdf';
-    const filePath = this.file.applicationDirectory + 'www/assets/pdfs';
-
-    if (this.platform.is('android')) {
-      try {
-
-        await this.file.checkFile(this.file.dataDirectory, fileName);
-      } catch (e) {
-
-        await this.file.copyFile(filePath, fileName, this.file.dataDirectory, fileName);
-      }
-      // if (!isExists) {
-      //   await this.file.copyFile(filePath, fileName, this.file.dataDirectory, fileName);
-      // }
-
-      this.fileOpener.open(`${this.file.dataDirectory}/${fileName}`, fileFormat);
-    } else {
-      const options: DocumentViewerOptions = {
-        title: title
-      };
-
-      this.document.viewDocument(`${filePath}/${fileName}`, fileFormat, options);
+  ngOnInit() {
+    const path = window.location.pathname.split('folder/')[1];
+    if (path !== undefined) {
+      this.selectedIndex = this.appPages.findIndex(page => page.title.toLowerCase() === path.toLowerCase());
     }
-  }
-
-  logout() {
-    this.authService.currentUser = null;
-    this.isLoggedIn = false;
-    this.navCtrl.navigateRoot('/login');
-  }
-
-  async sync() {
-    await this.dbService.synchronize(true);
   }
 }

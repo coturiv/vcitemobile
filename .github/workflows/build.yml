@@ -43,7 +43,7 @@ jobs:
       - name: Use Node 10
         uses: actions/setup-node@v3
         with:
-          node-version: '10.x'
+          node-version: '14.x'
 
       - name: Install dependencies
         run: npm install
@@ -85,7 +85,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-plugins
 
-      - name: Use Node 10
+      - name: Use Node 14
         uses: actions/setup-node@v3
         with:
           node-version: '10.x'

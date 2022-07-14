@@ -6,13 +6,19 @@
     ":disableDevDependencies",
     ":disableDependencyDashboard"
   ],
-  "automerge": true,
+  "automerge": false,
   "rebaseStalePrs": true,
   "separateMajorMinor": true,
   "groupName": "all dependencies",
   "groupSlug": "all",
   "labels": [
     "deps"
+  ],
+  "assignees": [
+    "coturiv"
+  ],
+  "reviewers": [
+    "coturiv"
   ],
   "branchPrefix": "deps/",
   "packageRules": [

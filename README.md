@@ -5,10 +5,3 @@
 [![](https://github.com/coturiv/vcitemobile/workflows/CI/badge.svg)](https://github.com/coturiv/vcitemobile/actions)
 
 A lightweight app for scanning and writing parking or other municipal citations.
-
-### What is this repository for? ###
-
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
-

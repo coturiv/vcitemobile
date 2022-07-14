@@ -3,7 +3,8 @@
     "config:base",
     "schedule:weekly",
     ":preserveSemverRanges",
-    ":disableDevDependencies"
+    ":disableDevDependencies",
+    ":disableDependencyDashboard"
   ],
   "automerge": true,
   "rebaseStalePrs": true,

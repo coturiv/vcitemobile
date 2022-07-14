@@ -3,9 +3,10 @@
     "config:base",
     "schedule:weekly",
     ":preserveSemverRanges",
-    ":disableDevDependencies"
+    ":disableDevDependencies",
+    ":disableDependencyDashboard"
   ],
-  "automerge": true,
+  "automerge": false,
   "rebaseStalePrs": true,
   "separateMajorMinor": true,
   "groupName": "all dependencies",
@@ -13,7 +14,13 @@
   "labels": [
     "deps"
   ],
-  "branchPrefix": "deps",
+  "assignees": [
+    "coturiv"
+  ],
+  "reviewers": [
+    "coturiv"
+  ],
+  "branchPrefix": "deps/",
   "packageRules": [
     {
       "packagePatterns": [

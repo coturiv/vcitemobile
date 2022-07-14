@@ -1,106 +1,26 @@
-// http://ionicframework.com/docs/theming/
-@import '~@ionic/angular/css/core.css';
-@import '~@ionic/angular/css/normalize.css';
-@import '~@ionic/angular/css/structure.css';
-@import '~@ionic/angular/css/typography.css';
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
 
-@import '~@ionic/angular/css/padding.css';
-@import '~@ionic/angular/css/float-elements.css';
-@import '~@ionic/angular/css/text-alignment.css';
-@import '~@ionic/angular/css/text-transformation.css';
-@import '~@ionic/angular/css/flex-utils.css';
+/* Core CSS required for Ionic components to work properly */
+@import "~@ionic/angular/css/core.css";
 
-//Global styles
-ion-label.required:after {
-    content: " *"; 
-    color: red;
-}
+/* Basic CSS for apps built with Ionic */
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+@import '~@ionic/angular/css/display.css';
 
-ion-list.list-md {
-    padding-top: 0 !important;
-}
-
-:root {
-    ion-toolbar, ion-segment, ion-button, ion-fab-button, ion-toggle, ion-checkbox {
-        --ion-color-primary: var(--theme-blue-gradient) !important;
-        --ion-color-secondary: var(--theme-orange-gradient) !important;
-        --ion-color-secondary-shade: var(--theme-orange) !important;
-        --ion-color-secondary-tint: var(--theme-orange) !important;
-        --background-activated: var(--theme-blue-gradient-shade) !important;
-    }
-
-    ion-icon {
-        --ion-color-primary: var(--theme-blue) !important;
-    }
-
-    //ion-loading
-    ion-spinner {
-        --spinner-color: var(--theme-orange);
-    }
-    .loading-content {
-        color: var(--theme-orange);
-        font-weight: normal;
-    }
-
-    ion-icon.color-trans {
-        color: transparent !important;
-    }
-    ion-icon.toolbar-icon {
-        font-size: 28px !important;
-    }
-
-    ion-list-header {
-        ion-label {
-            text-transform: initial;
-        }
-        
-        ion-button {
-            --box-shadow: none;
-        }
-    }
-
-    ion-toast {
-        font-size: 17px;
-
-        --ion-color-warning: #e65123 !important;
-    }
-
-    .maps-action-sheet {
-        button.action-sheet-button {
-            text-align: left !important;
-            font-size: 16px !important;
-            color: var(--theme-blue) !important;
-        }
-        
-        .action-sheet-button-inner {
-            justify-content: left !important;
-        }
-
-        ion-icon {
-            font-size: 24px !important;
-        }
-    }
-
-    $header-gradient-border: 4px;
-
-    ion-header:after {
-        left: 0;
-        bottom: -$header-gradient-border;
-        background-position: left 0 top 0;
-        position: absolute;
-        width: 100%;
-        height: $header-gradient-border;
-        background-repeat: repeat-x;
-        background: var(--theme-orange-gradient);
-        content: "";
-    }
-
-    ion-content {
-        top: $header-gradient-border;
-    }
-
-    ion-list-header {
-        font-size: 16px;
-        text-transform: uppercase;
-    }
-}
+/* Optional CSS utils that can be commented out */
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
